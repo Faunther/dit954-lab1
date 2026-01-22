@@ -1,0 +1,11 @@
+# Generellt ===================================================================
+* namnge variabler i camelCase formatet. Ex: "superCoolVariable"
+* namnge klasser i PascalCase formatet. Ex: "AwesomeClass360NoScope"
+
+# Klasser =====================================================================
+* namnge vanliga klass (medlem) variabler med prefixet "m_". Ex: "m_superCoolVariabel"
+    (för betydelsen av "my super cool variabel")
+* namnge (helst) statiska globala variabler med prefixet "g_". Ex: "g_radioStation"
+    (för betydelsen av "global radio station")
+    Finns undantag.
+    Till exempel om de representerar ett värde som PI, färgen BLÅ, eller en RANK (bad, ok, good, great, etc).
