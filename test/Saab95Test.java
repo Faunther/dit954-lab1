@@ -13,18 +13,23 @@ public class Saab95Test {
         s.setColor(Color.CYAN);
         assertEquals(Color.CYAN, s.getColor());
     }
+
+    @Test
     public void getCurrentSpeed(){
         Saab95 s = new Saab95();
-        Assert.assertEquals(s.m_currentSpeed,s.getCurrentSpeed(),0.001);
+        Assert.assertEquals(s.m_currentSpeed, s.getCurrentSpeed(), 0.001);
     }
+
+    @Test
     public void getEnginePower(){
         Saab95 s = new Saab95();
-        assertEquals(s.getEnginePower(),s.m_carData.m_enginePower );
-
+        assertEquals(s.getEnginePower(), s.m_carData.m_enginePower, 0.001);
     }
+
+    @Test
     public void getNrDoors(){
         Saab95 s = new Saab95();
-        assertEquals(s.getNrDoors(),s.m_carData );
+        assertEquals(s.m_carData.m_nrDoors, s.getNrDoors());
     }
 
     @Test
