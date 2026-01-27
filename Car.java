@@ -24,6 +24,9 @@ public abstract class Car implements Movable {
     public void print_locaton() {
         System.out.println(m_positon);
     }
+    public Point2D.Double getpoint(){
+        return m_positon;
+    }
 
 
     // Get-/Setters ===========================================================
