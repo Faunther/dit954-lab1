@@ -17,25 +17,25 @@ public class Saab95Test {
     public void testTurbo() {
         Saab95 s = new Saab95();
         s.startEngine();
-        assertEquals(s.turboOn, false);
+        assertEquals(false, s.turboOn);
 
         // Speed factor without turbo
-        assertEquals(s.speedFactor(), 125 * 0.01, 0.001);
+        assertEquals(125 * 0.01, s.speedFactor(), 0.001);
 
         s.setTurboOn();
         assertEquals(s.turboOn, true);
 
         // Make sure turbo status actually changes speedFactor
-        assertEquals(s.speedFactor(), 125 * 0.01 * 1.3, 0.001);
+        assertEquals(125 * 0.01 * 1.3, s.speedFactor(), 0.001);
 
-        assertEquals(s.getCurrentSpeed(), 0, 0.1);
+        assertEquals(0, s.getCurrentSpeed(), 0.1);
 
         // Test increment speed (with turbo)
         s.incrementSpeed(2);
-        assertEquals(s.getCurrentSpeed(), 2 * 125 * 0.01 * 1.3, 0.1);
+        assertEquals(2 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
 
         // Test decrement speed (with turbo)
         s.decrementSpeed(1);
-        assertEquals(s.getCurrentSpeed(), 1 * 125 * 0.01 * 1.3, 0.1);
+        assertEquals(1 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
     }
 }
