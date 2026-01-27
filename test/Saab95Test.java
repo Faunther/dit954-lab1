@@ -17,8 +17,15 @@ public class Saab95Test {
         Saab95 s = new Saab95();
         Assert.assertEquals(s.m_currentSpeed,s.getCurrentSpeed(),0.001);
     }
-    public void
+    public void getEnginePower(){
+        Saab95 s = new Saab95();
+        assertEquals(s.getEnginePower(),s.m_carData.m_enginePower );
 
+    }
+    public void getNrDoors(){
+        Saab95 s = new Saab95();
+        assertEquals(s.getNrDoors(),s.m_carData );
+    }
 
     @Test
     public void testTurbo() {
