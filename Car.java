@@ -27,8 +27,6 @@ public abstract class Car implements Movable {
     public Point2D.Double getPoint(){
         return m_positon;
     }
-
-
     // Get-/Setters ===========================================================
     public int getNrDoors(){
         return m_carData.getNrDoors();
@@ -54,15 +52,16 @@ public abstract class Car implements Movable {
     public void stopEngine() {
         m_currentSpeed = 0;
     }
+
+    //
     public void gas(double amount) {
+        amount = Math.clamp(amount,0,1);
         incrementSpeed(amount);
     }
     public void brake(double amount) {
+        amount = Math.clamp(amount,0,1);
         decrementSpeed(amount);
     }
-
-
-
     // overload
     public abstract double speedFactor();
     public abstract void incrementSpeed(double amount);
