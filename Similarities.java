@@ -1,7 +1,7 @@
 import java.awt.*;
 
 // ?! Only useful if this data is never going to change from (car) model to model
-abstract class CarData {
+abstract class CarData_ {
     protected double m_enginePower; // Engine power of the car
     protected int    m_nrDoors;     // Number of doors on the car
     protected String m_modelName;   // The car model name
@@ -12,7 +12,7 @@ abstract class CarData {
 }
 
 
-class Car {
+class Car_ {
     protected CarData   m_carData;      // General car data that should be UNIQUE and UNMUTABLE for a model.
     protected Color     m_color;        // Color of the car
     protected double    m_currentSpeed; // The current speed of the car
@@ -56,7 +56,7 @@ class Car {
     public void decrementSpeed(double amount) { m_currentSpeed -= amount; }
 }
 
-class Volvo240_ extends Car {
+/*class Volvo240_ extends Car {
     private static class Volvo240Data extends CarData {
         Volvo240Data() {
             m_enginePower = 100;
@@ -81,6 +81,7 @@ class Volvo240_ extends Car {
     }
 
 }
+*/
 
 public class Similarities {
     // variables =============================================================

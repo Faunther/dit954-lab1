@@ -1,57 +1,37 @@
 import java.awt.*;
 
-public class Volvo240{
+public class Volvo240 extends Car{
 
-    public final static double trimFactor = 1.25;
-    public int nrDoors; // Number of doors on the car
-    public double enginePower; // Engine power of the car
+    public final double trimFactor;
     public double currentSpeed; // The current speed of the car
     public Color color; // Color of the car
-    public String modelName; // The car model name
+
+    public static class Volvo240Data extends CarData{
+        public Volvo240Data() {
+            m_enginePower = 100;
+            m_nrDoors = 4;
+            m_modelName = "Volvo240";
+        }
+    }
+
+    public static Volvo240Data g_instancr = new Volvo240Data();
     
     public Volvo240(){
-        nrDoors = 4;
+        m_carData = g_instancr;
         color = Color.black;
-        enginePower = 100;
-        modelName = "Volvo240";
+        trimFactor = 1.25;
         stopEngine();
     }
-    
-    public int getNrDoors(){
-        return nrDoors;
-    }
-    public double getEnginePower(){
-        return enginePower;
-    }
 
-    public double getCurrentSpeed(){
-        return currentSpeed;
-    }
-
-    public Color getColor(){
-        return color;
-    }
-
-    public void setColor(Color clr){
-	    color = clr;
-    }
-
-    public void startEngine(){
-	    currentSpeed = 0.1;
-    }
-
-    public void stopEngine(){
-	    currentSpeed = 0;
-    }
-    
+    @Override
     public double speedFactor(){
-        return enginePower * 0.01 * trimFactor;
+        return m_carData.getEnginePower() * 0.01 * trimFactor;
     }
-
+    @Override
     public void incrementSpeed(double amount){
-	    currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
+	    currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,m_carData.getEnginePower());
     }
-
+    @Override
     public void decrementSpeed(double amount){
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
