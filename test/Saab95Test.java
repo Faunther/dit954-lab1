@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,6 +13,12 @@ public class Saab95Test {
         s.setColor(Color.CYAN);
         assertEquals(Color.CYAN, s.getColor());
     }
+    public void getCurrentSpeed(){
+        Saab95 s = new Saab95();
+        Assert.assertEquals(s.m_currentSpeed,s.getCurrentSpeed(),0.001);
+    }
+    public void
+
 
     @Test
     public void testTurbo() {
