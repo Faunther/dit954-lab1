@@ -42,6 +42,9 @@ public class Saab95Test {
 
         s.setTurboOn();
         assertEquals(s.turboOn, true);
+        s.setTurboOff();
+        assertEquals(s.turboOn, false);
+        s.setTurboOn();
 
         // Make sure turbo status actually changes speedFactor
         assertEquals(125 * 0.01 * 1.3, s.speedFactor(), 0.001);
