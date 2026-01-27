@@ -3,7 +3,6 @@ import java.awt.*;
 public class Volvo240 extends Car{
 
     public final double trimFactor;
-    public double currentSpeed; // The current speed of the car
     public Color color; // Color of the car
 
     public static class Volvo240Data extends CarData{
@@ -29,11 +28,11 @@ public class Volvo240 extends Car{
     }
     @Override
     public void incrementSpeed(double amount){
-	    currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,m_carData.getEnginePower());
+	    m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,m_carData.getEnginePower());
     }
     @Override
     public void decrementSpeed(double amount){
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
+        m_currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 
     // TODO fix this method according to lab pm
