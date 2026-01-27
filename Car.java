@@ -21,10 +21,10 @@ public abstract class Car implements Movable {
         m_directon = m_directon + Math.toRadians(90);
     }
 
-    public void print_locaton() {
+    public void printPoint() {
         System.out.println(m_positon);
     }
-    public Point2D.Double getpoint(){
+    public Point2D.Double getPoint(){
         return m_positon;
     }
 

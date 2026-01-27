@@ -16,8 +16,26 @@ public class CarTest {
         testspeed = 0.1;
         assertEquals(s.getCurrentSpeed(),testspeed,0.0001);
         s.incrementSpeed(10);
+
         s.move();
-        assertFalse(s.getpoint().equals(testpoint));
+        assertFalse(s.getPoint().equals(testpoint));
+
+        testpoint.y += s.m_currentSpeed;
+        assertEquals(s.getPoint(),testpoint);
+
+        s.turnLeft();
+        s.move();
+        testpoint.x += s.m_currentSpeed;
+        assertEquals(s.getPoint(),testpoint);
+
+        s.turnRight();
+        s.move();
+        testpoint.y += s.m_currentSpeed;
+        assertEquals(s.getPoint(),testpoint);
+
+
+
+
 
 
 
