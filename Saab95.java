@@ -3,7 +3,6 @@ import java.awt.*;
 public class Saab95 extends Car{
 
     public boolean turboOn;
-    public double currentSpeed; // The current speed of the car
     public Color color; // Color of the car
 
     public static class Saab95Data extends CarData{
@@ -40,12 +39,12 @@ public class Saab95 extends Car{
 
     @Override
     public void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        m_currentSpeed = getCurrentSpeed() + speedFactor() * amount;
     }
 
     @Override
     public void decrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        m_currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
     
     // TODO fix this method according to lab pm

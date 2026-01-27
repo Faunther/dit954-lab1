@@ -7,12 +7,12 @@ public abstract class Car implements Movable {
     protected double    m_currentSpeed = 0;// The current speed of the car
 
     protected Point2D.Double m_positon = new Point2D.Double(0, 0);
-    protected double m_directon = Math.toRadians(90);
+    protected double m_directon = Math.toRadians(90); // Startar med positiv riktning y
 
     //implements
     public void move() {
-        m_positon.y = m_positon.y + m_currentSpeed*Math.round(Math.sin(m_directon));
-        m_positon.x = m_positon.x + m_currentSpeed*Math.round(Math.cos(m_directon));
+        m_positon.y += m_currentSpeed*Math.round(Math.sin(m_directon));
+        m_positon.x += m_currentSpeed*Math.round(Math.cos(m_directon));
     }
     public void turnLeft() {
         m_directon = m_directon - Math.toRadians(90);
@@ -21,7 +21,9 @@ public abstract class Car implements Movable {
         m_directon = m_directon + Math.toRadians(90);
     }
 
-    public String print_locaton() {return  m_positon.toString(); }
+    public void print_locaton() {
+        System.out.println(m_positon);
+    }
 
 
     // Get-/Setters ===========================================================
