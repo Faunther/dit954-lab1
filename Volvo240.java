@@ -13,10 +13,10 @@ public class Volvo240 extends Car{
         }
     }
 
-    public static Volvo240Data g_instancr = new Volvo240Data();
+    public static Volvo240Data g_instance = new Volvo240Data();
     
     public Volvo240(){
-        m_carData = g_instancr;
+        m_carData = g_instance;
         color = Color.black;
         trimFactor = 1.25;
         stopEngine();
