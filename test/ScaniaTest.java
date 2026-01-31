@@ -3,7 +3,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
 
 public class ScaniaTest {
     @Test
