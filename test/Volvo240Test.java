@@ -1,12 +1,10 @@
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.Assert.*;
 
 public class Volvo240Test {
 
     @Test
-    @DisplayName("Test speed Factor")
     public void speedFactor() {
         Volvo240 volvo = new Volvo240();
         final double expectedEnginePower = 100;
