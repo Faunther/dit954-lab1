@@ -1,17 +1,14 @@
 import java.util.Stack;
 
-public class AutoHauler extends Car {
+public class AutoHauler extends Car implements ILoadingBed {
     private boolean m_rampIsDown = false;
     private Stack<Car> m_loadedCars = new Stack<Car>();
 
-    public static class AutoHaulerData extends CarData {
-        public int m_maxCarsLoaded;
-
+    public static class AutoHaulerData extends CarHaulerData {
         public AutoHaulerData() {
             m_nrDoors = 2;
             m_enginePower = 700;
             m_modelName = "AutoHauler3000";
-
             m_maxCarsLoaded = 5;
         }
     }
@@ -30,24 +27,32 @@ public class AutoHauler extends Car {
     /// be used to check the size of the Car-instance (AutoHauler can not load cars
     /// with loading capabilities of themselves?)
 
+    @Override
+    public void setRampIsDown() {
+        if (this.m_currentSpeed != 0)
+            throw new Error("can not move ramp while moving");
+        m_rampIsDown = true;
+    }
+
+    @Override
+    public void setRampIsUpp() {
+        m_rampIsDown = false;
+    }
+
+    @Override
     public boolean getRampIsDown() {
         return m_rampIsDown;
     }
 
-    public void setRampIsDown(boolean isDown) {
-        if (this.m_currentSpeed != 0 && isDown)
-            throw new Error("can not move ramp while moving");
-
-        m_rampIsDown = isDown;
-    }
 
     public void loadCar(Car car) {
-        if (car instanceof AutoHauler)
-            throw new Error("can not load another AutoHauler onto this auto hauler");
+        if (car instanceof ILoadingBed)
+            throw new Error("can not load another Car that implements ILoadingBed");
 
         if (!m_rampIsDown)
             throw new Error("can not load car while ramp is up");
-        if (car.m_position.distance(this.m_position) > 10)
+
+        if (car.m_position.distanceSq(this.m_position) > 10*10)
             throw new Error("car is too far away to be loaded");
 
         if (m_loadedCars.size() >= AutoHauler.g_instance.m_maxCarsLoaded)

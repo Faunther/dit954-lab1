@@ -1,5 +1,6 @@
-public class Scania extends Car {
+public class Scania extends Car implements ILoadingBed {
     private double m_bedAngle = 0.0;
+    private boolean m_rampIsDown = false;
 
     public static class ScaniaData extends CarData {
         public ScaniaData() {
@@ -28,10 +29,33 @@ public class Scania extends Car {
     }
 
     @Override
+    public void setRampIsDown() {
+        if (this.m_currentSpeed != 0)
+            throw new Error("can not move ramp while moving");
+        m_bedAngle = 70;
+        m_rampIsDown = true;
+    }
+
+    @Override
+    public void setRampIsUpp() {
+        m_bedAngle = 0;
+        m_rampIsDown = false;
+    }
+
+    @Override
+    public boolean getRampIsDown() {
+        return m_rampIsDown;
+    }
+
+    @Override
     public double speedFactor() {
         // TODO: Should this be dependant on the load or something?
+        if (this.m_bedAngle == 0)
+            throw new Error("can not move while bed is down");
+
         return m_carData.getEnginePower() * 0.001;
     }
+
 
     @Override
     public void incrementSpeed(double amount) {
