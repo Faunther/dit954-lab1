@@ -1,17 +1,23 @@
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Workshop {
     private int m_carCapacity = 0;
+    private Map<Integer, Car> m_garage = new HashMap<>();
 
     // if "storage" is kept here.
     // then we cannot replace it with a map for the "multi-brand" workshop
 
     public Workshop() {
         this(0);
+
     }
     public Workshop(int carCapacity) {
+
         this.m_carCapacity = carCapacity;
     }
+
 
     public int getCarCapacity() {
         return m_carCapacity;
@@ -20,7 +26,7 @@ public class Workshop {
 
     // let subclasses override this?
     public int getNumOfCars() {
-        return 0;
+        return m_garage.size();
     }
 
 }

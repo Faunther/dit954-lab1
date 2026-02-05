@@ -37,7 +37,7 @@ public class Scania extends Car implements ILoadingBed {
     }
 
     @Override
-    public void setRampIsUpp() {
+    public void setRampIsUp() {
         m_bedAngle = 0;
         m_rampIsDown = false;
     }

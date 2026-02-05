@@ -35,7 +35,7 @@ public class AutoHauler extends Car implements ILoadingBed {
     }
 
     @Override
-    public void setRampIsUpp() {
+    public void setRampIsUp() {
         m_rampIsDown = false;
     }
 

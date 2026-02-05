@@ -1,6 +1,6 @@
 public interface ILoadingBed {
 
     void setRampIsDown();
-    void setRampIsUpp();
+    void setRampIsUp();
     boolean getRampIsDown();
 }
