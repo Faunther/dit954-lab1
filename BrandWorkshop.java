@@ -1,5 +1,9 @@
 
 public class BrandWorkshop<TBrand extends Car> extends Workshop {
+    public BrandWorkshop(int capacity) {
+        super(capacity);
+    }
+
     Integer acceptCar(TBrand car) {
         if (car == null || !canAcceptCar())
             return null;
@@ -9,6 +13,7 @@ public class BrandWorkshop<TBrand extends Car> extends Workshop {
 
         return id;
     }
+
 
     TBrand retrieveCar(Integer id) {
         if (id == null || !m_garage.containsKey(id))
