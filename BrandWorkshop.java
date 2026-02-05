@@ -1,8 +1,6 @@
 
 public class BrandWorkshop<TBrand extends Car> extends Workshop {
-    public BrandWorkshop(int capacity) {
-        super(capacity);
-    }
+
 
     Integer acceptCar(TBrand car) {
         if (car == null || !canAcceptCar())
