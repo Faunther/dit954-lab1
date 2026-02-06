@@ -1,7 +1,7 @@
 import java.awt.geom.Point2D;
 import java.util.Stack;
 
-public abstract class Boat implements BoatData, Movable{
+public abstract class Boat implements BoatData, IMovable {
     Point2D.Double m_position;
     private double m_direction;
     private double m_currentSpeed;

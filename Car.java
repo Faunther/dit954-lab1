@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Car implements Movable {
+public abstract class Car implements IMovable {
     protected CarData   m_carData;      // General car data that should be UNIQUE and UNMUTABLE for a model.
     protected Color m_color;        // Color of the car
     protected double    m_currentSpeed = 0;// The current speed of the car
