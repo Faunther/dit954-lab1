@@ -16,7 +16,7 @@ public class CarFerry extends Boat implements Ramp{
         return "CarFarry1000";
     }
     @Override
-    public int getEngenPower() {
+    public int getEnginePower() {
         return 1000;
     }
 

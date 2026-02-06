@@ -1,67 +1,65 @@
 import java.awt.geom.Point2D;
-import java.util.Stack;
 
-public abstract class Boat implements BoatData, IMovable {
+public abstract class Boat implements IBoatData, IMovable {
     Point2D.Double m_position;
-    private double m_direction;
+    private double m_directionAngle;
     private double m_currentSpeed;
-    private boolean m_EngenOn;
+    private boolean m_isEngineOn;
 
 
     public Boat(){
         m_position = new Point2D.Double(0, 0);
-        m_direction = Math.toRadians(90);
+        m_directionAngle = Math.toRadians(90);
         m_currentSpeed = 0;
-        m_EngenOn = false;
-
+        m_isEngineOn = false;
     }
 
     @Override
-    public double getCurentSpeed() {
+    public double getCurrentSpeed() {
         return m_currentSpeed;
     }
 
     @Override
-    public void incresSpeed() {
-        m_currentSpeed = Math.min(getMaxSpeed(),m_currentSpeed + this.getEngenPower() * 0.01);
+    public void increaseSpeed() {
+        m_currentSpeed = Math.min(getMaxSpeed(),m_currentSpeed + this.getEnginePower() * 0.01);
     }
 
     @Override
-    public void decresSpeed() {
-        m_currentSpeed = Math.max(0,m_currentSpeed + this.getEngenPower() * 0.01);
+    public void decreaseSpeed() {
+        m_currentSpeed = Math.max(0,m_currentSpeed + this.getEnginePower() * 0.01);
     }
 
     @Override
-    public void startEngen() {
-        m_EngenOn = true;
+    public void startEngine() {
+        m_isEngineOn = true;
     }
 
     @Override
-    public void stopEngen() {
-        m_EngenOn = false;
+    public void stopEngine() {
+        m_isEngineOn = false;
     }
 
     @Override
-    public boolean getEngen() {
-        return m_EngenOn;
+    public boolean isEngineOn() {
+        return m_isEngineOn;
     }
 
 
     @Override
     public void move() {
-        m_position.y += m_currentSpeed * Math.round(Math.sin(m_direction));
-        m_position.x += m_currentSpeed * Math.round(Math.cos(m_direction));
+        m_position.y += m_currentSpeed * Math.round(Math.sin(m_directionAngle));
+        m_position.x += m_currentSpeed * Math.round(Math.cos(m_directionAngle));
 
     }
 
     @Override
     public void turnLeft() {
-        m_direction = m_direction - Math.toRadians(90);
+        m_directionAngle = m_directionAngle - Math.toRadians(90);
     }
 
     @Override
     public void turnRight() {
-        m_direction = m_direction + Math.toRadians(90);
+        m_directionAngle = m_directionAngle + Math.toRadians(90);
     }
 
 }
