@@ -1,9 +1,10 @@
-import java.awt.geom.Point2D;
 import java.util.Stack;
 
-public class CarFerry extends Boat implements Ramp{
+public class CarFerry extends Boat implements IRamp {
+    private static double our_pickupRangeSqr = 10*10;
+
     private boolean m_IsRampDown;
-    Stack<Car> m_loadedCars;
+    private Stack<Car> m_loadedCars;
 
     public CarFerry(){
         super();
@@ -37,7 +38,7 @@ public class CarFerry extends Boat implements Ramp{
     }
 
     @Override
-    public int numberOffCarsOnRamp() {
+    public int numberOfCarsOnRamp() {
         return m_loadedCars.size();
     }
 
@@ -48,22 +49,20 @@ public class CarFerry extends Boat implements Ramp{
 
     @Override
     public void loadCarOnToRamp(Car car) {
-        if (car instanceof ILoadingBed)
-            throw new Error("can not load another Car that implements ILoadingBed");
-
         if (!m_IsRampDown)
-            throw new Error("can not load car while ramp is up");
+            throw new IllegalStateException("Can't load car while ramp is up");
+        if (numberOfCarsOnRamp() >= getMaxCars())
+            throw new IllegalStateException("Maximum number of cars already loaded");
 
-        if (car.m_position.distanceSq(this.m_position) > 10*10)
-            throw new Error("car is too far away to be loaded");
-
-        if (numberOffCarsOnRamp() >= getMaxCars())
-            throw new Error("maximum number of cars already loaded");
+        if (car == null)
+            throw new IllegalArgumentException("Can't load Null instance of car");
+        if (car instanceof ILoadingBed)
+            throw new IllegalArgumentException("Can't load another Car that implements ILoadingBed");
+        if (car.m_position.distanceSq(this.m_position) > our_pickupRangeSqr)
+            throw new IllegalArgumentException("Car is too far away to be loaded");
 
         m_loadedCars.add(car);
-
-        }
-
+    }
 
 }
 
