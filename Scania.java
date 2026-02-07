@@ -1,4 +1,4 @@
-public class Scania extends Car implements ILoadingBed {
+public class Scania extends Car implements IRamp {
     private double m_bedAngle = 0.0;
     private boolean m_rampIsDown = false;
 
@@ -29,7 +29,7 @@ public class Scania extends Car implements ILoadingBed {
     }
 
     @Override
-    public void setRampIsDown() {
+    public void rampDown() {
         if (this.m_currentSpeed != 0)
             throw new Error("can not move ramp while moving");
         m_bedAngle = 70;
@@ -37,7 +37,7 @@ public class Scania extends Car implements ILoadingBed {
     }
 
     @Override
-    public void setRampIsUp() {
+    public void rampUpp() {
         m_bedAngle = 0;
         m_rampIsDown = false;
     }

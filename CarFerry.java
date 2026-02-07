@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class CarFerry extends Boat implements IRamp {
+public class CarFerry extends Boat implements IRamp, LoadedCarsOnRamp {
     private static double our_pickupRangeSqr = 10*10;
 
     private boolean m_IsRampDown;
@@ -38,6 +38,11 @@ public class CarFerry extends Boat implements IRamp {
     }
 
     @Override
+    public boolean getRampIsDown() {
+        return m_IsRampDown;
+    }
+
+    @Override
     public int numberOfCarsOnRamp() {
         return m_loadedCars.size();
     }
@@ -56,7 +61,7 @@ public class CarFerry extends Boat implements IRamp {
 
         if (car == null)
             throw new IllegalArgumentException("Can't load Null instance of car");
-        if (car instanceof ILoadingBed)
+        if (car instanceof LoadedCarsOnRamp)
             throw new IllegalArgumentException("Can't load another Car that implements ILoadingBed");
         if (car.m_position.distanceSq(this.m_position) > our_pickupRangeSqr)
             throw new IllegalArgumentException("Car is too far away to be loaded");

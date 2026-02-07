@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class AutoHauler extends Car implements ILoadingBed {
+public class AutoHauler extends Car implements IRamp{
     private boolean m_rampIsDown = false;
     private Stack<Car> m_loadedCars = new Stack<Car>();
 
@@ -28,15 +28,17 @@ public class AutoHauler extends Car implements ILoadingBed {
     /// with loading capabilities of themselves?)
 
     @Override
-    public void setRampIsDown() {
+    public void rampDown() {
         if (this.m_currentSpeed != 0)
             throw new Error("can not move ramp while moving");
         m_rampIsDown = true;
+
     }
 
     @Override
-    public void setRampIsUp() {
+    public void rampUpp() {
         m_rampIsDown = false;
+
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AutoHauler extends Car implements ILoadingBed {
 
 
     public void loadCar(Car car) {
-        if (car instanceof ILoadingBed)
+        if (car instanceof LoadedCarsOnRamp)
             throw new Error("can not load another Car that implements ILoadingBed");
 
         if (!m_rampIsDown)
