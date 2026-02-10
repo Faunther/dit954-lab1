@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class AutoHauler extends Car implements IRamp{
+public class AutoHauler extends Car implements IRamp {
     private boolean m_rampIsDown = false;
     private Stack<Car> m_loadedCars = new Stack<Car>();
 
@@ -19,13 +19,6 @@ public class AutoHauler extends Car implements IRamp{
         m_carData = g_instance;
         stopEngine();
     }
-
-    /// TODO: Since this works differently to the Scania (discrete vs continous
-    /// beds) it is not easily combined into a singel superclass. However, it may be
-    /// possible to add a "loadable" interface or maybe abstract class that at least
-    /// standardizes checking if ramp/bed is up before moving etc. Could also maybe
-    /// be used to check the size of the Car-instance (AutoHauler can not load cars
-    /// with loading capabilities of themselves?)
 
     @Override
     public void rampDown() {
@@ -46,7 +39,6 @@ public class AutoHauler extends Car implements IRamp{
         return m_rampIsDown;
     }
 
-
     public void loadCar(Car car) {
         if (car instanceof LoadedCarsOnRamp)
             throw new Error("can not load another Car that implements ILoadingBed");
@@ -54,7 +46,7 @@ public class AutoHauler extends Car implements IRamp{
         if (!m_rampIsDown)
             throw new Error("can not load car while ramp is up");
 
-        if (car.m_position.distanceSq(this.m_position) > 10*10)
+        if (car.m_position.distanceSq(this.m_position) > 10 * 10)
             throw new Error("car is too far away to be loaded");
 
         if (m_loadedCars.size() >= AutoHauler.g_instance.m_maxCarsLoaded)
