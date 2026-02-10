@@ -19,11 +19,12 @@ public class AutoHaulerTest {
         });
         ah.incrementSpeed(2);
         assertThrows("Can not lower ramp while speed!=0", Error.class, () -> {
-
+            ah.rampDown();
         });
         ah.decrementSpeed(2);
 
-        assertEquals(true, ah.getRampIsDown());
+        assertEquals(false, ah.getRampIsDown());
+        ah.rampDown();
 
         Volvo240 c1 = new Volvo240();
         ah.loadCar(c1);
@@ -44,6 +45,7 @@ public class AutoHaulerTest {
             ah.incrementSpeed(2);
         });
 
+        ah.rampUpp();
         ah.incrementSpeed(2);
 
         ah.move();
