@@ -1,6 +1,5 @@
 public class Scania extends Car implements IRamp {
     private double m_bedAngle = 0.0;
-    private boolean m_rampIsDown = false;
 
     public static class ScaniaData extends CarData {
         public ScaniaData() {
@@ -33,33 +32,30 @@ public class Scania extends Car implements IRamp {
         if (this.m_currentSpeed != 0)
             throw new Error("can not move ramp while moving");
         m_bedAngle = 70;
-        m_rampIsDown = true;
     }
 
     @Override
     public void rampUpp() {
         m_bedAngle = 0;
-        m_rampIsDown = false;
     }
 
     @Override
     public boolean getRampIsDown() {
-        return m_rampIsDown;
+        return this.m_bedAngle >= 0.1;
     }
 
     @Override
     public double speedFactor() {
-        // TODO: Should this be dependant on the load or something?
-        if (this.m_bedAngle == 0)
+        if (getRampIsDown())
             throw new Error("can not move while bed is down");
 
+        // TODO: Should this be dependant on the load or something?
         return m_carData.getEnginePower() * 0.001;
     }
 
-
     @Override
     public void incrementSpeed(double amount) {
-        if (this.m_bedAngle != 0)
+        if (getRampIsDown())
             throw new Error("Can not change speed while bed is lowered");
 
         // TODO: Trucks can only go like 80 kph?
