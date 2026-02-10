@@ -1,64 +1,72 @@
-import java.awt.*;
+public class Scania extends Car implements IRamp {
+    private double m_bedAngle = 0.0;
 
-/*
-jag böejrade lite
-funderar om man kall göra en abstrakt lastbils klass som inheritar CarData
- */
-
-public class Scania extends Car implements Load_Platform{
-
-    public Color color;
-    int loadPlatformDegree = 0;
-
-    public static class ScaniaData extends CarData{
+    public static class ScaniaData extends CarData {
         public ScaniaData() {
-            m_enginePower = 250;
             m_nrDoors = 2;
-            m_modelName = "Scania S-serien";
-
+            m_enginePower = 700;
+            m_modelName = "Scania";
         }
     }
-    public static ScaniaData g_instance = new ScaniaData();
 
-    public Scania(){
+    private static ScaniaData g_instance = new ScaniaData();
+
+    public Scania() {
         m_carData = g_instance;
-        color = Color.GRAY;
         stopEngine();
     }
 
+    public double getCurrentBedAngle() {
+        return m_bedAngle;
+    }
 
-    @Override
-    public void down() {
-        if (m_currentSpeed == 0 && loadPlatformDegree == 70) ; {
-            loadPlatformDegree += 10;
-        }
+    public void setBedAngle(double angle) {
+        if (this.m_currentSpeed != 0 && angle != 0)
+            throw new Error("can not move bed while moving");
 
+        m_bedAngle = Math.clamp(angle, 0, 70);
     }
 
     @Override
-    public void upp() {
-        if (m_currentSpeed == 0 && loadPlatformDegree != 70) ; {
-            loadPlatformDegree -= 10;
-        }
+    public void rampDown() {
+        if (this.m_currentSpeed != 0)
+            throw new Error("can not move ramp while moving");
+        m_bedAngle = 70;
+    }
 
+    @Override
+    public void rampUpp() {
+        m_bedAngle = 0;
+    }
+
+    @Override
+    public boolean getRampIsDown() {
+        return this.m_bedAngle >= 0.1;
     }
 
     @Override
     public double speedFactor() {
-        if (loadPlatformDegree == 0) {return (m_carData.getEnginePower()/10) * 0.01;
-        } else { return 0;}
+        if (getRampIsDown())
+            throw new Error("can not move while bed is down");
 
+        // TODO: Should this be dependant on the load or something?
+        return m_carData.getEnginePower() * 0.001;
     }
 
     @Override
     public void incrementSpeed(double amount) {
-        amount = Math.max(0,amount);
-        m_currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+        if (getRampIsDown())
+            throw new Error("Can not change speed while bed is lowered");
+
+        // TODO: Trucks can only go like 80 kph?
+        amount = Math.max(0, amount);
+        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
     }
 
     @Override
     public void decrementSpeed(double amount) {
-        amount = Math.max(0,amount);
-        m_currentSpeed = getCurrentSpeed() - speedFactor() * amount;
+        amount = Math.max(0, amount);
+        m_currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
+
 }
