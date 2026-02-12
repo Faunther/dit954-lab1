@@ -35,7 +35,7 @@ public class Scania extends Car implements IRamp {
     }
 
     @Override
-    public void rampUpp() {
+    public void rampUp() {
         m_bedAngle = 0;
     }
 

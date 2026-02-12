@@ -29,7 +29,7 @@ public class AutoHauler extends Car implements IRamp {
     }
 
     @Override
-    public void rampUpp() {
+    public void rampUp() {
         m_rampIsDown = false;
 
     }

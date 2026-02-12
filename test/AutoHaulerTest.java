@@ -1,4 +1,3 @@
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -45,7 +44,7 @@ public class AutoHaulerTest {
             ah.incrementSpeed(2);
         });
 
-        ah.rampUpp();
+        ah.rampUp();
         ah.incrementSpeed(2);
 
         ah.move();
