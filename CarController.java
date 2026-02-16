@@ -43,10 +43,10 @@ public class CarController {
         cc.timer.start();
     }
 
-    public ArrayList<Car> getCars(){
+    public ArrayList<Car> getCars() {
+
         return cars;
     }
-
 
     /*
      * Each step the TimerListener moves all the cars in the list and tells the
@@ -64,10 +64,16 @@ public class CarController {
                         || x + frame.drawPanel.volvoImage.getWidth() > frame.drawPanel.getSize().width
                         || y < 0.0
                         || y + frame.drawPanel.volvoImage.getHeight() > frame.drawPanel.getSize().height) {
-
+                    car.stopEngine();
                     car.turnLeft();
+                    car.turnLeft();
+                    car.startEngine();
 
-
+                    var pos = car.getPoint();
+                    pos.x = Math.clamp(pos.x, 1,
+                            frame.drawPanel.getSize().width - frame.drawPanel.volvoImage.getWidth() - 1);
+                    pos.y = Math.clamp(pos.y, 1,
+                            frame.drawPanel.getSize().height - frame.drawPanel.volvoImage.getHeight() - 1);
                 }
 
                 frame.drawPanel.moveit(x, y);
@@ -90,8 +96,6 @@ public class CarController {
 
     }
 
-
-
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
@@ -108,20 +112,22 @@ public class CarController {
         }
     }
 
-    void turboOn(){
-        for(Car car : cars){
-            if (car instanceof Saab95 ){
-                ((Saab95)car).setTurboOn();
-            }
-        }
-    }
-    void turboOff(){
-        for(Car car : cars){
-            if (car instanceof Saab95 ){
-                ((Saab95)car).setTurboOff();
+    void turboOn() {
+        for (Car car : cars) {
+            if (car instanceof Saab95) {
+                ((Saab95) car).setTurboOn();
             }
         }
     }
 
+    void turboOff() {
+        for (Car car : cars) {
+            if (car instanceof Saab95) {
+                ((Saab95) car).setTurboOff();
+            }
+
+        }
+
+    }
 
 }
