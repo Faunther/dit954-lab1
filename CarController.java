@@ -1,4 +1,5 @@
 import vehicles.Car;
+import vehicles.Saab95;
 import vehicles.Volvo240;
 
 import javax.swing.*;
@@ -40,6 +41,12 @@ public class CarController {
 
         // Start the timer
         cc.timer.start();
+    }
+
+    public ArrayList<Car> getCars(){
+
+        return cars;
+
     }
 
     /*
@@ -86,4 +93,25 @@ public class CarController {
             car.brake(amountNormalized);
         }
     }
+
+    void turboOn(){
+        for(Car car : cars){
+            if (car instanceof Saab95 ){
+                ((Saab95)car).setTurboOn();
+            }
+
+        }
+
+    }
+    void turboOff(){
+        for(Car car : cars){
+            if (car instanceof Saab95 ){
+                ((Saab95)car).setTurboOff();
+            }
+
+        }
+
+    }
+
+
 }

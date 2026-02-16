@@ -42,6 +42,8 @@ public abstract class Car implements IMovable {
         return m_carData.getNrDoors();
     }
 
+    public String getModelName() {return m_carData.m_modelName;}
+
     public double getEnginePower() {
         return m_carData.m_enginePower;
     }
