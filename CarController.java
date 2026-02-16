@@ -1,4 +1,5 @@
 import vehicles.Car;
+import vehicles.Saab95;
 import vehicles.Volvo240;
 
 import javax.swing.*;
@@ -42,6 +43,12 @@ public class CarController {
         cc.timer.start();
     }
 
+    public ArrayList<Car> getCars(){
+
+        return cars;
+
+    }
+
     /*
      * Each step the TimerListener moves all the cars in the list and tells the
      * view to update its images. Change this method to your needs.
@@ -74,4 +81,25 @@ public class CarController {
             car.brake(amountNormalized);
         }
     }
+
+    void turboOn(){
+        for(Car car : cars){
+            if (car instanceof Saab95 ){
+                ((Saab95)car).setTurboOn();
+            }
+
+        }
+
+    }
+    void turboOff(){
+        for(Car car : cars){
+            if (car instanceof Saab95 ){
+                ((Saab95)car).setTurboOff();
+            }
+
+        }
+
+    }
+
+
 }
