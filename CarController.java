@@ -44,10 +44,9 @@ public class CarController {
     }
 
     public ArrayList<Car> getCars(){
-
         return cars;
-
     }
+
 
     /*
      * Each step the TimerListener moves all the cars in the list and tells the
@@ -65,10 +64,10 @@ public class CarController {
                         || x + frame.drawPanel.volvoImage.getWidth() > frame.drawPanel.getSize().width
                         || y < 0.0
                         || y + frame.drawPanel.volvoImage.getHeight() > frame.drawPanel.getSize().height) {
-                    car.stopEngine();
+
                     car.turnLeft();
-                    car.turnLeft();
-                    car.startEngine();
+
+
                 }
 
                 frame.drawPanel.moveit(x, y);
@@ -77,6 +76,21 @@ public class CarController {
             }
         }
     }
+
+    public void startCars() {
+        for (Car car : cars) {
+            car.startEngine();
+        }
+    }
+
+    public void stopCars() {
+        for (Car car : cars) {
+            car.stopEngine();
+        }
+
+    }
+
+
 
     // Calls the gas method for each car once
     void gas(int amount) {
@@ -99,18 +113,14 @@ public class CarController {
             if (car instanceof Saab95 ){
                 ((Saab95)car).setTurboOn();
             }
-
         }
-
     }
     void turboOff(){
         for(Car car : cars){
             if (car instanceof Saab95 ){
                 ((Saab95)car).setTurboOff();
             }
-
         }
-
     }
 
 

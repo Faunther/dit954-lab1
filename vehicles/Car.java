@@ -71,8 +71,10 @@ public abstract class Car implements IMovable {
 
     //
     public void gas(double amount) {
-        amount = Math.clamp(amount, 0, 1);
-        incrementSpeed(amount);
+        if (m_currentSpeed != 0) {
+            amount = Math.clamp(amount, 0, 1);
+            incrementSpeed(amount);
+        }
     }
 
     public void brake(double amount) {
