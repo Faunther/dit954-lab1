@@ -1,5 +1,6 @@
 import vehicles.Car;
 import vehicles.Saab95;
+import vehicles.Scania;
 import vehicles.Volvo240;
 
 import javax.swing.*;
@@ -93,7 +94,6 @@ public class CarController {
         for (Car car : cars) {
             car.stopEngine();
         }
-
     }
 
     // Calls the gas method for each car once
@@ -125,9 +125,22 @@ public class CarController {
             if (car instanceof Saab95) {
                 ((Saab95) car).setTurboOff();
             }
-
         }
+    }
 
+    public void liftBed() {
+        for (Car car : cars) {
+            if (car instanceof Scania) {
+                ((Scania) car).rampUpp();
+            }
+        }
+    }
+    public void lowerBed() {
+        for (Car car : cars) {
+            if (car instanceof Scania) {
+                ((Scania) car).rampDown();
+            }
+        }
     }
 
 }
