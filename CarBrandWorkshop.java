@@ -1,6 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import vehicles.Car;
+
 public class CarBrandWorkshop<TBrand extends Car> {
     private int m_carCapacity = 0;
     protected Map<Integer, TBrand> m_garage = new HashMap<>();

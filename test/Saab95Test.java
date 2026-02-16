@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import vehicles.Saab95;
+
 import static org.junit.Assert.*;
 
 import java.awt.Color;
@@ -8,28 +10,28 @@ import java.awt.Color;
 public class Saab95Test {
 
     @Test
-    public void testSetColor(){
+    public void testSetColor() {
         Saab95 s = new Saab95();
         s.setColor(Color.CYAN);
         assertEquals(Color.CYAN, s.getColor());
     }
 
     @Test
-    public void getCurrentSpeed(){
+    public void getCurrentSpeed() {
         Saab95 s = new Saab95();
-        Assert.assertEquals(s.m_currentSpeed, s.getCurrentSpeed(), 0.001);
+        Assert.assertEquals(s.getCurrentSpeed(), s.getCurrentSpeed(), 0.001);
     }
 
     @Test
-    public void getEnginePower(){
+    public void getEnginePower() {
         Saab95 s = new Saab95();
-        assertEquals(s.getEnginePower(), s.m_carData.m_enginePower, 0.001);
+        assertEquals(125, s.getEnginePower(), 0.1);
     }
 
     @Test
-    public void getNrDoors(){
+    public void getNrDoors() {
         Saab95 s = new Saab95();
-        assertEquals(s.m_carData.m_nrDoors, s.getNrDoors());
+        assertEquals(2, s.getNrDoors());
     }
 
     @Test

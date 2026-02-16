@@ -1,6 +1,12 @@
+package vehicles.loadable;
+
+import vehicles.Car;
+
 public interface LoadedCarsOnRamp {
 
     public int numberOfCarsOnRamp();
+
     public int getMaxCars();
+
     void loadCarOnToRamp(Car car);
 }

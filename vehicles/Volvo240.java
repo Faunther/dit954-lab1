@@ -1,11 +1,13 @@
+package vehicles;
+
 import java.awt.*;
 
-public class Volvo240 extends Car{
+public class Volvo240 extends Car {
 
     public final double trimFactor;
     public Color color; // Color of the car
 
-    public static class Volvo240Data extends CarData{
+    public static class Volvo240Data extends CarData {
         public Volvo240Data() {
             m_enginePower = 100;
             m_nrDoors = 4;
@@ -14,8 +16,8 @@ public class Volvo240 extends Car{
     }
 
     public static Volvo240Data g_instance = new Volvo240Data();
-    
-    public Volvo240(){
+
+    public Volvo240() {
         m_carData = g_instance;
         color = Color.black;
         trimFactor = 1.25;
@@ -23,17 +25,19 @@ public class Volvo240 extends Car{
     }
 
     @Override
-    public double speedFactor(){
+    public double speedFactor() {
         return m_carData.getEnginePower() * 0.01 * trimFactor;
     }
+
     @Override
-    public void incrementSpeed(double amount){
-        amount = Math.max(0,amount);
-	    m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
+    public void incrementSpeed(double amount) {
+        amount = Math.max(0, amount);
+        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
     }
+
     @Override
-    public void decrementSpeed(double amount){
-        amount = Math.max(0,amount);
+    public void decrementSpeed(double amount) {
+        amount = Math.max(0, amount);
         m_currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 }

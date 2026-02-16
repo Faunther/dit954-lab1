@@ -1,6 +1,10 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import vehicles.AutoHauler;
+import vehicles.Car;
+import vehicles.Volvo240;
+
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -52,8 +56,8 @@ public class AutoHaulerTest {
         ah.turnLeft();
         ah.move();
         for (Car car : cars) {
-            assertEquals(ah.m_position, car.m_position);
-            assertEquals(ah.m_direction, car.m_direction, 0.0001);
+            assertEquals(ah.getPoint(), car.getPoint());
+            assertEquals(ah.getDirection(), car.getDirection(), 0.0001);
         }
     }
 

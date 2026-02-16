@@ -1,4 +1,9 @@
+package vehicles;
+
 import java.util.Stack;
+
+import vehicles.loadable.IRamp;
+import vehicles.loadable.LoadedCarsOnRamp;
 
 public class AutoHauler extends Car implements IRamp {
     private boolean m_rampIsDown = false;

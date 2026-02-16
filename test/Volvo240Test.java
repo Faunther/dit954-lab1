@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import vehicles.Volvo240;
+
 import static org.junit.Assert.*;
 
 public class Volvo240Test {
@@ -20,21 +22,21 @@ public class Volvo240Test {
         // speed should be 0 with "freshly made" car
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
 
-        // PREP: ======================================================================================================
+        // PREP:
+        // ======================================================================================================
         // expected constants
         final double expectedEnginePwr = volvo.getEnginePower();
         final double expectedSpeedFactor = volvo.speedFactor();
 
         // expected formula
-        // m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,m_carData.getEnginePower());
-
+        // m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() *
+        // amount,m_carData.getEnginePower());
 
         // speed should increase by the amount times the speedFactor.
         double amount = 10.0;
         final double expectedSpeed = Math.min(
-            volvo.getCurrentSpeed() + expectedSpeedFactor * amount,
-            expectedEnginePwr
-        );
+                volvo.getCurrentSpeed() + expectedSpeedFactor * amount,
+                expectedEnginePwr);
         volvo.incrementSpeed(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
@@ -50,14 +52,15 @@ public class Volvo240Test {
         // speed should be equal to or below its engine power
         {
             /*
-            * to make sure we reach the limit, we repeatedly increment by
-            * Double.MAX_VALUE
-            *
-            * We could've used "expectedEnginePwr / speedFactor", but we might
-            * get an overflow value (big value -> negative value) if speedFactor is very small
-            *
-            * It probably won't happen, but better to be safe than sorry in a test.
-            * */
+             * to make sure we reach the limit, we repeatedly increment by
+             * Double.MAX_VALUE
+             *
+             * We could've used "expectedEnginePwr / speedFactor", but we might
+             * get an overflow value (big value -> negative value) if speedFactor is very
+             * small
+             *
+             * It probably won't happen, but better to be safe than sorry in a test.
+             */
 
             double remainder = expectedEnginePwr - volvo.getCurrentSpeed();
             double maxPossibleIncrement = Double.MAX_VALUE * expectedSpeedFactor;
@@ -81,7 +84,8 @@ public class Volvo240Test {
         volvo.decrementSpeed(amount);
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
 
-        // PREP: ======================================================================================================
+        // PREP:
+        // ======================================================================================================
         // expected constants
         final double expectedEnginePwr = volvo.getEnginePower();
         final double expectedSpeedFactor = volvo.speedFactor();
@@ -99,12 +103,10 @@ public class Volvo240Test {
             } while (maxPossibleIncrement < remainder);
         }
 
-
         // # Decrease by "normal" amount
         double expectedSpeed = Math.max(
-            volvo.getCurrentSpeed() - expectedSpeedFactor * amount,
-            0
-        );
+                volvo.getCurrentSpeed() - expectedSpeedFactor * amount,
+                0);
         volvo.decrementSpeed(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 

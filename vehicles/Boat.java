@@ -1,3 +1,5 @@
+package vehicles;
+
 import java.awt.geom.Point2D;
 
 public abstract class Boat implements IBoatData, IMovable {
@@ -6,8 +8,7 @@ public abstract class Boat implements IBoatData, IMovable {
     private double m_currentSpeed;
     private boolean m_isEngineOn;
 
-
-    public Boat(){
+    public Boat() {
         m_position = new Point2D.Double(0, 0);
         m_directionAngle = Math.toRadians(90);
         m_currentSpeed = 0;
@@ -21,12 +22,12 @@ public abstract class Boat implements IBoatData, IMovable {
 
     @Override
     public void increaseSpeed() {
-        m_currentSpeed = Math.min(getMaxSpeed(),m_currentSpeed + this.getEnginePower() * 0.01);
+        m_currentSpeed = Math.min(getMaxSpeed(), m_currentSpeed + this.getEnginePower() * 0.01);
     }
 
     @Override
     public void decreaseSpeed() {
-        m_currentSpeed = Math.max(0,m_currentSpeed + this.getEnginePower() * 0.01);
+        m_currentSpeed = Math.max(0, m_currentSpeed + this.getEnginePower() * 0.01);
     }
 
     @Override
@@ -43,7 +44,6 @@ public abstract class Boat implements IBoatData, IMovable {
     public boolean isEngineOn() {
         return m_isEngineOn;
     }
-
 
     @Override
     public void move() {

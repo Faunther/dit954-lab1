@@ -1,3 +1,7 @@
+package vehicles;
+
+import vehicles.loadable.IRamp;
+
 public class Scania extends Car implements IRamp {
     private double m_bedAngle = 0.0;
 

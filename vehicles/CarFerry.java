@@ -1,12 +1,17 @@
+package vehicles;
+
 import java.util.Stack;
 
+import vehicles.loadable.IRamp;
+import vehicles.loadable.LoadedCarsOnRamp;
+
 public class CarFerry extends Boat implements IRamp, LoadedCarsOnRamp {
-    private static double our_pickupRangeSqr = 10*10;
+    private static double our_pickupRangeSqr = 10 * 10;
 
     private boolean m_IsRampDown;
     private Stack<Car> m_loadedCars;
 
-    public CarFerry(){
+    public CarFerry() {
         super();
         m_IsRampDown = false;
         m_loadedCars = new Stack<Car>();
@@ -16,6 +21,7 @@ public class CarFerry extends Boat implements IRamp, LoadedCarsOnRamp {
     public String getName() {
         return "CarFarry1000";
     }
+
     @Override
     public int getEnginePower() {
         return 1000;
@@ -70,6 +76,3 @@ public class CarFerry extends Boat implements IRamp, LoadedCarsOnRamp {
     }
 
 }
-
-
-
