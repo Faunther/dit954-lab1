@@ -50,8 +50,20 @@ public class CarController {
         public void actionPerformed(ActionEvent e) {
             for (Car car : cars) {
                 car.move();
+
                 int x = (int) Math.round(car.getPoint().getX());
                 int y = (int) Math.round(car.getPoint().getY());
+                // Assumes all cars' rendered size is equal to that of the volvo's
+                if (x < 0.0
+                        || x + frame.drawPanel.volvoImage.getWidth() > frame.drawPanel.getSize().width
+                        || y < 0.0
+                        || y + frame.drawPanel.volvoImage.getHeight() > frame.drawPanel.getSize().height) {
+                    car.stopEngine();
+                    car.turnLeft();
+                    car.turnLeft();
+                    car.startEngine();
+                }
+
                 frame.drawPanel.moveit(x, y);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
