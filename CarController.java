@@ -48,7 +48,7 @@ public class CarController {
         cc.cars.add(s95);
 
         Scania scan = new Scania();
-        scan.getPoint().y = 250;
+        scan.getPoint().y = 0;
         cc.cars.add(scan);
 
         // Start a new view and send a reference of self
