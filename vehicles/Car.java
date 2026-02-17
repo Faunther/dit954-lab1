@@ -29,6 +29,7 @@ public abstract class Car implements IMovable {
         System.out.println(m_position);
     }
 
+    // Get-/Setters ===========================================================
     public Point2D.Double getPoint() {
         return m_position;
     }
@@ -37,7 +38,6 @@ public abstract class Car implements IMovable {
         return m_direction;
     }
 
-    // Get-/Setters ===========================================================
     public int getNrDoors() {
         return m_carData.getNrDoors();
     }
