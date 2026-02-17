@@ -14,6 +14,7 @@ public class AutoHaulerTest {
     @Test
     public void testHauling() {
         AutoHauler ah = new AutoHauler();
+        ah.startEngine();
 
         assertEquals(false, ah.getRampIsDown());
 
@@ -21,11 +22,11 @@ public class AutoHaulerTest {
             Volvo240 c = new Volvo240();
             ah.loadCar(c);
         });
-        ah.incrementSpeed(2);
+        ah.gas(2);
         assertThrows("Can not lower ramp while speed!=0", Error.class, () -> {
             ah.rampDown();
         });
-        ah.decrementSpeed(2);
+        ah.brake(2);
 
         assertEquals(false, ah.getRampIsDown());
         ah.rampDown();
@@ -46,11 +47,11 @@ public class AutoHaulerTest {
         });
 
         assertThrows("Should not be able to move while ramp is down", Error.class, () -> {
-            ah.incrementSpeed(2);
+            ah.gas(2);
         });
 
-        ah.rampUpp();
-        ah.incrementSpeed(2);
+        ah.rampUp();
+        ah.brake(2);
 
         ah.move();
         ah.turnLeft();

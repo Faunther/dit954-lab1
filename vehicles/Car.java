@@ -10,7 +10,6 @@ public abstract class Car implements IMovable {
 
     protected Point2D.Double m_position = new Point2D.Double(0, 0);
     protected double m_direction = Math.toRadians(0); // Startar med positiv riktning y
-    protected boolean m_EngineOn = false;
 
     // implements
     public void move() {
@@ -63,20 +62,18 @@ public abstract class Car implements IMovable {
 
     // Methods ===========================================================
     public void startEngine() {
-        m_EngineOn = true;
+        m_currentSpeed = 0.1;
     }
 
     public void stopEngine() {
-        m_EngineOn = false;
         m_currentSpeed = 0;
     }
 
     //
     public void gas(double amount) {
-        if (m_EngineOn == true) {
-            amount = Math.clamp(amount, 0, 1);
-            incrementSpeed(amount);
-        }
+        if(m_currentSpeed == 0.0) return;
+        amount = Math.clamp(amount, 0, 1);
+        incrementSpeed(amount);
     }
 
     public void brake(double amount) {
@@ -84,10 +81,14 @@ public abstract class Car implements IMovable {
         decrementSpeed(amount);
     }
 
+    private void incrementSpeed(double amount) {
+        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
+    }
+
+    private void decrementSpeed(double amount) {
+        m_currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
+
     // overload
     public abstract double speedFactor();
-
-    public abstract void incrementSpeed(double amount);
-
-    public abstract void decrementSpeed(double amount);
 }

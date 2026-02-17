@@ -141,7 +141,7 @@ public class CarController {
     public void liftBed() {
         for (Car car : cars) {
             if (car instanceof Scania) {
-                ((Scania) car).rampUpp();
+                ((Scania) car).rampUp();
             }
         }
     }

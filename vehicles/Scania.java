@@ -39,7 +39,7 @@ public class Scania extends Car implements IRamp {
     }
 
     @Override
-    public void rampUpp() {
+    public void rampUp() {
         m_bedAngle = 0;
     }
 
@@ -56,21 +56,4 @@ public class Scania extends Car implements IRamp {
         // TODO: Should this be dependant on the load or something?
         return m_carData.getEnginePower() * 0.001;
     }
-
-    @Override
-    public void incrementSpeed(double amount) {
-        if (getRampIsDown())
-            throw new Error("Can not change speed while bed is lowered");
-
-        // TODO: Trucks can only go like 80 kph?
-        amount = Math.max(0, amount);
-        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
-    }
-
-    @Override
-    public void decrementSpeed(double amount) {
-        amount = Math.max(0, amount);
-        m_currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
-    }
-
 }

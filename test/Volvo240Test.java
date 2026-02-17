@@ -18,9 +18,11 @@ public class Volvo240Test {
     @Test
     public void incrementSpeed() {
         Volvo240 volvo = new Volvo240();
-
+        
         // speed should be 0 with "freshly made" car
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
+        volvo.startEngine();
+        assertEquals(0.1, volvo.getCurrentSpeed(), 0.001);
 
         // PREP:
         // ======================================================================================================
@@ -33,41 +35,27 @@ public class Volvo240Test {
         // amount,m_carData.getEnginePower());
 
         // speed should increase by the amount times the speedFactor.
-        double amount = 10.0;
+        double amount = 0.1;
         final double expectedSpeed = Math.min(
                 volvo.getCurrentSpeed() + expectedSpeedFactor * amount,
                 expectedEnginePwr);
-        volvo.incrementSpeed(amount);
+        volvo.gas(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // Speed should not have been affected by incrementing with a negative value
         amount = -amount;
-        volvo.incrementSpeed(amount);
+        volvo.gas(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // Speed should remain constant after incrementing with 0
-        volvo.incrementSpeed(0);
+        volvo.gas(0);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // speed should be equal to or below its engine power
-        {
-            /*
-             * to make sure we reach the limit, we repeatedly increment by
-             * Double.MAX_VALUE
-             *
-             * We could've used "expectedEnginePwr / speedFactor", but we might
-             * get an overflow value (big value -> negative value) if speedFactor is very
-             * small
-             *
-             * It probably won't happen, but better to be safe than sorry in a test.
-             */
-
-            double remainder = expectedEnginePwr - volvo.getCurrentSpeed();
-            double maxPossibleIncrement = Double.MAX_VALUE * expectedSpeedFactor;
-            do {
-                volvo.incrementSpeed(Double.MAX_VALUE);
-                remainder -= maxPossibleIncrement;
-            } while (maxPossibleIncrement < remainder);
+        // m_carData.getEnginePower() * 0.01 * trimFactor => running volvo.gas(1) 100 times should reach engine power
+        // => Running it 200 times should not make speed exceed engine power
+        for (int i = 0; i < 200; i++) {
+            volvo.gas(1);
         }
         assertEquals(expectedEnginePwr, volvo.getCurrentSpeed(), 0.001);
     }
@@ -81,7 +69,7 @@ public class Volvo240Test {
 
         // speed can't decrease below 0.
         double amount = 10.0;
-        volvo.decrementSpeed(amount);
+        volvo.brake(amount);
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
 
         // PREP:
@@ -98,7 +86,7 @@ public class Volvo240Test {
             double remainder = expectedEnginePwr;
             double maxPossibleIncrement = Double.MAX_VALUE * expectedSpeedFactor;
             do {
-                volvo.incrementSpeed(Double.MAX_VALUE);
+                volvo.gas(Double.MAX_VALUE);
                 remainder -= maxPossibleIncrement;
             } while (maxPossibleIncrement < remainder);
         }
@@ -107,16 +95,16 @@ public class Volvo240Test {
         double expectedSpeed = Math.max(
                 volvo.getCurrentSpeed() - expectedSpeedFactor * amount,
                 0);
-        volvo.decrementSpeed(amount);
+        volvo.brake(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // decrement by negative amount
         amount = -amount;
-        volvo.decrementSpeed(amount);
+        volvo.brake(amount);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // decrement by 0
-        volvo.decrementSpeed(0);
+        volvo.brake(0);
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
     }
 }

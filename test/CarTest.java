@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class CarTest {
     @Test
-    public void textMoveAndTurn() {
+    public void testMoveAndTurn() {
         double testspeed = 0;
         Point2D.Double testpoint = new Point2D.Double(0, 0);
         /*
@@ -19,6 +19,8 @@ public class CarTest {
         Saab95 s = new Saab95();
 
         s.startEngine();
+        s.turnRight();
+
         testspeed = 0.1;
         assertEquals(s.getCurrentSpeed(), testspeed, 0.0001);
 

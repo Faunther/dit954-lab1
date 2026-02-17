@@ -39,7 +39,7 @@ public class CarFerry extends Boat implements IRamp, LoadedCarsOnRamp {
     }
 
     @Override
-    public void rampUpp() {
+    public void rampUp() {
         m_IsRampDown = true;
     }
 

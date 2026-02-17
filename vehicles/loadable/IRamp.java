@@ -4,7 +4,7 @@ public interface IRamp {
 
     void rampDown();
 
-    void rampUpp();
+    void rampUp();
 
     boolean getRampIsDown();
 
