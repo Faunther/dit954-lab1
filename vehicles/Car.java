@@ -9,7 +9,7 @@ public abstract class Car implements IMovable {
     protected double m_currentSpeed = 0;// The current speed of the car
 
     protected Point2D.Double m_position = new Point2D.Double(0, 0);
-    protected double m_direction = Math.toRadians(90); // Startar med positiv riktning y
+    protected double m_direction = Math.toRadians(0); // Startar med positiv riktning y
     protected boolean m_EngineOn = false;
 
     // implements

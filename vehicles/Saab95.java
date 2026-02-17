@@ -15,6 +15,7 @@ public class Saab95 extends Car {
         }
     }
 
+    // TODO: Should this be public?
     private static Saab95Data g_instancr = new Saab95Data();
 
     public Saab95() {

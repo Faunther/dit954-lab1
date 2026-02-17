@@ -35,7 +35,17 @@ public class CarController {
         // Instance of this class
         CarController cc = new CarController();
 
-        cc.cars.add(new Volvo240());
+        Volvo240 v = new Volvo240();
+        v.getPoint().y = 50;
+        cc.cars.add(v);
+
+        Saab95 s95 = new Saab95();
+        s95.getPoint().y = 150;
+        cc.cars.add(s95);
+
+        Scania scan = new Scania();
+        scan.getPoint().y = 250;
+        cc.cars.add(scan);
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -62,9 +72,9 @@ public class CarController {
                 int y = (int) Math.round(car.getPoint().getY());
                 // Assumes all cars' rendered size is equal to that of the volvo's
                 if (x < 0.0
-                        || x + frame.drawPanel.volvoImage.getWidth() > frame.drawPanel.getSize().width
+                        || x + frame.drawPanel.getCarWidth(car) > frame.drawPanel.getSize().width
                         || y < 0.0
-                        || y + frame.drawPanel.volvoImage.getHeight() > frame.drawPanel.getSize().height) {
+                        || y + frame.drawPanel.getCarHeight(car) > frame.drawPanel.getSize().height) {
                     car.stopEngine();
                     car.turnLeft();
                     car.turnLeft();
@@ -72,15 +82,15 @@ public class CarController {
 
                     var pos = car.getPoint();
                     pos.x = Math.clamp(pos.x, 1,
-                            frame.drawPanel.getSize().width - frame.drawPanel.volvoImage.getWidth() - 1);
+                            frame.drawPanel.getSize().width - frame.drawPanel.getCarWidth(car) - 1);
                     pos.y = Math.clamp(pos.y, 1,
-                            frame.drawPanel.getSize().height - frame.drawPanel.volvoImage.getHeight() - 1);
+                            frame.drawPanel.getSize().height - frame.drawPanel.getCarHeight(car) - 1);
                 }
 
-                frame.drawPanel.moveit(x, y);
-                // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
             }
+            frame.drawPanel.setCars(cars);
+            // repaint() calls the paintComponent method of the panel
+            frame.drawPanel.repaint();
         }
     }
 
@@ -135,6 +145,7 @@ public class CarController {
             }
         }
     }
+
     public void lowerBed() {
         for (Car car : cars) {
             if (car instanceof Scania) {
