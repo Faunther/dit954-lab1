@@ -69,52 +69,56 @@ classDiagram
     }
     
     class Scania {
-        int m_nrDoors
-        double m_enginePower
-        String m_modelName
-        double m_bedAngle
+        #int m_nrDoors
+        #double m_enginePower
+        #String m_modelName
+        -double m_bedAngle
         
-        getCurrentBedAngle()
-        rampDown()
-        rampUp()
-        getRampIsDown(boolean)
-        speedFactor(double)
+        +getCurrentBedAngle()
+        +rampDown()
+        +rampUp()
+        +getRampIsDown(boolean)
+        +speedFactor(double)
         
     }
     class Volvo240 {
-        int m_nrDoors
-        double m_enginePower
-        String m_modelName
+        #int m_nrDoors
+        #double m_enginePower
+        #String m_modelName
+        +Color color
+        +double trimFactor
         
-        double trimFactor
-        speedFactor(double)
+        +speedFactor(double)
     }
     class Saab95 {
-        int m_nrDoors
-        double m_enginePower
-        String m_modelName
-        
-        boolean turbo
-        setTurboOn()
-        setTurboOff()
-        speedFactor(double)
+        #int m_nrDoors
+        #double m_enginePower
+        #String m_modelName
+        +boolean turbo
+        +Color color
+
+        +setTurboOn()
+        +setTurboOff()
+        +speedFactor(double)
     }
     class AutoHaler{
-        int m_nrDoors
-        double m_enginePower
-        String m_modelName
-        int m_maxCarsLoaded
+        #int m_nrDoors
+        #double m_enginePower
+        #String m_modelName
+        #int m_maxCarsLoaded
+        -boolean m_rampIsDown
+        -Stack<> m_loadedCars
 
-        getRampIsDown()
-        rampDown()
-        rampUp()
-        loadCar(Car)
-        unloadCar(Car)
-        updateLoadedCarsPosition()
-        move()
-        turnLeft()
-        turnRight()
-        speedFactor(double)
+        +getRampIsDown()
+        +rampDown()
+        +rampUp()
+        +loadCar(Car)
+        +unloadCar(Car)
+        +updateLoadedCarsPosition()
+        +move()
+        +turnLeft()
+        +turnRight()
+        +speedFactor(double)
         
         
     }
