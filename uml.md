@@ -3,8 +3,24 @@
 ```mermaid
 classDiagram
     Car <|-- Scania
-    Car <|-- Volvo
+    Car <|-- Volvo240
     Car <|-- Saab95
+    Car <|-- AutoHaler
+
+    CarData <|-- CarHaulerData
+
+    CarData <-- Scania
+    CarData <-- Volvo240
+    CarData <-- Saab95
+    CarHaulerData <-- AutoHaler
+    
+
+    class CarHaulerData{
+        #int m_maxCarsLoaded
+
+        getMaxCarsLoaded(int)
+        
+    }
 
     class CarData {
         #double m_enginePower
@@ -51,17 +67,55 @@ classDiagram
 
         #speedFactor()* double
     }
+    
     class Scania {
-        rampUp()
+        int m_nrDoors
+        double m_enginePower
+        String m_modelName
+        double m_bedAngle
+        
+        getCurrentBedAngle()
         rampDown()
+        rampUp()
+        getRampIsDown(boolean)
+        speedFactor(double)
+        
     }
-    class Volvo {
-        double trimLevel
-        setTrimLevel(double newLevel)
+    class Volvo240 {
+        int m_nrDoors
+        double m_enginePower
+        String m_modelName
+        
+        double trimFactor
+        speedFactor(double)
     }
     class Saab95 {
+        int m_nrDoors
+        double m_enginePower
+        String m_modelName
+        
         boolean turbo
         setTurboOn()
         setTurboOff()
+        speedFactor(double)
+    }
+    class AutoHaler{
+        int m_nrDoors
+        double m_enginePower
+        String m_modelName
+        int m_maxCarsLoaded
+
+        getRampIsDown()
+        rampDown()
+        rampUp()
+        loadCar(Car)
+        unloadCar(Car)
+        updateLoadedCarsPosition()
+        move()
+        turnLeft()
+        turnRight()
+        speedFactor(double)
+        
+        
     }
 ```
