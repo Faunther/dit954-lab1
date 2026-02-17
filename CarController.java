@@ -4,6 +4,9 @@ import vehicles.Scania;
 import vehicles.Volvo240;
 
 import javax.swing.*;
+
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class CarController {
 
     // A list of cars, modify if needed
     ArrayList<Car> cars = new ArrayList<>();
+    CarBrandWorkshop<Volvo240> volvoWorkshop = new CarBrandWorkshop<>();
 
     // methods:
 
@@ -36,7 +40,7 @@ public class CarController {
         CarController cc = new CarController();
 
         Volvo240 v = new Volvo240();
-        v.getPoint().y = 50;
+        v.getPoint().y = 300;
         cc.cars.add(v);
 
         Saab95 s95 = new Saab95();
@@ -55,7 +59,6 @@ public class CarController {
     }
 
     public ArrayList<Car> getCars() {
-
         return cars;
     }
 
@@ -65,11 +68,15 @@ public class CarController {
      */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            // Can not remove cars while looping - needs intermediate tracking
+            ArrayList<Car> carsToRemove = new ArrayList<>();
+            
             for (Car car : cars) {
                 car.move();
 
-                int x = (int) Math.round(car.getPoint().getX());
-                int y = (int) Math.round(car.getPoint().getY());
+                var cp = car.getPoint();
+                int x = (int) Math.round(cp.getX());
+                int y = (int) Math.round(cp.getY());
                 // Assumes all cars' rendered size is equal to that of the volvo's
                 if (x < 0.0
                         || x + frame.drawPanel.getCarWidth(car) > frame.drawPanel.getSize().width
@@ -87,7 +94,24 @@ public class CarController {
                             frame.drawPanel.getSize().height - frame.drawPanel.getCarHeight(car) - 1);
                 }
 
+                if(car instanceof Volvo240) {
+                    Rectangle cr = new Rectangle(
+                        new Point((int)Math.round(cp.getX()), (int)Math.round(cp.getY())),
+                        frame.drawPanel.getCarSize(car)
+                    );
+                    Rectangle wr = new Rectangle(frame.drawPanel.volvoWorkshopPoint, frame.drawPanel.getWorkshopSize());
+                    if(cr.intersects(wr)) {
+                        // Transfer ownership to the workshop (and also stop rendering)
+                        volvoWorkshop.acceptCar((Volvo240)car);
+                        carsToRemove.add(car);
+                    }
+                }
             }
+
+            for (Car car : carsToRemove) {
+                cars.remove(car);
+            }
+            
             frame.drawPanel.setCars(cars);
             // repaint() calls the paintComponent method of the panel
             frame.drawPanel.repaint();

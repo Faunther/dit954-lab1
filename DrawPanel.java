@@ -68,4 +68,13 @@ public class DrawPanel extends JPanel {
     public int getCarHeight(Car car) {
         return carImages.get(car.getModelName()).getHeight(null);
     }
+
+    public Dimension getCarSize(Car car) {
+        Image ci = carImages.get(car.getModelName());
+        return new Dimension(ci.getWidth(null), ci.getHeight(null));
+    }
+    
+    public Dimension getWorkshopSize() {
+        return new Dimension(volvoWorkshopImage.getWidth(), volvoWorkshopImage.getHeight());
+    }
 }
