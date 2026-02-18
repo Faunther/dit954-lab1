@@ -37,9 +37,22 @@ classDiagram
         turnLeft()*
         turnRight()*
     }
+
+    class IRamp {
+        rampDown();
+        rampUp();
+        getRampIsDown(boolean);
+    }
     <<interface>> IMovable
     IMovable <|-- Car : implements
+    IMovable <|-- Saab95 : implements
+    IMovable <|-- Scania : implements
+    IMovable <|-- Volvo240 : implements
+    IMovable <|-- AutoHaler : implements
     CarData *-- Car
+
+    <<interface>> IRamp
+    IRamp <|-- Scania : implements
 
     class Car {
         #CarData m_carData
@@ -119,7 +132,5 @@ classDiagram
         +turnLeft()
         +turnRight()
         +speedFactor(double)
-        
-        
     }
 ```
