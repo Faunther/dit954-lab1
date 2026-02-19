@@ -40,9 +40,9 @@ classDiagram
         #int m_nrDoors
         #String m_modelName
 
-        getNrDoors() int
-        getEnginePower() double
-        getModelName() String
+        +getNrDoors() int
+        +getEnginePower() double
+        +getModelName() String
     }
 
     class IMovable {
@@ -57,15 +57,16 @@ classDiagram
         getRampIsDown(boolean);
     }
     <<interface>> IMovable
-    IMovable <|-- Car : implements
-    IMovable <|-- Saab95 : implements
-    IMovable <|-- Scania : implements
-    IMovable <|-- Volvo240 : implements
-    IMovable <|-- AutoHaler : implements
+    IMovable <.. Car : implements
+    IMovable <.. Saab95 : implements
+    IMovable <.. Scania : implements
+    IMovable <.. Volvo240 : implements
+    IMovable <.. AutoHaler : implements
     CarData *-- Car
 
     <<interface>> IRamp
-    IRamp <|-- Scania : implements
+    IRamp <.. Scania : implements
+    IRamp <.. AutoHaler : implements
 
     class Car {
         #CarData m_carData
@@ -74,22 +75,22 @@ classDiagram
         #Point2D.Double m_position
         #double m_direction
         
-        move()
-        turnLeft()
-        turnRight()
-        getPoint() Point2D.Double
-        getDirection() double
-        getNrDoors() int
-        getModelName() String
-        getEnginePower() double
-        getCurrentSpeed() double
-        getColor() Color
-        setColor(Color newColor)
+        +move()
+        +turnLeft()
+        +turnRight()
+        +getPoint() Point2D.Double
+        +getDirection() double
+        +getNrDoors() int
+        +getModelName() String
+        +getEnginePower() double
+        +getCurrentSpeed() double
+        +getColor() Color
+        +setColor(Color newColor)
 
-        startEngine()
-        stopEngine()
-        gas()
-        brake()
+        +startEngine()
+        +stopEngine()
+        +gas()
+        +brake()
 
         #speedFactor()* double
     }
