@@ -27,9 +27,9 @@ classDiagram
         #int m_nrDoors
         #String m_modelName
 
-        getNrDoors() int
-        getEnginePower() double
-        getModelName() String
+        +getNrDoors() int
+        +getEnginePower() double
+        +getModelName() String
     }
 
     class IMovable {
@@ -62,22 +62,22 @@ classDiagram
         #Point2D.Double m_position
         #double m_direction
         
-        move()
-        turnLeft()
-        turnRight()
-        getPoint() Point2D.Double
-        getDirection() double
-        getNrDoors() int
-        getModelName() String
-        getEnginePower() double
-        getCurrentSpeed() double
-        getColor() Color
-        setColor(Color newColor)
+        +move()
+        +turnLeft()
+        +turnRight()
+        +getPoint() Point2D.Double
+        +getDirection() double
+        +getNrDoors() int
+        +getModelName() String
+        +getEnginePower() double
+        +getCurrentSpeed() double
+        +getColor() Color
+        +setColor(Color newColor)
 
-        startEngine()
-        stopEngine()
-        gas()
-        brake()
+        +startEngine()
+        +stopEngine()
+        +gas()
+        +brake()
 
         #speedFactor()* double
     }
