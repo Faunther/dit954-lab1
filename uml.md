@@ -12,66 +12,61 @@ Type	Description
     ..|>    Realization
     ..      Link (Dashed)
 
-
 ```mermaid
 classDiagram
     class Point { }
+    class Dimension { }
+    class Color { }
     class String { }
     class ArrayList { }
     class HashMap { }
+    class IOException { }
     
-    Car <|-- Scania : extends
-    Car <|-- Volvo240 : extends
-    Car <|-- Saab95 : extends
-    Car <|-- AutoHaler : extends
-
+    Car <|-- Scania: extends
+    Car <|-- Volvo240: extends
+    Car <|-- Saab95: extends
+    Car <|-- AutoHaler: extends
     CarData <|-- CarHaulerData
-
     CarData <.. Scania
     CarData <.. Volvo240
     CarData <.. Saab95
     CarHaulerData <.. AutoHaler
-    
 
-    class CarHaulerData{
+    class CarHaulerData {
         #int m_maxCarsLoaded
-
         getMaxCarsLoaded(int)
-        
     }
 
     class CarData {
         #double m_enginePower
         #int m_nrDoors
         #String m_modelName
-
         +getNrDoors() int
         +getEnginePower() double
         +getModelName() String
     }
 
     class IMovable {
-        ~move()*
-        ~turnLeft()*
-        ~turnRight()*
+        ~ move()*
+        ~ turnLeft()*
+        ~ turnRight()*
     }
 
     class IRamp {
-        ~rampDown();
-        ~rampUp();
-        ~getRampIsDown(boolean);
+        ~ rampDown();
+        ~ rampUp();
+        ~ getRampIsDown(boolean);
     }
     <<interface>> IMovable
-    IMovable <|.. Car : implements
-    IMovable <|.. Saab95 : implements
-    IMovable <|.. Scania : implements
-    IMovable <|.. Volvo240 : implements
-    IMovable <|.. AutoHaler : implements
+    IMovable <|.. Car: implements
+    IMovable <|.. Saab95: implements
+    IMovable <|.. Scania: implements
+    IMovable <|.. Volvo240: implements
+    IMovable <|.. AutoHaler: implements
     CarData *-- Car
-
     <<interface>> IRamp
-    IRamp <|.. Scania : implements
-    IRamp <|.. AutoHaler : implements
+    IRamp <|.. Scania: implements
+    IRamp <|.. AutoHaler: implements
 
     class Car {
         #CarData m_carData
@@ -79,7 +74,6 @@ classDiagram
         #double m_currentSpeed
         #Point2D.Double m_position
         #double m_direction
-        
         +move()
         +turnLeft()
         +turnRight()
@@ -91,27 +85,23 @@ classDiagram
         +getCurrentSpeed() double
         +getColor() Color
         +setColor(Color newColor)
-
         +startEngine()
         +stopEngine()
         +gas()
         +brake()
-
         #speedFactor()* double
     }
-    
+
     class Scania {
         #int m_nrDoors
         #double m_enginePower
         #String m_modelName
         -double m_bedAngle
-        
         +getCurrentBedAngle()
         +rampDown()
         +rampUp()
         +getRampIsDown(boolean)
         +speedFactor(double)
-        
     }
     class Volvo240 {
         #int m_nrDoors
@@ -119,7 +109,6 @@ classDiagram
         #String m_modelName
         +Color color
         +double trimFactor
-        
         +speedFactor(double)
     }
     class Saab95 {
@@ -128,19 +117,17 @@ classDiagram
         #String m_modelName
         +boolean turbo
         +Color color
-
         +setTurboOn()
         +setTurboOff()
         +speedFactor(double)
     }
-    class AutoHaler{
+    class AutoHaler {
         #int m_nrDoors
         #double m_enginePower
         #String m_modelName
         #int m_maxCarsLoaded
         -boolean m_rampIsDown
         -Stack<> m_loadedCars
-
         +getRampIsDown()
         +rampDown()
         +rampUp()
@@ -153,40 +140,40 @@ classDiagram
         +speedFactor(double)
     }
 
-    Car <|-- CarBrandWorkshop : TBrand extends Car
+    Car <|-- CarBrandWorkshop: TBrand extends Car
     Car <-- CarBrandWorkshop
-    
-    class CarBrandWorkshop{
+
+    class CarBrandWorkshop {
         -int m_carCapacity
-        #Map<Integer,TBrand> m_garage
-        
+        #Map<Integer, TBrand> m_garage
         +getCarCapacity(int)
         +getNumOfCars(int)
         +canAcceptCar(boolean)
-        ~acceptCar(Integer)
-        ~retrieveCar(TBrand)
-        
+        ~ acceptCar(Integer)
+        ~ retrieveCar(TBrand)
     }
 
+%% Swing library
     class JPanel { }
     class JFrame { }
     class JButton { }
     class Graphics { }
+    class FlowLayout { }
     class Image { }
     class BufferedImage { }
-    
-    class Timer { }
-    
-    JPanel <|-- DrawPanel : extends
+    class ActionListener { }
+    <<interface>> ActionListener
+    class ActionEvent { }
 
-    DrawPanel --* HashMap
-    DrawPanel --* String
-    DrawPanel --* Image
-    DrawPanel --* BufferedImage
-    DrawPanel --* Point
-    DrawPanel --* ArrayList
-    DrawPanel --o Car
-    DrawPanel ..> Graphics
+    class ChangeListener { }
+    <<interface>> ChangeListener
+
+    class SpinnerNumberModel { }
+    class BorderLayout { }
+    class Timer { }
+    class Toolkit { }
+
+
     class DrawPanel {
         ~ BufferedImage volvoWorkshopImage
         ~ Point volvoWorkshopPoint
@@ -201,15 +188,20 @@ classDiagram
         # paintComponent(Graphics)
         ~ setCars(ArrayList<Car>) void
     }
+    JPanel <|-- DrawPanel: extends
+    DrawPanel --* HashMap
+    DrawPanel --* String
+    DrawPanel --* Image
+    DrawPanel --* BufferedImage
+    DrawPanel --* Point
+    DrawPanel --* Dimension
+    DrawPanel --* ArrayList
+    DrawPanel --o Car
+    DrawPanel --> Graphics
+    DrawPanel --> Color
+    DrawPanel --> IOException
 
-    JFrame <|-- CarView
-    CarView ..> CarController
-    CarView ..> DrawPanel
-    CarView --* JSpinner
-    CarView --* JLabel
-    CarView --* JPanel
-    CarView --* JButton
-    CarView --> String
+
     class CarView {
         -int X$
         -int Y$
@@ -228,33 +220,71 @@ classDiagram
         ~ JButton lowerBedButton
         ~ JButton startButton
         ~ JButton stopButton
-
+        
         + CarView(String, CarController)
         - initComponents(String) void
     }
-    
-    ActionListener <|-- TimeListener: implements
+    JFrame <|-- CarView
+    CarView --o CarController
+    CarView ..o DrawPanel
+    CarView --* JSpinner
+    CarView --* JLabel
+    CarView --* JPanel
+    CarView --* JButton
+    CarView --> String
+    CarView --> Dimension
+    CarView --> FlowLayout
+    CarView --> BorderLayout
+    CarView --> Color
+    CarView --> Toolkit
+    CarView --> SpinnerNumberModel
+    CarView --> ActionEvent
+    CarView --> ActionListener
+    CarView --> ChangeListener
+
     class TimerListener {
         + actionPerformed(ActionEvent)
     }
+    ActionListener <|-- TimerListener: implements
+    TimerListener ..> CarController
+    TimerListener ..> CarView
+    TimerListener ..> DrawPanel
+    TimerListener ..> Point
+    TimerListener ..> ArrayList
+    TimerListener ..> Car
+    TimerListener ..> Volvo240
+    TimerListener ..> Rectangle
+    TimerListener ..> Dimension
+    TimerListener ..> CarBrandWorkShop
+    TimerListener ..> JFrame
     
     class CarController {
         - int delay
         - Timer timer // TimerListener
-        # CarView frame
-        # ArrayList<Car> cars
-        # CarBrandWorkshop<Volvo240> volvoWorkshop
-
+        ~ CarView frame
+        ~ ArrayList<Car> cars
+        ~ CarBrandWorkshop<Volvo240> volvoWorkshop
+        
         + main(String[]) $
         + getCars() ArrayList<Car>
         + startCars()
         + stopCars()
         + liftBed()
         + lowerBed()
-        # gas(int)
-        # brake(int)
-        # turboOn()
-        # turboOff()
+        ~ gas(int)
+        ~ brake(int)
+        ~ turboOn()
+        ~ turboOff()
     }
-    
+    CarController --* Timer
+    CarController --* TimerListener
+    CarController --* CarView
+    CarController --* ArrayList
+    CarController --* Car
+    CarController --* CarBrandWorkShop
+    CarController ..> String
+    CarController ..> Volvo240
+    CarController ..> Saab95
+    CarController ..> Scania
+    CarController ..> Point
 ```
