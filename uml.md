@@ -153,6 +153,21 @@ classDiagram
         +speedFactor(double)
     }
 
+    Car <|-- CarBrandWorkshop : TBrand extends Car
+    Car <-- CarBrandWorkshop
+    
+    class CarBrandWorkshop{
+        -int m_carCapacity
+        #Map<Integer,TBrand> m_garage
+        
+        +getCarCapacity(int)
+        +getNumOfCars(int)
+        +canAcceptCar(boolean)
+        ~acceptCar(Integer)
+        ~retrieveCar(TBrand)
+        
+    }
+
     class JPanel { }
     class JFrame { }
     class JButton { }
