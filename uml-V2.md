@@ -186,6 +186,15 @@ classDiagram
         -lowerBedEvent()
         
     }
+    carSystemFactary --> saabSystem
+    carSystemFactary --> volvoSystem
+    carSystemFactary --> scaniaSystem
+    
+    class carSystemFactary{
+        +createVolvoSystom()
+        +createSaabSystom()
+        +createScaniaSystom()
+    }
 
     carFactary ..> Volvo240
     carFactary ..> Saab95
@@ -330,9 +339,8 @@ classDiagram
     CarController --* CarView
     CarController --* Car
     CarController --* CarBrandWorkshop
-    CarController ..> scaniaSystem
-    CarController ..> saabSystem
-    CarController ..> volvoSystem
+    CarController ..> carSystemFactary
+
    
     
 ```
