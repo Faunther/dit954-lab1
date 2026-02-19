@@ -15,17 +15,17 @@ Type	Description
 
 ```mermaid
 classDiagram
-    Car <|-- Scania
-    Car <|-- Volvo240
-    Car <|-- Saab95
-    Car <|-- AutoHaler
+    Car <|-- Scania : extends
+    Car <|-- Volvo240 : extends
+    Car <|-- Saab95 : extends
+    Car <|-- AutoHaler : extends
 
-    CarData <|-- CarHaulerData
+    CarData <.. CarHaulerData
 
-    CarData <|.. Scania
-    CarData <|.. Volvo240
-    CarData <|.. Saab95
-    CarHaulerData <|.. AutoHaler
+    CarData <.. Scania
+    CarData <.. Volvo240
+    CarData <.. Saab95
+    CarHaulerData <.. AutoHaler
     
 
     class CarHaulerData{
