@@ -22,10 +22,10 @@ classDiagram
 
     CarData <|-- CarHaulerData
 
-    CarData <-- Scania
-    CarData <-- Volvo240
-    CarData <-- Saab95
-    CarHaulerData <-- AutoHaler
+    CarData <|.. Scania
+    CarData <|.. Volvo240
+    CarData <|.. Saab95
+    CarHaulerData <|.. AutoHaler
     
 
     class CarHaulerData{
@@ -46,27 +46,27 @@ classDiagram
     }
 
     class IMovable {
-        move()*
-        turnLeft()*
-        turnRight()*
+        ~move()*
+        ~turnLeft()*
+        ~turnRight()*
     }
 
     class IRamp {
-        rampDown();
-        rampUp();
-        getRampIsDown(boolean);
+        ~rampDown();
+        ~rampUp();
+        ~getRampIsDown(boolean);
     }
     <<interface>> IMovable
-    IMovable <.. Car : implements
-    IMovable <.. Saab95 : implements
-    IMovable <.. Scania : implements
-    IMovable <.. Volvo240 : implements
-    IMovable <.. AutoHaler : implements
+    IMovable <|.. Car : implements
+    IMovable <|.. Saab95 : implements
+    IMovable <|.. Scania : implements
+    IMovable <|.. Volvo240 : implements
+    IMovable <|.. AutoHaler : implements
     CarData *-- Car
 
     <<interface>> IRamp
-    IRamp <.. Scania : implements
-    IRamp <.. AutoHaler : implements
+    IRamp <|.. Scania : implements
+    IRamp <|.. AutoHaler : implements
 
     class Car {
         #CarData m_carData
