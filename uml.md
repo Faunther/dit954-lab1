@@ -44,15 +44,16 @@ classDiagram
         getRampIsDown(boolean);
     }
     <<interface>> IMovable
-    IMovable <|-- Car : implements
-    IMovable <|-- Saab95 : implements
-    IMovable <|-- Scania : implements
-    IMovable <|-- Volvo240 : implements
-    IMovable <|-- AutoHaler : implements
+    IMovable <.. Car : implements
+    IMovable <.. Saab95 : implements
+    IMovable <.. Scania : implements
+    IMovable <.. Volvo240 : implements
+    IMovable <.. AutoHaler : implements
     CarData *-- Car
 
     <<interface>> IRamp
-    IRamp <|-- Scania : implements
+    IRamp <.. Scania : implements
+    IRamp <.. AutoHaler : implements
 
     class Car {
         #CarData m_carData
