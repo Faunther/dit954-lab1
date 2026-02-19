@@ -1,5 +1,18 @@
 <!-- https://mermaid.js.org/syntax/classDiagram.html -->
 
+
+Type	Description
+===================
+    <|--    Inheritance
+    *--     Composition (A owns B, B can't be independent)
+    o--	Aggregation (A owns B, B can be independent
+    -->     Association
+    --      Link (Solid)
+    ..>     Dependency
+    ..|>    Realization
+    ..      Link (Dashed)
+
+
 ```mermaid
 classDiagram
     Car <|-- Scania
@@ -133,4 +146,102 @@ classDiagram
         +turnRight()
         +speedFactor(double)
     }
+
+
+    class Point { }
+    class String { }
+    class ArrayList { }
+    class HashMap { }
+    
+    class JPanel { }
+    class JFrame { }
+    class JButton { }
+    class Graphics { }
+    class Image { }
+    class BufferedImage { }
+    
+    class Timer { }
+    
+    JPanel <|-- DrawPanel : extends
+    JFrame <|-- CarView
+    JButton --* CarView
+
+    DrawPanel *-- HashMap
+    DrawPanel *-- String
+    DrawPanel *-- Image
+    DrawPanel *-- BufferedImage
+    DrawPanel *-- Point
+    DrawPanel o-- Car
+    DrawPanel o-- ArrayList
+    DrawPanel o-- Graphics
+    
+    class DrawPanel {
+        ~ BufferedImage volvoWorkshopImage
+        ~ Point volvoWorkshopPoint
+        ~ ArrayList<Car> cars
+        ~ HashMap<String, Image> carImages
+        
+        + DrawPanel(int, int)
+        + getCarWidth(Car) int
+        + getCarHeight(Car) int
+        + getCarSize(Car) Dimension
+        + getWorkshopSize() Dimension
+        # paintComponent(Graphics)
+        ~ setCars(ArrayList<Car>) void
+    }
+    
+    CarView ..> CarController
+    CarView ..> DrawPanel
+    CarView *-- JSpinner
+    CarView *-- JLabel
+    CarView *-- JPanel
+    CarView *-- JButton
+    CarView --> String
+    class CarView {
+        -int X$
+        -int Y$
+        ~ int gasAmount
+        ~ CarController carC
+        ~ DrawPanel drawPanel
+        ~ JSpinner gasSpinner
+        ~ JLabel gasLabel
+        ~ JPanel controlPanel
+        ~ JPanel gasPanel
+        ~ JButton gasButton
+        ~ JButton brakeButton
+        ~ JButton turboOnButton
+        ~ JButton turboOffButton
+        ~ JButton liftBedButton
+        ~ JButton lowerBedButton
+        ~ JButton startButton
+        ~ JButton stopButton
+
+        + CarView(String, CarController)
+        - initComponents(String) void
+    }
+    
+    ActionListener <|-- TimeListener: implements
+    class TimerListener {
+        + actionPerformed(ActionEvent)
+    }
+    
+    class CarController {
+        - int delay
+        - Timer timer // TimerListener
+        # CarView frame
+        # ArrayList<Car> cars
+        # CarBrandWorkshop<Volvo240> volvoWorkshop
+
+        + main(String[]) $
+        + getCars() ArrayList<Car>
+        + startCars()
+        + stopCars()
+        + liftBed()
+        + lowerBed()
+        # gas(int)
+        # brake(int)
+        # turboOn()
+        # turboOff()
+    }
+    
 ```
