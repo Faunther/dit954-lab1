@@ -14,14 +14,6 @@ Type	Description
 
 ```mermaid
 classDiagram
-    class Point { }
-    class Dimension { }
-    class Color { }
-    class String { }
-    class ArrayList { }
-    class HashMap { }
-    class IOException { }
-    
     Car <|-- Scania: extends
     Car <|-- Volvo240: extends
     Car <|-- Saab95: extends
@@ -173,7 +165,6 @@ classDiagram
     class Timer { }
     class Toolkit { }
 
-
     class DrawPanel {
         ~ BufferedImage volvoWorkshopImage
         ~ Point volvoWorkshopPoint
@@ -189,18 +180,10 @@ classDiagram
         ~ setCars(ArrayList<Car>) void
     }
     JPanel <|-- DrawPanel: extends
-    DrawPanel --* HashMap
-    DrawPanel --* String
     DrawPanel --* Image
     DrawPanel --* BufferedImage
-    DrawPanel --* Point
-    DrawPanel --* Dimension
-    DrawPanel --* ArrayList
     DrawPanel --o Car
     DrawPanel --> Graphics
-    DrawPanel --> Color
-    DrawPanel --> IOException
-
 
     class CarView {
         -int X$
@@ -231,11 +214,8 @@ classDiagram
     CarView --* JLabel
     CarView --* JPanel
     CarView --* JButton
-    CarView --> String
-    CarView --> Dimension
     CarView --> FlowLayout
     CarView --> BorderLayout
-    CarView --> Color
     CarView --> Toolkit
     CarView --> SpinnerNumberModel
     CarView --> ActionEvent
@@ -249,13 +229,10 @@ classDiagram
     TimerListener ..> CarController
     TimerListener ..> CarView
     TimerListener ..> DrawPanel
-    TimerListener ..> Point
-    TimerListener ..> ArrayList
     TimerListener ..> Car
     TimerListener ..> Volvo240
     TimerListener ..> Rectangle
-    TimerListener ..> Dimension
-    TimerListener ..> CarBrandWorkShop
+    TimerListener ..> CarBrandWorkshop
     TimerListener ..> JFrame
     
     class CarController {
@@ -279,12 +256,10 @@ classDiagram
     CarController --* Timer
     CarController --* TimerListener
     CarController --* CarView
-    CarController --* ArrayList
     CarController --* Car
-    CarController --* CarBrandWorkShop
-    CarController ..> String
+    CarController --* CarBrandWorkshop
     CarController ..> Volvo240
     CarController ..> Saab95
     CarController ..> Scania
-    CarController ..> Point
+    
 ```
