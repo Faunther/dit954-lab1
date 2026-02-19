@@ -15,12 +15,17 @@ Type	Description
 
 ```mermaid
 classDiagram
+    class Point { }
+    class String { }
+    class ArrayList { }
+    class HashMap { }
+    
     Car <|-- Scania : extends
     Car <|-- Volvo240 : extends
     Car <|-- Saab95 : extends
     Car <|-- AutoHaler : extends
 
-    CarData <.. CarHaulerData
+    CarData <|-- CarHaulerData
 
     CarData <.. Scania
     CarData <.. Volvo240
@@ -148,12 +153,6 @@ classDiagram
         +speedFactor(double)
     }
 
-
-    class Point { }
-    class String { }
-    class ArrayList { }
-    class HashMap { }
-    
     class JPanel { }
     class JFrame { }
     class JButton { }
@@ -164,18 +163,15 @@ classDiagram
     class Timer { }
     
     JPanel <|-- DrawPanel : extends
-    JFrame <|-- CarView
-    JButton --* CarView
 
-    DrawPanel *-- HashMap
-    DrawPanel *-- String
-    DrawPanel *-- Image
-    DrawPanel *-- BufferedImage
-    DrawPanel *-- Point
-    DrawPanel o-- Car
-    DrawPanel o-- ArrayList
-    DrawPanel o-- Graphics
-    
+    DrawPanel --* HashMap
+    DrawPanel --* String
+    DrawPanel --* Image
+    DrawPanel --* BufferedImage
+    DrawPanel --* Point
+    DrawPanel --* ArrayList
+    DrawPanel --o Car
+    DrawPanel ..> Graphics
     class DrawPanel {
         ~ BufferedImage volvoWorkshopImage
         ~ Point volvoWorkshopPoint
@@ -190,13 +186,14 @@ classDiagram
         # paintComponent(Graphics)
         ~ setCars(ArrayList<Car>) void
     }
-    
+
+    JFrame <|-- CarView
     CarView ..> CarController
     CarView ..> DrawPanel
-    CarView *-- JSpinner
-    CarView *-- JLabel
-    CarView *-- JPanel
-    CarView *-- JButton
+    CarView --* JSpinner
+    CarView --* JLabel
+    CarView --* JPanel
+    CarView --* JButton
     CarView --> String
     class CarView {
         -int X$
