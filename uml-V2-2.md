@@ -56,7 +56,7 @@ namespace Models {
     class CarBrandWorkshop
 }
 
-namespace Models.Cars {
+namespace ModelsCars {
     class CarFactory
     class Volvo240
     class Saab95
