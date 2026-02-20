@@ -340,6 +340,7 @@ classDiagram
     CarController --* Car
     CarController --* CarBrandWorkshop
     CarController ..> carSystemFactary
+    CarController ..|> carFactary
 
    
     
