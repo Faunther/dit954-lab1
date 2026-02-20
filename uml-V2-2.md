@@ -12,7 +12,7 @@
 ```
 <|--    Inheritance
 *--     Composition (A owns B, B can't be independent)
-o--	    Aggregation (A owns B, B can be independent
+o--	    Aggregation (A owns B, B can be independent)
 -->     Association
 --      Link (Solid)
 ..>     Dependency
@@ -23,6 +23,7 @@ o--	    Aggregation (A owns B, B can be independent
 ```mermaid
 ---
 config:
+    look: classic
     displayMode: compact
     layout: elk
     elk:
@@ -32,11 +33,10 @@ config:
 
 classDiagram
 
-namespace interface {
+namespace Interfaces {
   class IRamp
   class IMovable
-  class ITurboCharger
-    
+  class ITurboCharger   
 }
 
 namespace Carsystems {
@@ -53,14 +53,15 @@ namespace Carsystems {
 
 namespace Models {
     class Car
+    class CarBrandWorkshop
+}
 
-
+namespace Models.Cars {
+    class CarFactory
     class Volvo240
     class Saab95
     class Scania
     class AutoHauler
-
-    class CarBrandWorkshop
 }
   class carSystem{
     +uppDateCar()
@@ -168,9 +169,9 @@ namespace Models {
         +turnRight()
         +getPoint() Point2D.Double
         +getDirection() double
-        +getNrDoors() int
-        +getModelName() String
-        +getEnginePower() double
+        +getNrDoors()* int
+        +getModelName()* String
+        +getEnginePower()* *double
         +getCurrentSpeed() double
         +getColor() Color
         +setColor(Color newColor)
@@ -242,11 +243,11 @@ namespace Models {
         +getModelName() String
     }
 
-  carFactary ..> Volvo240
-  carFactary ..> Saab95
-  carFactary ..> Scania
+  CarFactory ..> Volvo240
+  CarFactory ..> Saab95
+  CarFactory ..> Scania
 
-  class carFactary {
+  class CarFactory {
     +createVolvo()
     +createSaab()
     +createScania()
@@ -377,7 +378,6 @@ namespace GUI {
         ~ ArrayList<Car> cars
         ~ CarBrandWorkshop<Volvo240> volvoWorkshop
         
-        + main(String[]) $
         + getCars() ArrayList<Car>
         + startCars()
         + stopCars()
@@ -395,6 +395,7 @@ namespace GUI {
     CarController --* CarView
 
     CarController --* CarBrandWorkshop
+    CarController ..> CarFactory
     CarController ..|> carSystemFactary
     CarController ..> carFactary
     CarController ..> Rectangle
@@ -402,6 +403,12 @@ namespace GUI {
     CarController ..> IMovable
     CarController ..> ITurboCharger
     
+    class Application {
+        + main(String[]) $
+    }
+    Application ..> CarBrandWorkshop
+    Application ..> CarFactory
+    Application ..> CarController
 ```
 
 # Ändringar sedan V1:
@@ -409,7 +416,9 @@ namespace GUI {
 - Tog bort CarData. La till getNrDoors, getEnginePower, getModelName istället
 - Tog bort relation mellan CarController/TimerListener och DrawPanel - ersätts
   med frame.getPanelSize() och frame.getCarSize()
-- Har skapat en carFactroy so att carControler bara interagerar med en class när den skapar sina Car. 
+- Har skapat en carFactroy so att carControler bara interagerar med en class när
+  den skapar sina Car.
+- Lagt till Application class
 
 ### TODO
 
