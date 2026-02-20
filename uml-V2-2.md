@@ -51,9 +51,6 @@ namespace CarSystems {
 namespace Models {
     class Car
     class CarBrandWorkshop
-}
-
-namespace ModelsCars {
     class CarFactory
     class Volvo240
     class Saab95
@@ -61,7 +58,7 @@ namespace ModelsCars {
     class AutoHauler
 }
   class CarSystem{
-    +uppDateCar()
+    +updateCar()
     +carList()
     +getGasOnCallback(): ActionListener
     -onGasEvent()
@@ -76,12 +73,12 @@ namespace ModelsCars {
   class SaabSystem{
     +carlist
 
-    +uppdateCarList()
-    +uppDateCar()
+    +updateCarList()
+    +updateCar()
     +carList()
-    +getturboOffOnCallback(): ActionListener
+    +getTurboOffOnCallback(): ActionListener
     -turboOffEvent()
-    +getturboOnOnCallback(): ActionListener
+    +getTurboOnOnCallback(): ActionListener
     -turboOnEvent()
 
   }
@@ -91,34 +88,34 @@ namespace ModelsCars {
   class VolvoSystem{
     +carlist
 
-    +uppdateCarList()
-    +uppDateCar()
+    +updateCarList()
+    +updateCar()
     +carList()
   }
   CarSystem <|-- ScaniaSystem
   ScaniaSystem ..> Scania
 
-  class ScaniaSystem{
-    +carlist
+    class ScaniaSystem{
+        +carlist
 
-    +uppdateCarList()
-    +uppDateCar()
-    +carList()
-    +getliftBedOnCallback(): ActionListener
-    -liftBedEvent()
-    +getlowerBedOnCallback(): ActionListener
-    -lowerBedEvent()
+        +updateCarList()
+        +updateCar()
+        +carList()
+        +getliftBedOnCallback(): ActionListener
+        -liftBedEvent()
+        +getlowerBedOnCallback(): ActionListener
+        -lowerBedEvent()
 
-  }
-  CarSystemFactory --> SaabSystem
-  CarSystemFactory --> VolvoSystem
-  CarSystemFactory --> ScaniaSystem
+    }
+    CarSystemFactory --> SaabSystem
+    CarSystemFactory --> VolvoSystem
+    CarSystemFactory --> ScaniaSystem
 
-  class CarSystemFactory{
-    +createVolvoSystom()
-    +createSaabSystom()
-    +createScaniaSystom()
-  }
+    class CarSystemFactory{
+        +createVolvoSystem()
+        +createSaabSystem()
+        +createScaniaSystem()
+    }
 
     Car <|-- Scania: extends
     Car <|-- Volvo240: extends
@@ -136,10 +133,10 @@ namespace ModelsCars {
         ~ rampUp();
         ~ getRampIsDown(boolean);
     }
-  class ITurboCharger {
-    +setTurboOn()
-    +setTurboOff()
-  }
+    class ITurboCharger {
+        +setTurboOn()
+        +setTurboOff()
+    }
     <<interface>> ITurboCharger
     ITurboCharger <|.. Saab95: implements
     
@@ -243,9 +240,7 @@ namespace ModelsCars {
   CarFactory ..> Scania
 
   class CarFactory {
-    +createVolvo()
-    +createSaab()
-    +createScania()
+    +createCar(string)
   }
 
     Car <|-- CarBrandWorkshop: TBrand extends Car
@@ -390,8 +385,7 @@ namespace GUI {
     CarController --* CarView
 
     CarController --* CarBrandWorkshop
-    CarController ..> CarFactory
-    CarController ..|> CarSystemFactory
+    CarController --o CarSystem
     CarController ..> Rectangle
     CarController ..> IRamp
     CarController ..> IMovable
@@ -401,10 +395,10 @@ namespace GUI {
         + main(String[]) $
     }
     Application ..> CarBrandWorkshop
-    Application ..> CarFactory
-    Application ..> CarSystemFactory
-    Application .. CarSystem
-    Application ..> CarController
+    Application .. CarFactory
+    Application .. CarSystemFactory
+    Application ..* CarSystem
+    Application ..* CarController
 ```
 
 # Ändringar sedan V1:
