@@ -409,10 +409,3 @@ namespace GUI {
 - Lagt till Application class
 - Har skapat en CarFactory so att Application bara interagerar med en class när
   den skapar sina Car.
-
-### TODO
-
-- Vilka relationer är nödvändiga? Dimension? Rectangle?
-- I och med att TimerListener är privat och inte läcks bör det vara ok att säga
-  att den är samma som CarController i UML-diagrammet? => flyttade alla
-  relationer från TimerListener till CarController
