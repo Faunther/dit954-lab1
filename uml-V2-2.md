@@ -39,17 +39,14 @@ namespace Interfaces {
   class ITurboCharger   
 }
 
-namespace Carsystems {
-    class carSystem
-    class carFactary
-    class carSystemFactary
-    class scaniaSystem
-    class volvoSystem
-    class saabSystem
-    
+namespace CarSystems {
+    class CarSystem
+    class CarFactory
+    class CarSystemFactory
+    class ScaniaSystem
+    class VolvoSystem
+    class SaabSystem
 }
-
-
 
 namespace Models {
     class Car
@@ -63,22 +60,20 @@ namespace ModelsCars {
     class Scania
     class AutoHauler
 }
-  class carSystem{
+  class CarSystem{
     +uppDateCar()
     +carList()
     +getGasOnCallback(): ActionListener
-    -gasonEvent()
-
-
+    -onGasEvent()
   }
-  carSystem <|-- saabSystem
-  carSystem <|-- volvoSystem
-  carSystem <|-- scaniaSystem
+  CarSystem <|-- SaabSystem
+  CarSystem <|-- VolvoSystem
+  CarSystem <|-- ScaniaSystem
 
-  carSystem <|-- saabSystem
-  saabSystem ..> Saab95
+  CarSystem <|-- SaabSystem
+  SaabSystem ..> Saab95
 
-  class saabSystem{
+  class SaabSystem{
     +carlist
 
     +uppdateCarList()
@@ -90,20 +85,20 @@ namespace ModelsCars {
     -turboOnEvent()
 
   }
-  carSystem <|-- volvoSystem
-  volvoSystem ..> Volvo240
+  CarSystem <|-- VolvoSystem
+  VolvoSystem ..> Volvo240
 
-  class volvoSystem{
+  class VolvoSystem{
     +carlist
 
     +uppdateCarList()
     +uppDateCar()
     +carList()
   }
-  carSystem <|-- scaniaSystem
-  scaniaSystem ..> Scania
+  CarSystem <|-- ScaniaSystem
+  ScaniaSystem ..> Scania
 
-  class scaniaSystem{
+  class ScaniaSystem{
     +carlist
 
     +uppdateCarList()
@@ -115,11 +110,11 @@ namespace ModelsCars {
     -lowerBedEvent()
 
   }
-  carSystemFactary --> saabSystem
-  carSystemFactary --> volvoSystem
-  carSystemFactary --> scaniaSystem
+  CarSystemFactory --> SaabSystem
+  CarSystemFactory --> VolvoSystem
+  CarSystemFactory --> ScaniaSystem
 
-  class carSystemFactary{
+  class CarSystemFactory{
     +createVolvoSystom()
     +createSaabSystom()
     +createScaniaSystom()
@@ -396,8 +391,7 @@ namespace GUI {
 
     CarController --* CarBrandWorkshop
     CarController ..> CarFactory
-    CarController ..|> carSystemFactary
-    CarController ..> carFactary
+    CarController ..|> CarSystemFactory
     CarController ..> Rectangle
     CarController ..> IRamp
     CarController ..> IMovable
@@ -408,6 +402,8 @@ namespace GUI {
     }
     Application ..> CarBrandWorkshop
     Application ..> CarFactory
+    Application ..> CarSystemFactory
+    Application .. CarSystem
     Application ..> CarController
 ```
 
@@ -416,9 +412,9 @@ namespace GUI {
 - Tog bort CarData. La till getNrDoors, getEnginePower, getModelName istället
 - Tog bort relation mellan CarController/TimerListener och DrawPanel - ersätts
   med frame.getPanelSize() och frame.getCarSize()
-- Har skapat en carFactroy so att carControler bara interagerar med en class när
-  den skapar sina Car.
 - Lagt till Application class
+- Har skapat en CarFactory so att Application bara interagerar med en class när
+  den skapar sina Car.
 
 ### TODO
 
