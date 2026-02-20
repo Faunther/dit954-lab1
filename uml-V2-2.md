@@ -69,8 +69,8 @@ namespace Models {
         ~ getRampIsDown(boolean);
     }
   class ITurboCharger {
-    turboOm
-    tutboOff
+    +setTurboOn()
+    +setTurboOff()
   }
     <<interface>> ITurboCharger
     ITurboCharger <|.. Saab95: implements
