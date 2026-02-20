@@ -32,12 +32,17 @@ config:
 
 classDiagram
 
+namespace interface {
+  class IRamp
+  class IMovable
+  class ITurboCharger
+    
+}
 
 
 namespace Models {
     class Car
-    class IRamp
-    class IMovable
+
 
     class Volvo240
     class Saab95
@@ -63,13 +68,20 @@ namespace Models {
         ~ rampUp();
         ~ getRampIsDown(boolean);
     }
-
+  class ITurboCharger {
+    turboOm
+    tutboOff
+  }
+    <<interface>> ITurboCharger
+    ITurboCharger <|.. Saab95: implements
+    
     <<interface>> IMovable
     IMovable <|.. Car: implements
     IMovable <|.. Saab95: implements
     IMovable <|.. Scania: implements
     IMovable <|.. Volvo240: implements
     IMovable <|.. AutoHauler: implements
+    
     <<interface>> IRamp
     IRamp <|.. Scania: implements
     IRamp <|.. AutoHauler: implements
@@ -157,6 +169,16 @@ namespace Models {
         +getEnginePower() double
         +getModelName() String
     }
+
+  carFactary ..> Volvo240
+  carFactary ..> Saab95
+  carFactary ..> Scania
+
+  class carFactary {
+    +createVolvo()
+    +createSaab()
+    +createScania()
+  }
 
     Car <|-- CarBrandWorkshop: TBrand extends Car
 
@@ -301,10 +323,12 @@ namespace GUI {
     CarController --* CarView
     CarController --* Car
     CarController --* CarBrandWorkshop
-    CarController ..> Volvo240
-    CarController ..> Saab95
-    CarController ..> Scania
+    CarController ..> carFactary
     CarController ..> Rectangle
+    CarController ..> IRamp
+    CarController ..> IMovable
+    CarController ..> ITurboCharger
+    
 ```
 
 # Ändringar sedan V1:
@@ -312,6 +336,7 @@ namespace GUI {
 - Tog bort CarData. La till getNrDoors, getEnginePower, getModelName istället
 - Tog bort relation mellan CarController/TimerListener och DrawPanel - ersätts
   med frame.getPanelSize() och frame.getCarSize()
+- Har skapat en carFactroy so att carControler bara interagerar med en class när den skapar sina Car. 
 
 ### TODO
 
