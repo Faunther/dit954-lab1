@@ -1,28 +1,55 @@
 <!-- https://mermaid.js.org/syntax/classDiagram.html -->
 
+# UML Digram - refactored
 
-Type	Description
-===================
-    <|--    Inheritance
-    *--     Composition (A owns B, B can't be independent)
-    o--	Aggregation (A owns B, B can be independent
-    -->     Association
-    --      Link (Solid)
-    ..>     Dependency
-    ..|>    Realization
-    ..      Link (Dashed)
+```
++   Public
+-   Private
+#   Protected
+~   Package/Internal
+```
+
+```
+<|--    Inheritance
+*--     Composition (A owns B, B can't be independent)
+o--	    Aggregation (A owns B, B can be independent
+-->     Association
+--      Link (Solid)
+..>     Dependency
+..|>    Realization
+..      Link (Dashed)
+```
 
 ```mermaid
 classDiagram
+namespace `Cars` {
+    class Car
+    class CarData
+
+    class Saab95
+    class Volvo240
+    class Scania
+
+    class AutoHauler
+    class CarHaulerData
+
+    class CarBrandWorkshop
+
+    class IMovable
+    class IRamp
+}
+
+
+
     Car <|-- Scania: extends
     Car <|-- Volvo240: extends
     Car <|-- Saab95: extends
-    Car <|-- AutoHaler: extends
+    Car <|-- AutoHauler: extends
     CarData <|-- CarHaulerData
     CarData <.. Scania
     CarData <.. Volvo240
     CarData <.. Saab95
-    CarHaulerData <.. AutoHaler
+    CarHaulerData <.. AutoHauler
 
     class CarHaulerData {
         #int m_maxCarsLoaded
@@ -54,11 +81,11 @@ classDiagram
     IMovable <|.. Saab95: implements
     IMovable <|.. Scania: implements
     IMovable <|.. Volvo240: implements
-    IMovable <|.. AutoHaler: implements
+    IMovable <|.. AutoHauler: implements
     CarData *-- Car
     <<interface>> IRamp
     IRamp <|.. Scania: implements
-    IRamp <|.. AutoHaler: implements
+    IRamp <|.. AutoHauler: implements
 
     class Car {
         #CarData m_carData
@@ -113,7 +140,7 @@ classDiagram
         +setTurboOff()
         +speedFactor(double)
     }
-    class AutoHaler {
+    class AutoHauler {
         #int m_nrDoors
         #double m_enginePower
         #String m_modelName
@@ -230,6 +257,26 @@ classDiagram
     }
 
 %% Swing library
+namespace Swing {
+    class JPanel
+    class JFrame
+    class JButton
+    class JLabel
+    class JSpinner
+
+    class Graphics
+    class FlowLayout
+    class Image
+    class BufferedImage
+    class ActionListener
+    class ActionEvent
+    class ChangeListener
+
+    class SpinnerNumberModel
+    class BorderLayout
+    class Toolkit
+}
+
     class JPanel { }
     class JFrame { }
     class JButton { }
@@ -340,7 +387,4 @@ classDiagram
     CarController --* Car
     CarController --* CarBrandWorkshop
     CarController ..> carSystemFactary
-
-   
-    
 ```

@@ -1,28 +1,37 @@
 <!-- https://mermaid.js.org/syntax/classDiagram.html -->
 
+# UML Digram - before refactoring
 
-Type	Description
-===================
-    <|--    Inheritance
-    *--     Composition (A owns B, B can't be independent)
-    o--	Aggregation (A owns B, B can be independent
-    -->     Association
-    --      Link (Solid)
-    ..>     Dependency
-    ..|>    Realization
-    ..      Link (Dashed)
+```
++   Public
+-   Private
+#   Protected
+~   Package/Internal
+```
+
+```
+<|--    Inheritance
+*--     Composition (A owns B, B can't be independent)
+o--	    Aggregation (A owns B, B can be independent
+-->     Association
+--      Link (Solid)
+..>     Dependency
+..|>    Realization
+..      Link (Dashed)
+```
 
 ```mermaid
 classDiagram
+
     Car <|-- Scania: extends
     Car <|-- Volvo240: extends
     Car <|-- Saab95: extends
-    Car <|-- AutoHaler: extends
+    Car <|-- AutoHauler: extends
     CarData <|-- CarHaulerData
     CarData <.. Scania
     CarData <.. Volvo240
     CarData <.. Saab95
-    CarHaulerData <.. AutoHaler
+    CarHaulerData <.. AutoHauler
 
     class CarHaulerData {
         #int m_maxCarsLoaded
@@ -49,16 +58,17 @@ classDiagram
         ~ rampUp();
         ~ getRampIsDown(boolean);
     }
+
     <<interface>> IMovable
     IMovable <|.. Car: implements
     IMovable <|.. Saab95: implements
     IMovable <|.. Scania: implements
     IMovable <|.. Volvo240: implements
-    IMovable <|.. AutoHaler: implements
+    IMovable <|.. AutoHauler: implements
     CarData *-- Car
     <<interface>> IRamp
     IRamp <|.. Scania: implements
-    IRamp <|.. AutoHaler: implements
+    IRamp <|.. AutoHauler: implements
 
     class Car {
         #CarData m_carData
@@ -113,7 +123,7 @@ classDiagram
         +setTurboOff()
         +speedFactor(double)
     }
-    class AutoHaler {
+    class AutoHauler {
         #int m_nrDoors
         #double m_enginePower
         #String m_modelName
@@ -133,7 +143,6 @@ classDiagram
     }
 
     Car <|-- CarBrandWorkshop: TBrand extends Car
-    Car <-- CarBrandWorkshop
 
     class CarBrandWorkshop {
         -int m_carCapacity
@@ -146,6 +155,26 @@ classDiagram
     }
 
 %% Swing library
+namespace Swing {
+    class JPanel
+    class JFrame
+    class JButton
+    class JLabel
+    class JSpinner
+
+    class Graphics
+    class FlowLayout
+    class Image
+    class BufferedImage
+    class ActionListener
+    class ActionEvent
+    class ChangeListener
+
+    class SpinnerNumberModel
+    class BorderLayout
+    class Toolkit
+}
+
     class JPanel { }
     class JFrame { }
     class JButton { }
@@ -222,22 +251,22 @@ classDiagram
     CarView --> ActionListener
     CarView --> ChangeListener
 
-    class TimerListener {
+    class -TimerListener {
         + actionPerformed(ActionEvent)
     }
-    ActionListener <|-- TimerListener: implements
-    TimerListener ..> CarController
-    TimerListener ..> CarView
-    TimerListener ..> DrawPanel
-    TimerListener ..> Car
-    TimerListener ..> Volvo240
-    TimerListener ..> Rectangle
-    TimerListener ..> CarBrandWorkshop
-    TimerListener ..> JFrame
+    ActionListener <|-- -TimerListener: implements
+    -TimerListener ..> CarController
+    -TimerListener ..> CarView
+    -TimerListener ..> DrawPanel
+    -TimerListener ..> Car
+    -TimerListener ..> Volvo240
+    -TimerListener ..> Rectangle
+    -TimerListener ..> CarBrandWorkshop
+    -TimerListener ..> JFrame
     
     class CarController {
         - int delay
-        - Timer timer // TimerListener
+        - Timer timer // -TimerListener
         ~ CarView frame
         ~ ArrayList<Car> cars
         ~ CarBrandWorkshop<Volvo240> volvoWorkshop
@@ -254,12 +283,11 @@ classDiagram
         ~ turboOff()
     }
     CarController --* Timer
-    CarController --* TimerListener
+    CarController --* -TimerListener
     CarController --* CarView
     CarController --* Car
     CarController --* CarBrandWorkshop
     CarController ..> Volvo240
     CarController ..> Saab95
     CarController ..> Scania
-    
 ```
