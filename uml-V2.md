@@ -66,6 +66,11 @@ classDiagram
         #double m_currentSpeed
         #Point2D.Double m_position
         #double m_direction
+        
+        +getNrDoors() int
+        +getEnginePower() double
+        +getModelName() String
+        
         +move()
         +turnLeft()
         +turnRight()

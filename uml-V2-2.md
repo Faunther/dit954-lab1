@@ -39,6 +39,17 @@ namespace interface {
     
 }
 
+namespace Carsystems {
+    class carSystem
+    class carFactary
+    class carSystemFactary
+    class scaniaSystem
+    class volvoSystem
+    class saabSystem
+    
+}
+
+
 
 namespace Models {
     class Car
@@ -51,6 +62,67 @@ namespace Models {
 
     class CarBrandWorkshop
 }
+  class carSystem{
+    +uppDateCar()
+    +carList()
+    +getGasOnCallback(): ActionListener
+    -gasonEvent()
+
+
+  }
+  carSystem <|-- saabSystem
+  carSystem <|-- volvoSystem
+  carSystem <|-- scaniaSystem
+
+  carSystem <|-- saabSystem
+  saabSystem ..> Saab95
+
+  class saabSystem{
+    +carlist
+
+    +uppdateCarList()
+    +uppDateCar()
+    +carList()
+    +getturboOffOnCallback(): ActionListener
+    -turboOffEvent()
+    +getturboOnOnCallback(): ActionListener
+    -turboOnEvent()
+
+  }
+  carSystem <|-- volvoSystem
+  volvoSystem ..> Volvo240
+
+  class volvoSystem{
+    +carlist
+
+    +uppdateCarList()
+    +uppDateCar()
+    +carList()
+  }
+  carSystem <|-- scaniaSystem
+  scaniaSystem ..> Scania
+
+  class scaniaSystem{
+    +carlist
+
+    +uppdateCarList()
+    +uppDateCar()
+    +carList()
+    +getliftBedOnCallback(): ActionListener
+    -liftBedEvent()
+    +getlowerBedOnCallback(): ActionListener
+    -lowerBedEvent()
+
+  }
+  carSystemFactary --> saabSystem
+  carSystemFactary --> volvoSystem
+  carSystemFactary --> scaniaSystem
+
+  class carSystemFactary{
+    +createVolvoSystom()
+    +createSaabSystom()
+    +createScaniaSystom()
+  }
 
     Car <|-- Scania: extends
     Car <|-- Volvo240: extends
@@ -321,8 +393,9 @@ namespace GUI {
     CarController --* Timer
     CarController --* -TimerListener
     CarController --* CarView
-    CarController --* Car
+
     CarController --* CarBrandWorkshop
+    CarController ..|> carSystemFactary
     CarController ..> carFactary
     CarController ..> Rectangle
     CarController ..> IRamp
