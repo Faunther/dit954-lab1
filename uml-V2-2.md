@@ -41,7 +41,6 @@ namespace Interfaces {
 
 namespace CarSystems {
     class CarSystem
-    class CarFactory
     class CarSystemFactory
     class ScaniaSystem
     class VolvoSystem
@@ -60,7 +59,7 @@ namespace Models {
   class CarSystem{
     +updateCar()
     +carList()
-    +getOnGasCallback(): ActionListener
+    +getGasOnCallback(): ActionListener
     -onGasEvent()
   }
   CarSystem <|-- SaabSystem
@@ -101,9 +100,9 @@ namespace Models {
         +updateCarList()
         +updateCar()
         +carList()
-        +getLiftBedCallback(): ActionListener
+        +getliftBedOnCallback(): ActionListener
         -liftBedEvent()
-        +getLowerBedCallback(): ActionListener
+        +getlowerBedOnCallback(): ActionListener
         -lowerBedEvent()
 
     }
@@ -246,11 +245,11 @@ namespace Models {
     Car <|-- CarBrandWorkshop: TBrand extends Car
 
     class CarBrandWorkshop {
-        - int m_carCapacity
-        # Map<Integer, TBrand> m_garage
-        + getCarCapacity(int)
-        + getNumOfCars(int)
-        + canAcceptCar(boolean)
+        -int m_carCapacity
+        #Map<Integer, TBrand> m_garage
+        +getCarCapacity(int)
+        +getNumOfCars(int)
+        +canAcceptCar(boolean)
         ~ acceptCar(Integer)
         ~ retrieveCar(TBrand)
     }

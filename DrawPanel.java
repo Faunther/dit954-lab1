@@ -15,7 +15,7 @@ public class DrawPanel extends JPanel {
     BufferedImage volvoWorkshopImage;
     Point volvoWorkshopPoint = new Point(300, 300);
 
-    ArrayList<Car> cars = new ArrayList<>();
+    ArrayList<Car> cars;
     HashMap<String, Image> carImages = new HashMap<>();
 
     void setCars(ArrayList<Car> cars) {
