@@ -9,19 +9,20 @@ public class AutoHauler extends Car implements IRamp {
     private boolean m_rampIsDown = false;
     private Stack<Car> m_loadedCars = new Stack<Car>();
 
-    public static class AutoHaulerData extends CarHaulerData {
-        public AutoHaulerData() {
-            m_nrDoors = 2;
-            m_enginePower = 700;
-            m_modelName = "AutoHauler3000";
-            m_maxCarsLoaded = 5;
-        }
-    }
+    // "CarData" Implement ====================================================
+    @Override
+    public int getNrDoors() { return 2; }
+    @Override
+    public double getEnginePower() { return 700; }
+    @Override
+    public String getModelName() { return "AutoHauler3000"; }
 
-    private static AutoHaulerData g_instance = new AutoHaulerData();
+    // ??? should be part of IRamp or a new interface such as ILoadable?
+    // renamed from maxCarsLoaded
+    public int getCarLoadCapacity() { return 5; }
+
 
     public AutoHauler() {
-        m_carData = g_instance;
         stopEngine();
     }
 
@@ -54,7 +55,7 @@ public class AutoHauler extends Car implements IRamp {
         if (car.m_position.distanceSq(this.m_position) > 10 * 10)
             throw new Error("car is too far away to be loaded");
 
-        if (m_loadedCars.size() >= AutoHauler.g_instance.m_maxCarsLoaded)
+        if (m_loadedCars.size() >= this.getCarLoadCapacity())
             throw new Error("maximum number of cars already loaded");
 
         m_loadedCars.add(car);
@@ -101,6 +102,6 @@ public class AutoHauler extends Car implements IRamp {
     public double speedFactor() {
         if (this.m_rampIsDown)
             throw new Error("Can not change speed while ramp is lowered");
-        return m_carData.getEnginePower() * 0.001;
+        return this.getEnginePower() * 0.001;
     }
 }

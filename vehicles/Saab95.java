@@ -7,19 +7,15 @@ public class Saab95 extends Car {
     public boolean turboOn;
     public Color color; // Color of the car
 
-    public static class Saab95Data extends CarData {
-        public Saab95Data() {
-            m_nrDoors = 2;
-            m_enginePower = 125;
-            m_modelName = "Saab95";
-        }
-    }
-
-    // TODO: Should this be public?
-    private static Saab95Data g_instancr = new Saab95Data();
+    // "CarData" Implement ====================================================
+    @Override
+    public int getNrDoors() { return 2; }
+    @Override
+    public double getEnginePower() { return 125; }
+    @Override
+    public String getModelName() { return "Saab95"; }
 
     public Saab95() {
-        m_carData = g_instancr;
         color = Color.red;
         turboOn = false;
         stopEngine();
@@ -38,6 +34,6 @@ public class Saab95 extends Car {
         double turbo = 1;
         if (turboOn)
             turbo = 1.3;
-        return m_carData.getEnginePower() * 0.01 * turbo;
+        return this.getEnginePower() * 0.01 * turbo;
     }
 }

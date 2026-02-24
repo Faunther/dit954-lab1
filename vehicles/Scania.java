@@ -5,20 +5,21 @@ import vehicles.loadable.IRamp;
 public class Scania extends Car implements IRamp {
     private double m_bedAngle = 0.0;
 
-    public static class ScaniaData extends CarData {
-        public ScaniaData() {
-            m_nrDoors = 2;
-            m_enginePower = 700;
-            m_modelName = "Scania";
-        }
-    }
+    // "CarData" Implement ====================================================
+    @Override
+    public int getNrDoors() { return 2; }
+    @Override
+    public double getEnginePower() { return 700; }
+    @Override
+    public String getModelName() { return "Scania"; }
 
-    private static ScaniaData g_instance = new ScaniaData();
 
     public Scania() {
-        m_carData = g_instance;
         stopEngine();
     }
+
+
+    // Get-/Setters ===========================================================
 
     public double getCurrentBedAngle() {
         return m_bedAngle;
@@ -54,6 +55,6 @@ public class Scania extends Car implements IRamp {
             throw new Error("can not move while bed is down");
 
         // TODO: Should this be dependant on the load or something?
-        return m_carData.getEnginePower() * 0.001;
+        return this.getEnginePower() * 0.001;
     }
 }

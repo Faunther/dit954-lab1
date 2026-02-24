@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 
 public abstract class Car implements IMovable {
-    protected CarData m_carData; // General car data that should be UNIQUE and UNMUTABLE for a model.
     protected Color m_color; // Color of the car
     protected double m_currentSpeed = 0;// The current speed of the car
 
@@ -29,6 +28,13 @@ public abstract class Car implements IMovable {
         System.out.println(m_position);
     }
 
+    // "CarData" Getters ======================================================
+    abstract public int getNrDoors();
+
+    abstract public double getEnginePower();
+
+    abstract public String getModelName();
+
     // Get-/Setters ===========================================================
     public Point2D.Double getPoint() {
         return m_position;
@@ -38,15 +44,6 @@ public abstract class Car implements IMovable {
         return m_direction;
     }
 
-    public int getNrDoors() {
-        return m_carData.getNrDoors();
-    }
-
-    public String getModelName() {return m_carData.m_modelName;}
-
-    public double getEnginePower() {
-        return m_carData.m_enginePower;
-    }
 
     public double getCurrentSpeed() {
         return m_currentSpeed;
@@ -82,7 +79,7 @@ public abstract class Car implements IMovable {
     }
 
     private void incrementSpeed(double amount) {
-        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, m_carData.getEnginePower());
+        m_currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, this.getEnginePower());
     }
 
     private void decrementSpeed(double amount) {
