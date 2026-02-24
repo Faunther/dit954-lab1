@@ -3,9 +3,7 @@ package vehicles;
 import java.awt.*;
 
 public class Saab95 extends Car {
-
-    public boolean turboOn;
-    public Color color; // Color of the car
+    private boolean m_TurboOn;
 
     // "CarData" Implement ====================================================
     @Override
@@ -16,23 +14,25 @@ public class Saab95 extends Car {
     public String getModelName() { return "Saab95"; }
 
     public Saab95() {
-        color = Color.red;
-        turboOn = false;
+        m_color = Color.red;
+        m_TurboOn = false;
         stopEngine();
     }
 
     public void setTurboOn() {
-        turboOn = true;
+        m_TurboOn = true;
     }
 
     public void setTurboOff() {
-        turboOn = false;
+        m_TurboOn = false;
     }
+
+    public boolean isTurboOn() { return m_TurboOn; }
 
     @Override
     public double speedFactor() {
         double turbo = 1;
-        if (turboOn)
+        if (m_TurboOn)
             turbo = 1.3;
         return this.getEnginePower() * 0.01 * turbo;
     }
