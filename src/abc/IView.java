@@ -4,7 +4,7 @@ public interface IView {
 
     public void addModelImage(String car, String carImage);
 
-    public void addSubscriber(Publisher pub);
+    public void addSubscriber(IViewActionsHandler actionsHandler);
 
 
 }

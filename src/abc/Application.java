@@ -37,7 +37,7 @@ public class Application {
 
 
 
-        Publisher.IView v = new Publisher.CarView();
+        IView v = new CarView();
         v.addModelImage("Saab95", "images/saab95.png");
         v.addSubscriber(pub);
     }

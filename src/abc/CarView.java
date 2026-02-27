@@ -44,48 +44,48 @@ public class CarView extends JFrame implements IView {
 
     }
 
-    public void addSubscriber(Publisher pub) {
+    public void addSubscriber(IViewActionsHandler actionsHandler) {
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {pub.onClickGas(m_gasAmount);}
+            public void actionPerformed(ActionEvent e) {actionsHandler.onClickGas(m_gasAmount);}
         });
         brakeButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {pub.onClickBrake(m_gasAmount);}
+            public void actionPerformed(ActionEvent e) {actionsHandler.onClickBrake(m_gasAmount);}
         });
         turboOnButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {pub.onClickTurboOn();}
+            public void actionPerformed(ActionEvent e) {actionsHandler.onClickTurboOn();}
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {pub.onClickTurboOff();}
+            public void actionPerformed(ActionEvent e) {actionsHandler.onClickTurboOff();}
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pub.onClickStartEngine();
+                actionsHandler.onClickStartEngine();
             }
         });
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pub.onClickStopEngine();
+                actionsHandler.onClickStopEngine();
             }
         });
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pub.onClickRaiseBed();
+                actionsHandler.onClickRaiseBed();
             }
         });
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pub.onClickLowerBed();
+                actionsHandler.onClickLowerBed();
             }
         });
 
