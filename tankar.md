@@ -25,19 +25,19 @@ Dependency Inversion Principle.
     skapas som ett statiskt object som sedan i konstruktorn läggs till som
     icke-static fält. (detta för att skapa en form av ärvda statiska fält)
   - Bör antagligen bytas ut mot metoder som overridas för minskad komplexitet
-- CarView bör ha hand om all grafik - därmed alla dependencies med
-  Swing-klasser. Samma gäller för DrawPanel. I dagsläget stämmer detta, med
-  undantag för CarController som (via TimerListener) använder både JFrame och
+- src.CarViewOld bör ha hand om all grafik - därmed alla dependencies med
+  Swing-klasser. Samma gäller för src.DrawPanel. I dagsläget stämmer detta, med
+  undantag för src.CarController som (via TimerListener) använder både JFrame och
   ActionListener. Att en controller använder en ActionListener är som sig bör -
   men JFrame relationen bör undvikas då Controllerns jobb inte är att hantera
   grafiken.
-  - Största problemet just nu är dock att CarController använder DrawPanel,
-    genom CarView, för att få storleken på bilarna, workshoppen samt
-    "spelplanen". Detta bör eventuellt abstraheras bort för att CarController
-    endast ska ha relation med CarView, och vara oberoende av hur renderingen av
+  - Största problemet just nu är dock att src.CarController använder src.DrawPanel,
+    genom src.CarViewOld, för att få storleken på bilarna, workshoppen samt
+    "spelplanen". Detta bör eventuellt abstraheras bort för att src.CarController
+    endast ska ha relation med src.CarViewOld, och vara oberoende av hur renderingen av
     bilarna är implementerad.
     - Eventuellt: Wrapper (/Decorator?) som har koll på Car+Image. Ökar dock
-      komplexitet i utbyte mot att både CarView och CarController båda har
+      komplexitet i utbyte mot att både src.CarViewOld och src.CarController båda har
       relation till den, och därav minskar komplexiteten endast marginellt.
 
 Analysera era klasser med avseende på Separation of Concern (SoC) och Single
@@ -58,5 +58,5 @@ Responsibility Principle (SRP).
 
 ## TODO till diagrammet:
 
-- Bör ha en pil mellan CarController och DrawPanel då CarController använder
-  DrawPanel via CarView
+- Bör ha en pil mellan src.CarController och src.DrawPanel då src.CarController använder
+  src.DrawPanel via src.CarViewOld

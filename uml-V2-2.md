@@ -49,7 +49,7 @@ namespace CarSystems {
 
 namespace Models {
     class Car
-    class CarBrandWorkshop
+    class src.CarBrandWorkshop
     class CarFactory
     class Volvo240
     class Saab95
@@ -242,9 +242,9 @@ namespace Models {
     +createCar(string)
   }
 
-    Car <|-- CarBrandWorkshop: TBrand extends Car
+    Car <|-- src.CarBrandWorkshop: TBrand extends Car
 
-    class CarBrandWorkshop {
+    class src.CarBrandWorkshop {
         -int m_carCapacity
         #Map<Integer, TBrand> m_garage
         +getCarCapacity(int)
@@ -295,18 +295,18 @@ namespace Swing {
     class Toolkit { }
 
 namespace GUI {
-    class DrawPanel
-    class CarView
-    class CarController
+    class src.DrawPanel
+    class src.CarViewOld
+    class src.CarController
 }
 
-    class DrawPanel {
+    class src.DrawPanel {
         ~ BufferedImage volvoWorkshopImage
         ~ Point volvoWorkshopPoint
         ~ ArrayList<Car> cars
         ~ HashMap<String, Image> carImages
         
-        + DrawPanel(int, int)
+        + src.DrawPanel(int, int)
         + getCarWidth(Car) int
         + getCarHeight(Car) int
         + getCarSize(Car) Dimension
@@ -314,18 +314,18 @@ namespace GUI {
         # paintComponent(Graphics)
         ~ setCars(ArrayList<Car>) void
     }
-    JPanel <|-- DrawPanel: extends
-    DrawPanel --* Image
-    DrawPanel --* BufferedImage
-    DrawPanel --o Car
-    DrawPanel --> Graphics
+    JPanel <|-- src.DrawPanel: extends
+    src.DrawPanel --* Image
+    src.DrawPanel --* BufferedImage
+    src.DrawPanel --o Car
+    src.DrawPanel --> Graphics
 
-    class CarView {
+    class src.CarViewOld {
         -int X$
         -int Y$
         ~ int gasAmount
-        ~ CarController carC
-        ~ DrawPanel drawPanel
+        ~ src.CarController carC
+        ~ src.DrawPanel drawPanel
         ~ JSpinner gasSpinner
         ~ JLabel gasLabel
         ~ JPanel controlPanel
@@ -339,33 +339,33 @@ namespace GUI {
         ~ JButton startButton
         ~ JButton stopButton
         
-        + CarView(String, CarController)
+        + src.CarViewOld(String, src.CarController)
         - initComponents(String) void
 
         ~ getAreaSize(Car) Dimensions
         ~ getCarSize(Car) Dimensions
     }
-    JFrame <|-- CarView
-    CarView --o CarController
-    CarView ..o DrawPanel
-    CarView --* JSpinner
-    CarView --* JLabel
-    CarView --* JPanel
-    CarView --* JButton
-    CarView --> FlowLayout
-    CarView --> BorderLayout
-    CarView --> Toolkit
-    CarView --> SpinnerNumberModel
-    CarView --> ActionEvent
-    CarView --> ActionListener
-    CarView --> ChangeListener
+    JFrame <|-- src.CarViewOld
+    src.CarViewOld --o src.CarController
+    src.CarViewOld ..o src.DrawPanel
+    src.CarViewOld --* JSpinner
+    src.CarViewOld --* JLabel
+    src.CarViewOld --* JPanel
+    src.CarViewOld --* JButton
+    src.CarViewOld --> FlowLayout
+    src.CarViewOld --> BorderLayout
+    src.CarViewOld --> Toolkit
+    src.CarViewOld --> SpinnerNumberModel
+    src.CarViewOld --> ActionEvent
+    src.CarViewOld --> ActionListener
+    src.CarViewOld --> ChangeListener
 
-    class CarController {
+    class src.CarController {
         - int delay
         - Timer timer // -TimerListener
-        ~ CarView frame
+        ~ src.CarViewOld frame
         ~ ArrayList<Car> cars
-        ~ CarBrandWorkshop<Volvo240> volvoWorkshop
+        ~ src.CarBrandWorkshop<Volvo240> volvoWorkshop
         
         + getCars() ArrayList<Car>
         + startCars()
@@ -379,31 +379,31 @@ namespace GUI {
 
         - actionPerformed(ActionEvent)
     }
-    CarController --* Timer
-    CarController --* -TimerListener
-    CarController --* CarView
+    src.CarController --* Timer
+    src.CarController --* -TimerListener
+    src.CarController --* src.CarViewOld
 
-    CarController --* CarBrandWorkshop
-    CarController --o CarSystem
-    CarController ..> Rectangle
-    CarController ..> IRamp
-    CarController ..> IMovable
-    CarController ..> ITurboCharger
+    src.CarController --* src.CarBrandWorkshop
+    src.CarController --o CarSystem
+    src.CarController ..> Rectangle
+    src.CarController ..> IRamp
+    src.CarController ..> IMovable
+    src.CarController ..> ITurboCharger
     
     class Application {
         + main(String[]) $
     }
-    Application ..> CarBrandWorkshop
+    Application ..> src.CarBrandWorkshop
     Application .. CarFactory
     Application .. CarSystemFactory
     Application ..* CarSystem
-    Application ..* CarController
+    Application ..* src.CarController
 ```
 
 # Ändringar sedan V1:
 
 - Tog bort CarData. La till getNrDoors, getEnginePower, getModelName istället
-- Tog bort relation mellan CarController/TimerListener och DrawPanel - ersätts
+- Tog bort relation mellan src.CarController/TimerListener och src.DrawPanel - ersätts
   med frame.getPanelSize() och frame.getCarSize()
 - Lagt till Application class
 - Har skapat en CarFactory so att Application bara interagerar med en class när

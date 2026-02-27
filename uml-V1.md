@@ -142,9 +142,9 @@ classDiagram
         +speedFactor(double)
     }
 
-    Car <|-- CarBrandWorkshop: TBrand extends Car
+    Car <|-- src.CarBrandWorkshop: TBrand extends Car
 
-    class CarBrandWorkshop {
+    class src.CarBrandWorkshop {
         -int m_carCapacity
         #Map<Integer, TBrand> m_garage
         +getCarCapacity(int)
@@ -194,13 +194,13 @@ namespace Swing {
     class Timer { }
     class Toolkit { }
 
-    class DrawPanel {
+    class src.DrawPanel {
         ~ BufferedImage volvoWorkshopImage
         ~ Point volvoWorkshopPoint
         ~ ArrayList<Car> cars
         ~ HashMap<String, Image> carImages
         
-        + DrawPanel(int, int)
+        + src.DrawPanel(int, int)
         + getCarWidth(Car) int
         + getCarHeight(Car) int
         + getCarSize(Car) Dimension
@@ -208,18 +208,18 @@ namespace Swing {
         # paintComponent(Graphics)
         ~ setCars(ArrayList<Car>) void
     }
-    JPanel <|-- DrawPanel: extends
-    DrawPanel --* Image
-    DrawPanel --* BufferedImage
-    DrawPanel --o Car
-    DrawPanel --> Graphics
+    JPanel <|-- src.DrawPanel: extends
+    src.DrawPanel --* Image
+    src.DrawPanel --* BufferedImage
+    src.DrawPanel --o Car
+    src.DrawPanel --> Graphics
 
-    class CarView {
+    class src.CarViewOld {
         -int X$
         -int Y$
         ~ int gasAmount
-        ~ CarController carC
-        ~ DrawPanel drawPanel
+        ~ src.CarController carC
+        ~ src.DrawPanel drawPanel
         ~ JSpinner gasSpinner
         ~ JLabel gasLabel
         ~ JPanel controlPanel
@@ -233,43 +233,43 @@ namespace Swing {
         ~ JButton startButton
         ~ JButton stopButton
         
-        + CarView(String, CarController)
+        + src.CarViewOld(String, src.CarController)
         - initComponents(String) void
     }
-    JFrame <|-- CarView
-    CarView --o CarController
-    CarView ..o DrawPanel
-    CarView --* JSpinner
-    CarView --* JLabel
-    CarView --* JPanel
-    CarView --* JButton
-    CarView --> FlowLayout
-    CarView --> BorderLayout
-    CarView --> Toolkit
-    CarView --> SpinnerNumberModel
-    CarView --> ActionEvent
-    CarView --> ActionListener
-    CarView --> ChangeListener
+    JFrame <|-- src.CarViewOld
+    src.CarViewOld --o src.CarController
+    src.CarViewOld ..o src.DrawPanel
+    src.CarViewOld --* JSpinner
+    src.CarViewOld --* JLabel
+    src.CarViewOld --* JPanel
+    src.CarViewOld --* JButton
+    src.CarViewOld --> FlowLayout
+    src.CarViewOld --> BorderLayout
+    src.CarViewOld --> Toolkit
+    src.CarViewOld --> SpinnerNumberModel
+    src.CarViewOld --> ActionEvent
+    src.CarViewOld --> ActionListener
+    src.CarViewOld --> ChangeListener
 
     class -TimerListener {
         + actionPerformed(ActionEvent)
     }
     ActionListener <|-- -TimerListener: implements
-    -TimerListener ..> CarController
-    -TimerListener ..> CarView
-    -TimerListener ..> DrawPanel
+    -TimerListener ..> src.CarController
+    -TimerListener ..> src.CarViewOld
+    -TimerListener ..> src.DrawPanel
     -TimerListener ..> Car
     -TimerListener ..> Volvo240
     -TimerListener ..> Rectangle
-    -TimerListener ..> CarBrandWorkshop
+    -TimerListener ..> src.CarBrandWorkshop
     -TimerListener ..> JFrame
     
-    class CarController {
+    class src.CarController {
         - int delay
         - Timer timer // -TimerListener
-        ~ CarView frame
+        ~ src.CarViewOld frame
         ~ ArrayList<Car> cars
-        ~ CarBrandWorkshop<Volvo240> volvoWorkshop
+        ~ src.CarBrandWorkshop<Volvo240> volvoWorkshop
         
         + main(String[]) $
         + getCars() ArrayList<Car>
@@ -282,12 +282,12 @@ namespace Swing {
         ~ turboOn()
         ~ turboOff()
     }
-    CarController --* Timer
-    CarController --* -TimerListener
-    CarController --* CarView
-    CarController --* Car
-    CarController --* CarBrandWorkshop
-    CarController ..> Volvo240
-    CarController ..> Saab95
-    CarController ..> Scania
+    src.CarController --* Timer
+    src.CarController --* -TimerListener
+    src.CarController --* src.CarViewOld
+    src.CarController --* Car
+    src.CarController --* src.CarBrandWorkshop
+    src.CarController ..> Volvo240
+    src.CarController ..> Saab95
+    src.CarController ..> Scania
 ```
