@@ -2,8 +2,6 @@ package src.abc;
 
 import java.util.ArrayList;
 
-import src.CarView;
-import src.IView;
 import src.vehicles.Car;
 import src.vehicles.Saab95;
 import src.vehicles.Scania;
@@ -39,7 +37,7 @@ public class Application {
 
 
 
-        IView v = new CarView();
+        Publisher.IView v = new Publisher.CarView();
         v.addModelImage("Saab95", "images/saab95.png");
         v.addSubscriber(pub);
     }

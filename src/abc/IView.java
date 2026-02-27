@@ -1,6 +1,4 @@
-package src;
-
-import src.abc.Publisher;
+package src.abc;
 
 public interface IView {
 

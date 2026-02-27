@@ -1,6 +1,6 @@
-package src;
+package src.abc;
 
-import src.abc.Publisher;
+import src.DrawPanel;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
