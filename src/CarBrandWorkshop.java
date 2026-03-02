@@ -9,6 +9,10 @@ public class CarBrandWorkshop<TBrand extends Car> {
     private int m_carCapacity = 0;
     protected Map<Integer, TBrand> m_garage = new HashMap<>();
 
+    public String getWorkshopName(TBrand car){
+        return car.getModelName() + "Workshop";
+    }
+
     public CarBrandWorkshop() {
         this(0);
     }
