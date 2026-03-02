@@ -5,12 +5,16 @@ import java.util.Map;
 
 import src.vehicles.Car;
 
+import javax.xml.namespace.QName;
+
 public class CarBrandWorkshop<TBrand extends Car> {
     private int m_carCapacity = 0;
     protected Map<Integer, TBrand> m_garage = new HashMap<>();
+    private final Class<TBrand> brandClass;
 
-    public String getWorkshopName(TBrand car){
-        return car.getModelName() + "Workshop";
+
+    public String getWorkshopName(){
+        return brandClass.getSimpleName() + "Workshop";
     }
 
     public CarBrandWorkshop() {
@@ -18,6 +22,11 @@ public class CarBrandWorkshop<TBrand extends Car> {
     }
 
     public CarBrandWorkshop(int carCapacity) {
+        this.brandClass = (Class<TBrand>) Car.class;
+        this.m_carCapacity = carCapacity;
+    }
+    public CarBrandWorkshop(int carCapacity,Class<TBrand> brandClass ) {
+        this.brandClass = brandClass;
         this.m_carCapacity = carCapacity;
     }
 

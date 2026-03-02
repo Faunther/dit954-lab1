@@ -33,7 +33,7 @@ public class Model {
 
         for (CarBrandWorkshop cbw : m_Workshops) {
 
-            RenderData rd = new RenderData(cbw.getModelName(), cbw.getPoint());
+            RenderData rd = new RenderData(cbw.getWorkshopName(), cbw.getPoint());
 
         }
         return myObjects;
