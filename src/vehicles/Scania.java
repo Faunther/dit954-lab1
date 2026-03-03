@@ -18,6 +18,12 @@ public class Scania extends Car implements IRamp {
         stopEngine();
     }
 
+    public Scania(int x, int y) {
+        stopEngine();
+        m_position.x = x;
+        m_position.y = y;
+    }
+
 
     // Get-/Setters ===========================================================
 

@@ -3,6 +3,7 @@ package src.abc;
 import java.util.ArrayList;
 
 import src.vehicles.Car;
+import src.vehicles.CarFactory;
 
 public class CarSystem<T extends Car> implements IDriveSubscriber {
     protected ArrayList<T> m_cars = new ArrayList<>();
@@ -15,6 +16,12 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
 
     public ArrayList<T> getCars() {
         return m_cars;
+    }
+
+    public void addCars(int x,int y){
+
+
+
     }
 
     public void onGasEvent(int gasAmount) {

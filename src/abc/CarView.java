@@ -66,6 +66,7 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
 
             BufferedImage img = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(resourcePath)));
             this.m_imageDictonary.put(modelId, img);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }

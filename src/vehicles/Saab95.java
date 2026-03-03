@@ -18,6 +18,15 @@ public class Saab95 extends Car {
         m_TurboOn = false;
         stopEngine();
     }
+    public Saab95(int x, int y) {
+        m_color = Color.red;
+        m_TurboOn = false;
+        stopEngine();
+        m_position.x = x;
+        m_position.y = y;
+
+
+    }
 
     public void setTurboOn() {
         m_TurboOn = true;
