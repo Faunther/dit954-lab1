@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class CarBrandWorkshopTest {
     @Test
     public void defultTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>();
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2);
         assertEquals(repshop.getCarCapacity(), 0);
 
     }
@@ -53,6 +53,14 @@ public class CarBrandWorkshopTest {
 
         assertEquals(null, repshop2.retrieveCar(id1));
         assertEquals(null, repshop1.retrieveCar(id2));
+    }
+    @Test
+    public void getNameTest(){
+
+        CarBrandWorkshop<Volvo240> repshop1 = new CarBrandWorkshop<>(2);
+
+        System.out.println(repshop1.getWorkshopName());
+
     }
 
     // Suggestions

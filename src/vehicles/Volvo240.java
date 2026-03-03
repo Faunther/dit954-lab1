@@ -20,6 +20,13 @@ public class Volvo240 extends Car {
         trimFactor = 1.25;
         stopEngine();
     }
+    public Volvo240(int x, int y) {
+        color = Color.black;
+        trimFactor = 1.25;
+        stopEngine();
+        m_position.x = x;
+        m_position.y = y;
+    }
 
     @Override
     public double speedFactor() {
