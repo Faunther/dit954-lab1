@@ -3,7 +3,6 @@ package src.abc;
 import src.CarBrandWorkshop;
 import src.vehicles.Car;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Model {
@@ -19,9 +18,8 @@ public class Model {
         m_Workshops.add(carBrandWorkshop);
     }
 
-    public ArrayList myRederOjbect() {
+    public ArrayList<RenderData> getRenderObjects() {
         ArrayList<RenderData> myObjects = new ArrayList<>();
-
 
         for (CarSystem<?> carSystem : m_CarSystems) {
             var cars = carSystem.getCars();
