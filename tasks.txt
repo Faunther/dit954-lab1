@@ -13,6 +13,35 @@
 ================================================================
 * DimensionManager (Collider/Physics-LUT) (LUT = Look-Up Table)
     Vi behöver ha någon referens till hur stora föremål är, jag föreslår en "wrapped" dictionary
+
+    // Example
+    /*
+    interface ISizeLUT {
+        int getWidth(int id);
+    }
+
+    class CarSizeImpl implements ISizeLUT {
+        HashMap<Integer, Integer> m_sizes = new HashMap();
+
+        public CarSizeImpl() {
+            // load images for their sizes,
+            // store them under their corresponding entries
+            // throw away the images.
+
+            BufferedImage volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            m_sizes.put(240, volvoImage.getWidth());
+        }
+
+        public int getWidth(int id) {
+            return m_sizes.get(id);
+        }
+    }
+    * */
+
+
+
+
+
 * IViewActionHandler::addSubscriber() variant
     Vi skulle kunna ha flera namngivna (ej overload) "addSubscribers" istället
     då behöver vi inte ha flera "if (cs instanceof ITurboSubscriber)..."

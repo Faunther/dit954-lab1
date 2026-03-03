@@ -124,7 +124,8 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
         ArrayList<RenderData> renderObjs = this.m_model.getRenderObjects();
 
         // do something like this?
-        // this.m_model.draw() // function does not exist yet
+        // this.m_drawPanel.draw() // function does not exist yet
+        // this.repaint() // or this.m_drawPanel.repaint() ?
     }
 
     public CarView(Model model) {
