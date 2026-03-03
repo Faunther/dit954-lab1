@@ -1,0 +1,18 @@
+
+# Temporär fil för att hålla reda på kvarstående del-uppgifter
+================================================================
+* Investigate/Fix DrawPanel
+    ska den hålla all "JPanel" data, och vill vi göra en ny klass?
+
+* Implementera CarSystemFactory
+    Ska Factory ha en referens till IViewActionHandler, (DimensionManager?), etc
+    så att vi kan lägga till dem där direkt när de skapas, eller ska vi göra bindningen explicit utanför?
+
+
+# Önskvärt (?)
+================================================================
+* DimensionManager (Collider/Physics-LUT) (LUT = Look-Up Table)
+    Vi behöver ha någon referens till hur stora föremål är, jag föreslår en "wrapped" dictionary
+* IViewActionHandler::addSubscriber() variant
+    Vi skulle kunna ha flera namngivna (ej overload) "addSubscribers" istället
+    då behöver vi inte ha flera "if (cs instanceof ITurboSubscriber)..."
