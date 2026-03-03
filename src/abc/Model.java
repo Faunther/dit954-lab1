@@ -19,17 +19,11 @@ public class Model {
     }
 
     public ArrayList<RenderData> getRenderObjects() {
-        ArrayList<RenderData> myObjects = new ArrayList<>();
-
+        ArrayList<RenderData> objectsToRender = new ArrayList<>();
         for (CarSystem<?> carSystem : m_CarSystems) {
-            var cars = carSystem.getCars();
-            for (Car car : cars) {
-                RenderData rd = new RenderData(car.getModelName(), car.getPoint());
-                myObjects.add(rd);
-            }
+            objectsToRender.addAll(carSystem.getRenderData());
         }
-
-        return myObjects;
+        return objectsToRender;
     }
 
 }
