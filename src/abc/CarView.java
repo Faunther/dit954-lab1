@@ -2,23 +2,31 @@ package src.abc;
 
 import src.DrawPanel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
-public class CarView extends JFrame implements IView {
+public class CarView extends JFrame implements IView, IGameTickSubscriber {
 
-    private HashMap<String, String> m_imageDictonary = new HashMap<>(); // Renderable object
+    private HashMap<String, Image> m_imageDictonary = new HashMap<>(); // Renderable object
 
     // DrawPanel
     private static final int X = 800;
     private static final int Y = 800;
-    DrawPanel m_drawPanel = new DrawPanel(X, Y - 240);
+    private DrawPanel m_drawPanel = new DrawPanel(X, Y - 240);
+
+    // Model ref
+    private Model m_model;
 
     JPanel controlPanel = new JPanel();
 
@@ -38,10 +46,29 @@ public class CarView extends JFrame implements IView {
     JButton stopButton = new JButton("Stop all cars");
 
     @Override
-    public void addModelImage(String car, String carImage) {
-        // TODO actually load the images
-        m_imageDictonary.put(car,carImage);
+    public void addModelImage(String modelId, String resourcePath) {
+        if (this.m_imageDictonary.containsKey(modelId)){
+            System.out.println("Initiated a \"render resource\" twice for: " + modelId);
+            // should we do something if an entry already has an image
+        }
 
+        // Print an error message in case file is not found with a try/catch block
+        try {
+            // path reference: "pics/Saab95.jpg"
+
+            // You can remove the "pics" part if running outside of IntelliJ and
+            // everything is in the same main folder.
+            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
+
+            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to
+            // pics.
+            // if you are starting in IntelliJ.
+
+            BufferedImage img = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(resourcePath)));
+            this.m_imageDictonary.put(modelId, img);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void addSubscriber(IViewActionsHandler actionsHandler) {
@@ -91,9 +118,17 @@ public class CarView extends JFrame implements IView {
 
     }
 
-    public CarView() {
-        initComponents("CarSim 2.0");
+    @Override
+    public void onGameTick() {
+        ArrayList<RenderData> renderObjs = this.m_model.getRenderObjects();
 
+        // do something like this?
+        // this.m_model.draw() // function does not exist yet
+    }
+
+    public CarView(Model model) {
+        initComponents("CarSim 2.0");
+        this.m_model = model;
         // rita bilar
     }
 

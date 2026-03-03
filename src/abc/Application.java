@@ -22,6 +22,12 @@ public class Application {
         scaniaSystem.addCar(new Scania());
         scaniaSystem.addCar(new Scania());
 
+        Model carModel = new Model();
+        carModel.addSystem(saabSys);
+        carModel.addSystem(scaniaSystem);
+        // carModel.addCarBrandWorkshop(); // handle here?
+
+        /*
         ArrayList<CarSystem<?>> systems = new ArrayList<>();
         systems.add(saabSys);
         systems.add(scaniaSystem);
@@ -34,12 +40,13 @@ public class Application {
                 render(model, car);
             }
         }
+        * */
 
-
-
-        IView v = new CarView();
+        // Used to store as IView
+        CarView v = new CarView(carModel);
         v.addModelImage("Saab95", "images/saab95.png");
-        v.addSubscriber(pub);
+        v.addSubscriber(pub); // bind IActionEventHandler to view
+        pub.addSubscriber(v); // bind IGameTickSubscriber to Publisher
     }
 
 }
