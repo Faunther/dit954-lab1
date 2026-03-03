@@ -1,27 +1,60 @@
 package src.abc;
 
+
+import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+import kotlin.Pair;
+import src.CarBrandWorkshop;
 import src.vehicles.Car;
-import src.vehicles.CarFactory;
 
 public class CarSystem<T extends Car> implements IDriveSubscriber {
+    final protected ICarConstructor<T> m_builder;
     protected ArrayList<T> m_cars = new ArrayList<>();
+    // implemented as Point, instead of Point2D.Double
+    protected ArrayList<Pair<Point, CarBrandWorkshop<T>>> m_workshops = new ArrayList<>();
+
+    public CarSystem(ICarConstructor<T> builder) {
+        m_builder = builder;
+    }
 
     public void addCar(T car) {
         m_cars.add(car);
+    }
+
+    public void addCar(int x, int y) {
+        m_cars.add(m_builder.makeCar(x,y));
+    }
+
+    public void addWorkshop(int x, int y, int capacity) {
+        CarBrandWorkshop<T> workshop = m_builder.makeWorkshop(capacity);
+        Point pos = new Point(x,y);
+        m_workshops.add(new Pair<>(pos, workshop));
+    }
+
+    public ArrayList<RenderData> getRenderData() {
+        ArrayList<RenderData> objectsToRender = new ArrayList<>();
+
+        for (Car car : this.m_cars) {
+            RenderData rd = new RenderData(car.getModelName(), car.getPoint());
+            objectsToRender.add(rd);
+        }
+        for (Pair<Point, CarBrandWorkshop<T>> placedWorkshop : m_workshops) {
+            Point pos = placedWorkshop.getFirst();
+            Point2D.Double posD = new Point2D.Double(pos.getX(), pos.getY());
+            CarBrandWorkshop<T> workshop = placedWorkshop.getSecond();
+
+            RenderData rd = new RenderData(workshop.getWorkshopName(), posD);
+            objectsToRender.add(rd);
+        }
+        return objectsToRender;
     }
 
     public void removeCar(T car) {m_cars.remove(car);}
 
     public ArrayList<T> getCars() {
         return m_cars;
-    }
-
-    public void addCars(int x,int y){
-
-
-
     }
 
     public void onGasEvent(int gasAmount) {
