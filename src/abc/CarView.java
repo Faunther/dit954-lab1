@@ -18,7 +18,7 @@ public class CarView extends JFrame implements IView {
     // DrawPanel
     private static final int X = 800;
     private static final int Y = 800;
-    DrawPanel drawPanel = new DrawPanel(X, Y - 240);
+    DrawPanel m_drawPanel = new DrawPanel(X, Y - 240);
 
     JPanel controlPanel = new JPanel();
 
@@ -102,7 +102,7 @@ public class CarView extends JFrame implements IView {
         this.setPreferredSize(new Dimension(X, Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        this.add(drawPanel);
+        this.add(m_drawPanel);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, // initial value
                 0, // min
