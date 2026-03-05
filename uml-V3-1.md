@@ -138,8 +138,6 @@ classDiagram
     +onClickRaiseBed():
     +addCarButton():
     +removeCarButton():
-    
-    
   }
   <<interface>> IViewActionsHandler
   
@@ -229,6 +227,8 @@ classDiagram
     ~JButton: lowerBedButton
     ~JButton: startButton
     ~JButton: stopButton
+    ~JButton: addCarButton
+    ~JButton: removeCarButton
     
     +addModelImage(String, String): 
     +addSubscriber(IViewActionsHandler):
