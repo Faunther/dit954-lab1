@@ -386,10 +386,6 @@ classDiagram
   CarBrandWorkshop --> Car
   
   
-  
-  
-  
- 
 ```
 
 # Ändringar sedan V1:
