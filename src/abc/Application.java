@@ -1,26 +1,24 @@
 package src.abc;
 
-
+import java.awt.Point;
 
 public class Application {
     public static void main(String[] args) {
         Publisher pub = new Publisher();
+        Model model = new Model();
 
-        CarSystemFactory carSysFactory = new CarSystemFactory();
-        CarSystem<?> saab95Sys = carSysFactory.createSystem("Saab95");
-        CarSystem<?> scaniaSys = carSysFactory.createSystem("Scania");
-        CarSystem<?> volvo240Sys = carSysFactory.createSystem("Volvo240");
+        model.addCar("Saab95", new Point(0, 200));
+        model.addCar("Saab95", new Point(40, 500));
 
-        Model carModel = new Model();
-        carModel.addSystem(saab95Sys);
-        carModel.addSystem(scaniaSys);
-        // carModel.addCarBrandWorkshop(); // handle here?
+        model.registerSubscribers(pub);
 
         // Used to store as IView
-        CarView v = new CarView(carModel);
+        CarView v = new CarView(model);
         v.addModelImage("Saab95", "images/saab95.png");
         v.addSubscriber(pub); // bind IActionEventHandler to view
         pub.addSubscriber(v); // bind IGameTickSubscriber to Publisher
+
+        pub.star();
     }
 
 }
