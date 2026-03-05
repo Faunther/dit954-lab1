@@ -39,13 +39,13 @@ classDiagram
   namespace abc {
       class ICarConstructor
       class ICarSystemFactory
-      class IDriveSubsciber
+      class IDriveSubscriber
       class IGameTickHandler
       class IGameTickSubscriber
       class IRaiseLowerBedSubscriber
       class ITurboSubscriber
       class IView
-      class IVewActionsHandler
+      class IViewActionsHandler
     
     class Application
     class CarSystem
@@ -62,7 +62,7 @@ classDiagram
   namespace loadable {
     class IMovable
     class IRamp
-    class IVehicleData
+
     
     class Car
     class Volvo240
@@ -140,10 +140,12 @@ classDiagram
   }
   <<interface>> IMovable
   
-  class IVehicleData {
-    +getName():String
+  class IRamp {
+    ~rampDown():
+    ~rampUp():
+    ~getRampIsDown(): boolean
   }
-  <<interface>> IVehicleData
+  <<interface>> IMovable
 
   class Application {
     ~pub: Publisher
@@ -355,6 +357,8 @@ classDiagram
     +speedFactor(): double
   }
   Scania --|> Car
+  Scania ..|> IRamp
+  
 
   class Volvo240 {
     -m_TurboOn: boolean
@@ -365,6 +369,21 @@ classDiagram
     +speedFactor(): double
   }
   Volvo240 --|> Car
+  
+  class CarBrandWorkshop{
+    -m_carCapacity:
+    #m_garage: Map<Integer, TBrand>
+    -brandClass: Class<TBrand>
+    +getCarCapacity(): int
+    +getNumOfCars(): int
+    +canAcceptCar(): boolean
+    +acceptCar(TBrand): Integer
+    +retrieveCar(Integer): TBrand
+    +getWorkshopName(): String
+  }
+  
+  CarBrandWorkshop ..> Car
+  CarBrandWorkshop --> Car
   
   
   
