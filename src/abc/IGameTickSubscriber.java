@@ -1,5 +1,5 @@
 package src.abc;
 
-public interface IGameTickSubscriber {
+public interface IGameTickSubscriber extends ISubscriber {
     void onGameTick();
 }

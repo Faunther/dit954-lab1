@@ -9,27 +9,16 @@ import src.abc.utils.Pair;
 import src.vehicles.Car;
 
 public class CarSystem<T extends Car> implements IDriveSubscriber {
-    final protected ICarConstructor<T> m_builder;
     protected ArrayList<T> m_cars = new ArrayList<>();
     // implemented as Point, instead of Point2D.Double
     protected ArrayList<Pair<Point, CarBrandWorkshop<T>>> m_workshops = new ArrayList<>();
-
-    public CarSystem(ICarConstructor<T> builder) {
-        m_builder = builder;
-    }
 
     public void addCar(T car) {
         m_cars.add(car);
     }
 
-    public void addCar(int x, int y) {
-        m_cars.add(m_builder.makeCar(x, y));
-    }
-
-    public void addWorkshop(int x, int y, int capacity) {
-        CarBrandWorkshop<T> workshop = m_builder.makeWorkshop(capacity);
-        Point pos = new Point(x, y);
-        m_workshops.add(new Pair<>(pos, workshop));
+    public void addWorkshop(Point p, CarBrandWorkshop<T> ws) {
+        m_workshops.add(new Pair<>(p, ws));
     }
 
     public ArrayList<RenderData> getRenderData() {

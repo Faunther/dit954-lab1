@@ -1,17 +1,24 @@
 package src.abc;
 
 import src.CarBrandWorkshop;
-import src.vehicles.Car;
 import src.vehicles.Saab95;
 
+import java.awt.Point;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class Model {
     protected ArrayList<CarSystem<?>> m_CarSystems = new ArrayList<>();
 
-    protected Saab95System m_Saab95System = new Saab95System<>();
+    protected ArrayList<String> m_availableModels = new ArrayList<>();
 
-    public void addSystem(CarSystem carSystem) {
+    protected Saab95System<Saab95> m_Saab95System = new Saab95System<>();
+
+    public Model() {
+        m_availableModels.add("Saab95");
+    }
+
+    public void addSystem(CarSystem<?> carSystem) {
         m_CarSystems.add(carSystem);
     }
 
@@ -19,10 +26,6 @@ public class Model {
         for (CarSystem<?> s : m_CarSystems) {
             pub.addSubscriber(s);
         }
-    }
-
-    public void addCarBrandWorkshop(CarBrandWorkshop carBrandWorkshop) {
-        m_Workshops.add(carBrandWorkshop);
     }
 
     public ArrayList<RenderData> getRenderObjects() {
@@ -33,14 +36,23 @@ public class Model {
         return objectsToRender;
     }
 
-    public void addCar() {
-        String modelName;
+    public void addCar() throws NoSuchAlgorithmException {
+        int idx = java.security.SecureRandom.getInstanceStrong().nextInt(m_availableModels.size());
+        String modelName = m_availableModels.get(idx);
+        addCar(modelName);
     }
 
     public void addCar(String modelName) {
         if (modelName == "Saab95") {
             Saab95 s = new Saab95();
             m_Saab95System.addCar(s);
+        }
+    }
+
+    public void addCarBrandWorkshop(String modelName, Point pos) {
+        if (modelName == "Saab95") {
+            CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<Saab95>();
+            m_Saab95System.addWorkshop(pos, ws);
         }
     }
 }
