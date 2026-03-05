@@ -1,29 +1,18 @@
 package src.abc;
 
-import src.DrawPanel;
-
-import javax.imageio.ImageIO;
+import src.abc.utils.DrawPanel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class CarView extends JFrame implements IView, IGameTickSubscriber {
-
-    private HashMap<String, Image> m_imageDictonary = new HashMap<>(); // Renderable object
-
     // DrawPanel
-    private static final int X = 800;
-    private static final int Y = 800;
-    private DrawPanel m_drawPanel = new DrawPanel(X, Y - 240);
+    DrawPanel m_drawPanel;
 
     // Model ref
     private Model m_model;
@@ -49,29 +38,7 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
 
     @Override
     public void addModelImage(String modelId, String resourcePath) {
-        if (this.m_imageDictonary.containsKey(modelId)){
-            System.out.println("Initiated a \"render resource\" twice for: " + modelId);
-            // should we do something if an entry already has an image
-        }
-
-        // Print an error message in case file is not found with a try/catch block
-        try {
-            // path reference: "pics/Saab95.jpg"
-
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
-
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to
-            // pics.
-            // if you are starting in IntelliJ.
-
-            BufferedImage img = ImageIO.read(Objects.requireNonNull(DrawPanel.class.getResourceAsStream(resourcePath)));
-            this.m_imageDictonary.put(modelId, img);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        m_drawPanel.loadImageEntry(modelId, resourcePath);
     }
 
     public void addSubscriber(IViewActionsHandler actionsHandler) {
@@ -119,28 +86,36 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
             }
         });
 
+        this.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                Dimension winSize = getSize();
+                Dimension worldSize = m_drawPanel.getSize();
+                actionsHandler.onWindowResize("Window", winSize);
+                actionsHandler.onWindowResize("WorldMap", worldSize);
+            }
+        });
     }
 
     @Override
     public void onGameTick() {
-        ArrayList<RenderData> renderObjs = this.m_model.getRenderObjects();
-
-        // do something like this?
-        // this.m_drawPanel.draw() // function does not exist yet
-        // this.repaint() // or this.m_drawPanel.repaint() ?
+        this.repaint();
     }
 
     public CarView(Model model) {
-        initComponents("CarSim 2.0");
         this.m_model = model;
+        initComponents("CarSim 2.0");
         // rita bilar
     }
 
     private void initComponents(String title) {
+        Dimension winDim = m_model.getConfig().getDimension("Window");
+        Dimension worldDim = m_model.getConfig().getDimension("WorldMap");
+
         this.setTitle(title);
-        this.setPreferredSize(new Dimension(X, Y));
+        this.setPreferredSize(winDim);
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
+        m_drawPanel = new DrawPanel(m_model, worldDim);
         this.add(m_drawPanel);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, // initial value
@@ -172,18 +147,20 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
         controlPanel.add(lowerBedButton, 6);
         controlPanel.add(removeCarButton, 7);
 
-        controlPanel.setPreferredSize(new Dimension((X / 2) + 4, 200));
+
+        final int worldX = (int)winDim.getWidth();
+        controlPanel.setPreferredSize(new Dimension((worldX / 2) + 4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
 
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.green);
-        startButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
+        startButton.setPreferredSize(new Dimension(worldX / 5 - 15, 200));
         this.add(startButton);
 
         stopButton.setBackground(Color.red);
         stopButton.setForeground(Color.black);
-        stopButton.setPreferredSize(new Dimension(X / 5 - 15, 200));
+        stopButton.setPreferredSize(new Dimension(worldX / 5 - 15, 200));
         this.add(stopButton);
 
         // Make the frame pack all it's components by respecting the sizes if possible.
@@ -197,10 +174,5 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
     }
-
-
-
 }
