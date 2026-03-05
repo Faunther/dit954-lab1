@@ -1,5 +1,7 @@
 package src.abc;
 
+import javax.swing.*;
+
 public interface IViewActionsHandler {
     public void onClickGas(int amount);
 
@@ -16,4 +18,10 @@ public interface IViewActionsHandler {
     public void onClickLowerBed();
 
     public void onClickRaiseBed();
+
+    public void addCarButton();
+
+    public void removeCarButton();
+
+
 }
