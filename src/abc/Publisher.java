@@ -11,23 +11,27 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     protected ArrayList<IRaiseLowerBedSubscriber> raiseLowerBedSubscribers = new ArrayList<>();
     protected ArrayList<IGameTickSubscriber> m_gameTickSubscribers = new ArrayList<>();
 
-
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
     private Timer m_timer = new Timer(delay, new TimerListener());
+
+    public void star() {
+        m_timer.start();
+    }
+
     private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Tell all driveSubscribers to move.
-            for(IDriveSubscriber driveSub: driveSubscribers) {
+            for (IDriveSubscriber driveSub : driveSubscribers) {
                 driveSub.onMoveTickEvent();
             }
 
             // Implicit !!!
             // Tell view (GameTickSubscriber) to draw.
-            for (IGameTickSubscriber gtSub: m_gameTickSubscribers) {
+            for (IGameTickSubscriber gtSub : m_gameTickSubscribers) {
                 gtSub.onGameTick();
             }
         }
@@ -38,9 +42,10 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
         this.m_gameTickSubscribers.add(gtSub);
     }
 
-    public void addSubscriber(IDriveSubscriber cs) {
-        this.driveSubscribers.add(cs);
-
+    public void addSubscriber(ISubscriber cs) {
+        if (cs instanceof IDriveSubscriber) {
+            this.driveSubscribers.add((IDriveSubscriber) cs);
+        }
         if (cs instanceof ITurboSubscriber) {
             this.turboSubscribers.add((ITurboSubscriber) cs);
         }
