@@ -1,6 +1,6 @@
 package src.abc;
 
-import javax.swing.*;
+import java.awt.*;
 
 public interface IViewActionsHandler {
     public void onClickGas(int amount);
@@ -23,5 +23,5 @@ public interface IViewActionsHandler {
 
     public void removeCarButton();
 
-
+    public void onWindowResize(String target, Dimension dim);
 }

@@ -1,6 +1,7 @@
 package src.abc;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     protected ArrayList<ITurboSubscriber> turboSubscribers = new ArrayList<>();
     protected ArrayList<IRaiseLowerBedSubscriber> raiseLowerBedSubscribers = new ArrayList<>();
     protected ArrayList<IGameTickSubscriber> m_gameTickSubscribers = new ArrayList<>();
+    protected ArrayList<IWindowResizeSubscriber> m_windowResizeSubscribers = new ArrayList<>();
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
@@ -51,6 +53,9 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
         }
         if (cs instanceof IRaiseLowerBedSubscriber) {
             this.raiseLowerBedSubscribers.add((IRaiseLowerBedSubscriber) cs);
+        }
+        if (cs instanceof IWindowResizeSubscriber){
+            this.m_windowResizeSubscribers.add((IWindowResizeSubscriber)cs);
         }
     }
 
@@ -109,4 +114,23 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
             s.onRaiseBed();
         }
     }
+
+    @Override
+    public void addCarButton() {
+
+    }
+
+    @Override
+    public void removeCarButton() {
+
+    }
+
+    @Override
+    public void onWindowResize(String target, Dimension dim) {
+        for (IWindowResizeSubscriber winResizeSub : m_windowResizeSubscribers) {
+            winResizeSub.resizeTarget(target, dim);
+        }
+    }
+
+
 }

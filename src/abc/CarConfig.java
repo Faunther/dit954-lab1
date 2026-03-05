@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class CarConfig implements IConfig {
+public class CarConfig implements IConfig, IWindowResizeSubscriber {
     HashMap<String, Dimension> m_dimensions;
 
     public CarConfig() throws IOException {
@@ -21,8 +21,12 @@ public class CarConfig implements IConfig {
         appendImageEntry("Scania", "Scania.jpg");
         appendImageEntry("VolvoBrand", "VolvoBrand.jpg");
 
-        // will need to differentiate between "window" and "drawArea" dimensions
-        m_dimensions.put("WorldMap", new Dimension(800, 800));
+        final int initWindowWidth = 800;
+        final int initWindowHeight = 800;
+        final int initWorldWidth = initWindowWidth;
+        final int initWorldHeight = initWindowHeight - 240;
+        m_dimensions.put("Window", new Dimension(initWindowWidth, initWindowHeight));
+        m_dimensions.put("WorldMap", new Dimension(initWorldWidth, initWorldHeight));
     }
 
     private void appendImageEntry(String entry, String path) throws IOException {
@@ -37,7 +41,8 @@ public class CarConfig implements IConfig {
     }
 
     @Override
-    public void setWorldSize(int x, int y) {
-        m_dimensions.get("WorldMap").setSize(x, y);
+    public void resizeTarget(String target, Dimension dim) {
+        m_dimensions.get(target).setSize(dim);
+
     }
 }
