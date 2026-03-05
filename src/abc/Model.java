@@ -4,26 +4,41 @@ import src.CarBrandWorkshop;
 import src.vehicles.Saab95;
 
 import java.awt.Point;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-public class Model {
+public class Model implements IRenderDataContainer {
     protected ArrayList<CarSystem<?>> m_CarSystems = new ArrayList<>();
 
     protected ArrayList<String> m_availableModels = new ArrayList<>();
     protected Saab95System<Saab95> m_Saab95System = new Saab95System<>();
 
+    protected CarConfig m_config;
+
     public Model() {
         m_availableModels.add("Saab95");
         m_CarSystems.add(m_Saab95System);
+        try {
+            m_config = new CarConfig();
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public IConfig getConfig() {
+        return m_config;
     }
 
     public void registerSubscribers(Publisher pub) {
         for (CarSystem<?> s : m_CarSystems) {
             pub.addSubscriber(s);
         }
+        pub.addSubscriber(m_config);
     }
 
+    @Override
     public ArrayList<RenderData> getRenderObjects() {
         ArrayList<RenderData> objectsToRender = new ArrayList<>();
         for (CarSystem<?> carSystem : m_CarSystems) {
