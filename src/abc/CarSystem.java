@@ -1,12 +1,11 @@
 package src.abc;
 
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import kotlin.Pair;
 import src.CarBrandWorkshop;
+import src.abc.utils.Pair;
 import src.vehicles.Car;
 
 public class CarSystem<T extends Car> implements IDriveSubscriber {
@@ -24,12 +23,12 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
     }
 
     public void addCar(int x, int y) {
-        m_cars.add(m_builder.makeCar(x,y));
+        m_cars.add(m_builder.makeCar(x, y));
     }
 
     public void addWorkshop(int x, int y, int capacity) {
         CarBrandWorkshop<T> workshop = m_builder.makeWorkshop(capacity);
-        Point pos = new Point(x,y);
+        Point pos = new Point(x, y);
         m_workshops.add(new Pair<>(pos, workshop));
     }
 
@@ -51,50 +50,53 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
         return objectsToRender;
     }
 
-    public void removeCar(T car) {m_cars.remove(car);}
+    public void removeCar(T car) {
+        m_cars.remove(car);
+    }
 
     public ArrayList<T> getCars() {
         return m_cars;
     }
 
     public void onGasEvent(int gasAmount) {
-        for (Car car: m_cars){
+        for (Car car : m_cars) {
             car.gas(gasAmount);
         }
     }
 
     public void onBrakeEvent(int brakeAmount) {
-        for (Car car: m_cars){
+        for (Car car : m_cars) {
             car.brake(brakeAmount);
         }
     }
 
     public void onStopEngineEvent() {
-        for (Car car: m_cars){
+        for (Car car : m_cars) {
             car.stopEngine();
         }
     }
 
     public void onStartEngineEvent() {
-        for (Car car: m_cars){
+        for (Car car : m_cars) {
             car.startEngine();
         }
     }
 
     public void onMoveTickEvent() {
-        for (Car car: m_cars){
+        for (Car car : m_cars) {
             updateCar(car);
         }
 
     }
-    protected void updateCar(Car car){
-        //double carWidth = frame.drawPanel.getCarWidth(car);
-        //double carHeight= frame.drawPanel.getCarHeight(car);
-        double carWidth = 5.0;
-        double carHeight= 5.0;
 
-        //double panelWidth = frame.drawPanel.getSize().width;
-        //double padelHeight = frame.drawPanel.getSize().height;
+    protected void updateCar(Car car) {
+        // double carWidth = frame.drawPanel.getCarWidth(car);
+        // double carHeight= frame.drawPanel.getCarHeight(car);
+        double carWidth = 5.0;
+        double carHeight = 5.0;
+
+        // double panelWidth = frame.drawPanel.getSize().width;
+        // double padelHeight = frame.drawPanel.getSize().height;
         double panelWidth = 500;
         double padelHeight = 500;
 
@@ -106,7 +108,7 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
         if (x < 0.0
                 || x + carWidth > panelWidth
                 || y < 0.0
-                || y + carHeight >  padelHeight) {
+                || y + carHeight > padelHeight) {
             car.stopEngine();
             car.turnLeft();
             car.turnLeft();
@@ -119,11 +121,5 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
                     padelHeight - carHeight - 1);
         }
     }
-
-
-
-
-
-
 
 }

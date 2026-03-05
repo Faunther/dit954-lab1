@@ -1,6 +1,6 @@
 package src.abc;
 
-public interface IDriveSubscriber {
+public interface IDriveSubscriber extends ISubscriber {
     public void onGasEvent(int gasAmount);
 
     public void onBrakeEvent(int brakeAmount);
