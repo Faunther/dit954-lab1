@@ -37,7 +37,7 @@ public class CarConfig implements IConfig, IWindowResizeSubscriber {
 
     @Override
     public Dimension getDimension(String entryName) {
-        return m_dimensions.get(entryName);
+        return new Dimension(m_dimensions.get(entryName));
     }
 
     @Override
