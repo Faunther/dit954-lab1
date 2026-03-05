@@ -38,16 +38,19 @@ classDiagram
 
   namespace abc {
       class ICarConstructor
-      class ICarSystemFactory
+      class IConfig
       class IDriveSubscriber
       class IGameTickHandler
       class IGameTickSubscriber
       class IRaiseLowerBedSubscriber
+      class ISubscriber
       class ITurboSubscriber
       class IView
       class IViewActionsHandler
+      class IWindowResizeSubscriber
     
     class Application
+    class CarConfig
     class CarSystem
     class CarSystemFactory
     class CarView
@@ -75,19 +78,16 @@ classDiagram
   }
   class external_resources{ }
   
-  
-  
-  
   class ICarConstructor {
     ~ makeCar(int, int)(): T
     ~ makeWorkshop(int): CarBrandWorkshop<T>
   }
   <<interface>> ICarConstructor
-
-  class ICarSystemFactory {
-    ~ createSystem(String): CarSystem<?>
-  }
-  <<interface>> ICarSystemFactory
+  
+  class IConfig { 
+      ~ getDimension(String): Dimension
+    }
+    <<interface>> IConfig
 
   class IDriveSubscriber  {
     +onGasEvent(int):
@@ -102,19 +102,26 @@ classDiagram
     ~ addSubscriber(IGameTickSubscriber):
   }
   <<interface>> IGameTickHandler
-  
-  IGameTickSubscriber --|> ISubscriber
 
   class IGameTickSubscriber  {
     ~ onGameTick():
   }
   <<interface>> IGameTickSubscriber
+  
+  IGameTickSubscriber --|> ISubscriber
 
   class IRaiseLowerBedSubscriber  {
     +onRaiseBed():
     +onLowerBed():
   }
   <<interface>> IRaiseLowerBedSubscriber
+
+    class IRenderDataContainer  {
+        +getRenderObjects(): ArrayList<RenderData>
+    }
+    <<interface>> IRenderDataContainer
+    
+    IRenderDataContainer --> RenderData
   
   class ITurboSubscriber  {
     +onTurboEvent(boolean):
@@ -140,8 +147,13 @@ classDiagram
     +removeCarButton():
   }
   <<interface>> IViewActionsHandler
-  
-  class IMovable {
+
+    class IWindowResizeSubscriber {
+        ~resizeTarget(String, Dimension):
+    }
+    <<interface>> IWindowResizeSubscriber
+
+    class IMovable {
     ~move():
     ~turnLeft():
     ~turnRight():
@@ -157,7 +169,6 @@ classDiagram
 
   class Application {
     ~pub: Publisher
-    ~carSysFactory: CarSystemFactory
     ~carModel: Model
     ~v: CarView
   }
@@ -165,12 +176,22 @@ classDiagram
   Application ..> CarSystemFactory
   Application ..> Model
   Application ..> CarView
+  
+  class CarConfig {
+        ~m_dimensions: HashMap<String, Dimension>
+       
+        -appendImageEntry(String, String):
+        -getDimension(String): Dimension
+        +resizeTarget(String, Dimensiont):
+    }
+    CarConfig ..|> IConfig
+    CarConfig ..|> IWindowResizeSubscriber
+    
 
 
   class CarSystem {
-    #m_builder: ICarConstructor<T>  
     #m_cars: ArrayList<T>
-    #m_workshops: ArrayList
+    #m_workshops: ArrayList<Pair<Point, CarBrandWorkshop<T>>>
 
     +CarSystem(ICarConstructor<T>): ICarConstructor<T>
     +addCar(T):
@@ -192,21 +213,6 @@ classDiagram
   CarSystem --|> RenderData
   CarSystem --|> Car
 
-  class CarSystemFactory {
-    - m_scaniaBuilder: ICarConstructor<Scania>
-    - m_saab95Builder: ICarConstructor<Saab95>
-    - m_volvo240Builder: ICarConstructor<Volvo240>
-
-    + CarSystemFactory():
-    + createSystem(String): CarSystem<?>
-  }
-  
-  CarSystemFactory ..|> ICarSystemFactory
-  CarSystemFactory --|> ICarConstructor
-  CarSystemFactory --|> Scania
-  CarSystemFactory --|> Saab95
-  CarSystemFactory --|> Volvo240
-  CarSystemFactory --|> CarBrandWorkshop
 
   class CarView {
     -m_imageDictonary: HashMap<String, Image>
@@ -236,9 +242,13 @@ classDiagram
     +CarView(Model):
     -initComponents(String):
   }
-  CarSystemFactory ..|> IView
-  CarSystemFactory ..|> IGameTickSubscriber
-  CarSystemFactory ..> Model
+
+    CarView ..|> IView
+    CarView ..|> IGameTickSubscriber
+    CarView ..> IViewActionsHandler
+    CarView ..> Model
+    CarView ..> CarConfig
+    CarView --|> external_resources
 
   class Model {
     # m_CarSystems: ArrayList<CarSystem>
@@ -260,6 +270,7 @@ classDiagram
     #turboSubscribers: ArrayList<ITurboSubscriber>
     #raiseLowerBedSubscribers: ArrayList<IRaiseLowerBedSubscriber>
     #m_gameTickSubscribers: ArrayList<IGameTickSubscriber>
+    #m_windowResizeSubscribers: ArrayList<IWindowResizeSubscriber>
     -[delay: int]
     -m_timer: Timer
     -class TimerListener():
@@ -274,6 +285,9 @@ classDiagram
     +onClickTurboOff():
     +onClickLowerBed():
     +onClickRaiseBed():
+    +addCarButton():
+    +removeCarButton():
+    +onWindowResize(String, Dimension):
   }
   Publisher ..|> IViewActionsHandler
   Publisher ..|> IGameTickHandler
@@ -282,6 +296,7 @@ classDiagram
   Publisher --> IDriveSubscriber
   Publisher --> ITurboSubscriber
   Publisher --> IRaiseLowerBedSubscriber
+  Publisher --> IWindowResizeSubscriber
 
   class RenderData {
     ~id: String
@@ -400,12 +415,11 @@ classDiagram
   
 ```
 
-# Ändringar sedan V1:
+# (MVCa) implementation:
+- flyttat all bilens funktionalitet till Modell, samt utökar modelen med carSystem.
+- Controller Model och  är alla independent view är alla oberoende av varandra. Har varandra som instanser av olika interface. (kommunicerar genom interfaces)
 
-- Tog bort CarData. La till getNrDoors, getEnginePower, getModelName istället
-- Tog bort relation mellan CarController/TimerListener och DrawPanel - ersätts
-  med frame.getPanelSize() och frame.getCarSize()
-- Lagt till Application class
-- Har skapat en CarFactory so att Application bara interagerar med en class när
-  den skapar sina Car.
-- Lagt till CarSystems
+
+
+
+
