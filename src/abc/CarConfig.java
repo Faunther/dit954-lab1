@@ -1,11 +1,11 @@
 package src.abc;
 
-import javax.imageio.ImageIO;
+import pics.PicsLoader;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class CarConfig implements IConfig {
     HashMap<String, Dimension> m_dimensions;
@@ -16,22 +16,20 @@ public class CarConfig implements IConfig {
         // load images for their sizes,
         // store them under their corresponding entries
         // throw away the images.
-        appendImageEntry("Volvo240", "../../pics/Volvo240.jpg");
-        appendImageEntry("Saab95", "../../pics/Saab95.jpg");
-        appendImageEntry("Scania", "../../pics/Scania.jpg");
-        appendImageEntry("VolvoBrand", "../../pics/VolvoBrand.jpg");
+        appendImageEntry("Volvo240", "Volvo240.jpg");
+        appendImageEntry("Saab95", "Saab95.jpg");
+        appendImageEntry("Scania", "Scania.jpg");
+        appendImageEntry("VolvoBrand", "VolvoBrand.jpg");
 
         // will need to differentiate between "window" and "drawArea" dimensions
-        m_dimensions.put("WorldMap", new Dimension(800,800));
+        m_dimensions.put("WorldMap", new Dimension(800, 800));
     }
 
     private void appendImageEntry(String entry, String path) throws IOException {
-        BufferedImage volvoImg = ImageIO.read(Objects.requireNonNull(CarConfig.class.getResourceAsStream(path)));
+        BufferedImage volvoImg = PicsLoader.LoadImage(path);
         Dimension volvoDim = new Dimension(volvoImg.getWidth(), volvoImg.getHeight());
         m_dimensions.put(entry, volvoDim);
     }
-
-
 
     @Override
     public Dimension getDimension(String entryName) {
