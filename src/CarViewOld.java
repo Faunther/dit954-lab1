@@ -1,5 +1,7 @@
 package src;
 
+import src.abc.utils.DrawPanel;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -24,7 +26,7 @@ public class CarViewOld extends JFrame {
     // The controller member
     CarController carC;
 
-    DrawPanel drawPanel = new DrawPanel(X, Y - 240);
+    //DrawPanel drawPanel = new DrawPanel(X, Y - 240);
 
     JPanel controlPanel = new JPanel();
 
@@ -58,7 +60,7 @@ public class CarViewOld extends JFrame {
         this.setPreferredSize(new Dimension(X, Y));
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
-        this.add(drawPanel);
+        //this.add(drawPanel);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(0, // initial value
                 0, // min
