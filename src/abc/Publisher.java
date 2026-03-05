@@ -17,6 +17,10 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     // each step between delays.
     private Timer m_timer = new Timer(delay, new TimerListener());
 
+    public void star() {
+        m_timer.start();
+    }
+
     private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
