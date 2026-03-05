@@ -73,6 +73,10 @@ classDiagram
   namespace src {
       class CarBrandWorkshop
   }
+  class external_resources{ }
+  
+  
+  
   
   class ICarConstructor {
     ~ makeCar(int, int)(): T
@@ -98,6 +102,8 @@ classDiagram
     ~ addSubscriber(IGameTickSubscriber):
   }
   <<interface>> IGameTickHandler
+  
+  IGameTickSubscriber --|> ISubscriber
 
   class IGameTickSubscriber  {
     ~ onGameTick():
@@ -130,6 +136,10 @@ classDiagram
     +onClickStopEngine():
     +onClickLowerBed():
     +onClickRaiseBed():
+    +addCarButton():
+    +removeCarButton():
+    
+    
   }
   <<interface>> IViewActionsHandler
   
@@ -180,7 +190,6 @@ classDiagram
   }
   
   CarSystem ..|> IDriveSubscriber
-  CarSystem ..> ICarConstructor
   CarSystem --|> CarBrandWorkshop
   CarSystem --|> RenderData
   CarSystem --|> Car
@@ -233,8 +242,11 @@ classDiagram
 
   class Model {
     # m_CarSystems: ArrayList<CarSystem>
-    # m_Workshops: ArrayList<CarBrandWorkshop>
-
+    # m_availableModels: ArrayList<String>
+    # m_Saab95System: Saab95System<Saab95>
+    # m_Volvo240System: Volvo240System<Volvo240>
+    # m_ScaniaSystem: ScaniaSystem<Scania>
+    
     + addSystem(CarSystem):
     + addCarBrandWorkshop(CarBrandWorkshop):
     + getRenderObjects(): objectsToRender
