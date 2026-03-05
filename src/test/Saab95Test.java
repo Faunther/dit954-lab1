@@ -1,3 +1,5 @@
+package src.test;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -57,10 +59,10 @@ public class Saab95Test {
 
         // Test increment speed (with turbo)
         s.gas(0.5);
-        assertEquals(0.1+ 0.5 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
+        assertEquals(0.1 + 0.5 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
 
         // Test decrement speed (with turbo)
         s.brake(0.25);
-        assertEquals(0.1+ 0.25 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
+        assertEquals(0.1 + 0.25 * 125 * 0.01 * 1.3, s.getCurrentSpeed(), 0.001);
     }
 }

@@ -1,3 +1,5 @@
+package src.test;
+
 import org.junit.Test;
 
 import src.vehicles.Volvo240;
@@ -18,7 +20,7 @@ public class Volvo240Test {
     @Test
     public void incrementSpeed() {
         Volvo240 volvo = new Volvo240();
-        
+
         // speed should be 0 with "freshly made" car
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
         volvo.startEngine();
@@ -52,7 +54,8 @@ public class Volvo240Test {
         assertEquals(expectedSpeed, volvo.getCurrentSpeed(), 0.001);
 
         // speed should be equal to or below its engine power
-        // m_carData.getEnginePower() * 0.01 * trimFactor => running volvo.gas(1) 100 times should reach engine power
+        // m_carData.getEnginePower() * 0.01 * trimFactor => running volvo.gas(1) 100
+        // times should reach engine power
         // => Running it 200 times should not make speed exceed engine power
         for (int i = 0; i < 200; i++) {
             volvo.gas(1);

@@ -8,10 +8,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Volvo240System<T extends Volvo240> extends CarSystem<T> {
-    public Volvo240System(ICarConstructor<T> builder) {
-        super(builder);
-    }
-
     @Override
     public void onMoveTickEvent() {
         // double volvoWorkshopPoint = frame.drawPanel.volvoWorkshopPoint;

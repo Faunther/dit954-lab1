@@ -3,10 +3,6 @@ package src.abc;
 import src.vehicles.Scania;
 
 public class ScaniaSystem<T extends Scania> extends CarSystem<T> implements IRaiseLowerBedSubscriber {
-    public ScaniaSystem(ICarConstructor<T> builder) {
-        super(builder);
-    }
-
     public void onRaiseBed() {
         for (Scania s : m_cars) {
             s.rampUp();
