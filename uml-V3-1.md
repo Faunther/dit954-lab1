@@ -52,7 +52,6 @@ classDiagram
     class Application
     class CarConfig
     class CarSystem
-    class CarSystemFactory
     class CarView
     class Model
     class Publisher
@@ -173,7 +172,6 @@ classDiagram
     ~v: CarView
   }
   Application ..> Publisher
-  Application ..> CarSystemFactory
   Application ..> Model
   Application ..> CarView
   
