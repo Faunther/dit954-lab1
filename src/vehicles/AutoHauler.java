@@ -11,16 +11,25 @@ public class AutoHauler extends Car implements IRamp {
 
     // "CarData" Implement ====================================================
     @Override
-    public int getNrDoors() { return 2; }
+    public int getNrDoors() {
+        return 2;
+    }
+
     @Override
-    public double getEnginePower() { return 700; }
+    public double getEnginePower() {
+        return 700;
+    }
+
     @Override
-    public String getModelName() { return "AutoHauler3000"; }
+    public String getModelName() {
+        return "AutoHauler3000";
+    }
 
     // ??? should be part of IRamp or a new interface such as ILoadable?
     // renamed from maxCarsLoaded
-    public int getCarLoadCapacity() { return 5; }
-
+    public int getCarLoadCapacity() {
+        return 5;
+    }
 
     public AutoHauler() {
         stopEngine();
@@ -103,5 +112,12 @@ public class AutoHauler extends Car implements IRamp {
         if (this.m_rampIsDown)
             throw new Error("Can not change speed while ramp is lowered");
         return this.getEnginePower() * 0.001;
+    }
+
+    @Override
+    public void startEngine() {
+        if (this.m_rampIsDown)
+            throw new Error("Can not move while ramp is lowered");
+        super.startEngine();
     }
 }
