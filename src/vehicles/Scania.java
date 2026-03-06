@@ -7,12 +7,19 @@ public class Scania extends Car implements IRamp {
 
     // "CarData" Implement ====================================================
     @Override
-    public int getNrDoors() { return 2; }
-    @Override
-    public double getEnginePower() { return 700; }
-    @Override
-    public String getModelName() { return "Scania"; }
+    public int getNrDoors() {
+        return 2;
+    }
 
+    @Override
+    public double getEnginePower() {
+        return 700;
+    }
+
+    @Override
+    public String getModelName() {
+        return "Scania";
+    }
 
     public Scania() {
         stopEngine();
@@ -23,7 +30,6 @@ public class Scania extends Car implements IRamp {
         m_position.x = x;
         m_position.y = y;
     }
-
 
     // Get-/Setters ===========================================================
 
@@ -62,5 +68,12 @@ public class Scania extends Car implements IRamp {
 
         // TODO: Should this be dependant on the load or something?
         return this.getEnginePower() * 0.001;
+    }
+
+    @Override
+    public void startEngine() {
+        if (getRampIsDown())
+            throw new Error("can not move while bed is down");
+        super.startEngine();
     }
 }

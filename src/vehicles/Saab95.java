@@ -7,24 +7,32 @@ public class Saab95 extends Car {
 
     // "CarData" Implement ====================================================
     @Override
-    public int getNrDoors() { return 2; }
+    public int getNrDoors() {
+        return 2;
+    }
+
     @Override
-    public double getEnginePower() { return 125; }
+    public double getEnginePower() {
+        return 125;
+    }
+
     @Override
-    public String getModelName() { return "Saab95"; }
+    public String getModelName() {
+        return "Saab95";
+    }
 
     public Saab95() {
         m_color = Color.red;
         m_TurboOn = false;
         stopEngine();
     }
+
     public Saab95(int x, int y) {
         m_color = Color.red;
         m_TurboOn = false;
         stopEngine();
         m_position.x = x;
         m_position.y = y;
-
 
     }
 
@@ -36,7 +44,9 @@ public class Saab95 extends Car {
         m_TurboOn = false;
     }
 
-    public boolean isTurboOn() { return m_TurboOn; }
+    public boolean isTurboOn() {
+        return m_TurboOn;
+    }
 
     @Override
     public double speedFactor() {

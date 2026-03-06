@@ -119,14 +119,18 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     }
 
     // Implements IAddRemoveCarSubscriber:
-    public void onAddCar() {
+    private int countCars() {
         int numCars = 0;
         for (CarSystem<?> carSystem : m_CarSystems) {
             numCars += carSystem.getCars().size();
         }
-        if (numCars < 10) {
-            this.addCar();
-        }
+        return numCars;
+    }
+
+    public void onAddCar() {
+        if (countCars() >= 10)
+            return;
+        this.addCar();
     }
 
     public void onRemoveCar() {

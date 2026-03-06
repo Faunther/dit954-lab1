@@ -11,7 +11,7 @@ public class Volvo240Test {
     @Test
     public void speedFactor() {
         Volvo240 volvo = new Volvo240();
-        final double expectedEnginePower = 100;
+        final double expectedEnginePower = 125;
         final double expectedTrimFactor = 1.25;
         final double expectedSpeedFactor = expectedEnginePower * expectedTrimFactor * 0.01;
         assertEquals(expectedSpeedFactor, volvo.speedFactor(), 0.001);

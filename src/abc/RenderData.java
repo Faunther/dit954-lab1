@@ -6,7 +6,7 @@ public class RenderData {
     String id;
     Point pos;
 
-    RenderData(String id, Point pos){
+    RenderData(String id, Point pos) {
         this.id = id;
         this.pos = pos;
     }
@@ -18,6 +18,5 @@ public class RenderData {
     public String getId() {
         return id;
     }
-
 
 }
