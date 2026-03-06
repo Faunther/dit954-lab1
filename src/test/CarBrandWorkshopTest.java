@@ -12,9 +12,11 @@ import static org.junit.Assert.assertEquals;
 public class CarBrandWorkshopTest {
     @Test
     public void defultTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2, Car.class);
-        assertEquals(repshop.getCarCapacity(), 0);
-
+        int capacity = 2;
+        String name = "CarWorkshop";
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(capacity, Car.class);
+        assertEquals(repshop.getCarCapacity(), capacity);
+        assertEquals(repshop.getWorkshopName(), name);
     }
 
     @Test
