@@ -19,9 +19,9 @@ public interface IViewActionsHandler {
 
     public void onClickRaiseBed();
 
-    public void addCarButton();
+    public void onClickAddCar();
 
-    public void removeCarButton();
+    public void onClickRemoveCar();
 
     public void onWindowResize(String target, Dimension dim);
 }

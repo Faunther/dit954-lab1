@@ -30,25 +30,16 @@ public class DrawPanel extends JPanel {
     }
 
     public void loadImageEntry(String id, String path) {
-        if (this.m_imageDictonary.containsKey(id)){
-            System.out.println("Initiated a \"render resource\" twice for: " + id);
+        if (this.m_imageDictonary.containsKey(id)) {
+            System.out.println("Initiated a \"loadImageEntry\" twice for: " + id);
             // should we do something if an entry already has an image
         }
 
         // Print an error message in case file is not found with a try/catch block
         try {
-            // path reference: "pics/Saab95.jpg"
-
-            // You can remove the "pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
-
-            // Rememember to rightclick src New -> Package -> name: pics -> MOVE *.jpg to
-            // pics.
-            // if you are starting in IntelliJ.
+            System.out.println("Loading image entry: " + id + " - " + path);
             BufferedImage img = PicsLoader.LoadImage(path);
             this.m_imageDictonary.put(id, img);
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -60,7 +51,7 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g);
         ArrayList<RenderData> renderObjects = m_renderDataSource.getRenderObjects();
         for (RenderData renderObject : renderObjects) {
-            String id =  renderObject.getId();
+            String id = renderObject.getId();
             Image image = m_imageDictonary.get(id);
             Point2D.Double pos = renderObject.getPos();
             g.drawImage(image, ((int) pos.x), ((int) pos.y), null);

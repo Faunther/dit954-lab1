@@ -12,6 +12,7 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     protected ArrayList<IRaiseLowerBedSubscriber> raiseLowerBedSubscribers = new ArrayList<>();
     protected ArrayList<IGameTickSubscriber> m_gameTickSubscribers = new ArrayList<>();
     protected ArrayList<IWindowResizeSubscriber> m_windowResizeSubscribers = new ArrayList<>();
+    protected ArrayList<IAddRemoveCarSubscriber> m_addRemoveCarSubscribers = new ArrayList<>();
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 50;
@@ -19,7 +20,7 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     // each step between delays.
     private Timer m_timer = new Timer(delay, new TimerListener());
 
-    public void star() {
+    public void start() {
         m_timer.start();
     }
 
@@ -54,8 +55,11 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
         if (cs instanceof IRaiseLowerBedSubscriber) {
             this.raiseLowerBedSubscribers.add((IRaiseLowerBedSubscriber) cs);
         }
-        if (cs instanceof IWindowResizeSubscriber){
-            this.m_windowResizeSubscribers.add((IWindowResizeSubscriber)cs);
+        if (cs instanceof IWindowResizeSubscriber) {
+            this.m_windowResizeSubscribers.add((IWindowResizeSubscriber) cs);
+        }
+        if (cs instanceof IAddRemoveCarSubscriber) {
+            this.m_addRemoveCarSubscribers.add((IAddRemoveCarSubscriber) cs);
         }
     }
 
@@ -116,13 +120,17 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
     }
 
     @Override
-    public void addCarButton() {
-
+    public void onClickAddCar() {
+        for (IAddRemoveCarSubscriber s : m_addRemoveCarSubscribers) {
+            s.onAddCar();
+        }
     }
 
     @Override
-    public void removeCarButton() {
-
+    public void onClickRemoveCar() {
+        for (IAddRemoveCarSubscriber s : m_addRemoveCarSubscribers) {
+            s.onRemoveCar();
+        }
     }
 
     @Override
@@ -131,6 +139,5 @@ public class Publisher implements IViewActionsHandler, IGameTickHandler {
             winResizeSub.resizeTarget(target, dim);
         }
     }
-
 
 }

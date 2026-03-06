@@ -43,23 +43,29 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
 
     public void addSubscriber(IViewActionsHandler actionsHandler) {
 
-        // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
         gasButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {actionsHandler.onClickGas(m_gasAmount);}
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickGas(m_gasAmount);
+            }
         });
         brakeButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {actionsHandler.onClickBrake(m_gasAmount);}
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickBrake(m_gasAmount);
+            }
         });
         turboOnButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {actionsHandler.onClickTurboOn();}
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickTurboOn();
+            }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {actionsHandler.onClickTurboOff();}
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickTurboOff();
+            }
         });
         startButton.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +89,18 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
             @Override
             public void actionPerformed(ActionEvent e) {
                 actionsHandler.onClickLowerBed();
+            }
+        });
+        addCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickAddCar();
+            }
+        });
+        removeCarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actionsHandler.onClickRemoveCar();
             }
         });
 
@@ -147,8 +165,7 @@ public class CarView extends JFrame implements IView, IGameTickSubscriber {
         controlPanel.add(lowerBedButton, 6);
         controlPanel.add(removeCarButton, 7);
 
-
-        final int worldX = (int)winDim.getWidth();
+        final int worldX = (int) winDim.getWidth();
         controlPanel.setPreferredSize(new Dimension((worldX / 2) + 4, 200));
         this.add(controlPanel);
         controlPanel.setBackground(Color.CYAN);
