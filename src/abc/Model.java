@@ -7,6 +7,7 @@ import src.vehicles.Scania;
 
 import java.awt.Point;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -79,17 +80,17 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     }
 
     public void addCar(String modelName, Point pos) throws Exception {
-        if (modelName == "Volvo240") {
+        if (Objects.equals(modelName, "Volvo240")) {
             Volvo240 s = new Volvo240();
             m_Volvo240System.addCar(s);
             return;
         }
-        if (modelName == "Saab95") {
+        if (Objects.equals(modelName, "Saab95")) {
             Saab95 s = new Saab95();
             m_Saab95System.addCar(s);
             return;
         }
-        if (modelName == "Scania") {
+        if (Objects.equals(modelName, "Scania")) {
             Scania s = new Scania();
             m_ScaniaSystem.addCar(s);
             return;
@@ -98,18 +99,18 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     }
 
     public void addCarBrandWorkshop(String modelName, Point pos) throws Exception {
-        if (modelName == "Volvo240") {
-            CarBrandWorkshop<Volvo240> ws = new CarBrandWorkshop<Volvo240>();
+        if (Objects.equals(modelName, "Volvo240")) {
+            CarBrandWorkshop<Volvo240> ws = new CarBrandWorkshop<>();
             m_Volvo240System.addWorkshop(pos, ws);
             return;
         }
-        if (modelName == "Saab95") {
-            CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<Saab95>();
+        if (Objects.equals(modelName, "Saab95")) {
+            CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<>();
             m_Saab95System.addWorkshop(pos, ws);
             return;
         }
-        if (modelName == "Scania") {
-            CarBrandWorkshop<Scania> ws = new CarBrandWorkshop<Scania>();
+        if (Objects.equals(modelName, "Scania")) {
+            CarBrandWorkshop<Scania> ws = new CarBrandWorkshop<>();
             m_ScaniaSystem.addWorkshop(pos, ws);
             return;
         }

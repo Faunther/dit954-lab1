@@ -23,7 +23,7 @@ public class CarConfig implements IConfig, IWindowResizeSubscriber {
         appendImageEntry("Volvo240", "Volvo240.jpg");
         appendImageEntry("Saab95", "Saab95.jpg");
         appendImageEntry("Scania", "Scania.jpg");
-        appendImageEntry("VolvoBrand", "VolvoBrand.jpg");
+        appendImageEntry("Volvo240Workshop", "VolvoBrand.jpg");
 
         final int initWindowWidth = 800;
         final int initWindowHeight = 800;
