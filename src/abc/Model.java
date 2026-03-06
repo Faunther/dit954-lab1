@@ -3,6 +3,7 @@ package src.abc;
 import src.CarBrandWorkshop;
 import src.vehicles.Volvo240;
 import src.vehicles.Saab95;
+import src.vehicles.Scania;
 
 import java.awt.Point;
 import java.io.IOException;
@@ -15,6 +16,7 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     protected ArrayList<String> m_availableModels = new ArrayList<>();
     protected Volvo240System<Volvo240> m_Volvo240System = new Volvo240System<>();
     protected Saab95System<Saab95> m_Saab95System = new Saab95System<>();
+    protected ScaniaSystem<Scania> m_ScaniaSystem = new ScaniaSystem<>();
 
     protected CarConfig m_config;
 
@@ -24,6 +26,9 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
 
         m_availableModels.add("Saab95");
         m_CarSystems.add(m_Saab95System);
+
+        m_availableModels.add("Scania");
+        m_CarSystems.add(m_ScaniaSystem);
 
         try {
             m_config = new CarConfig();
@@ -84,6 +89,11 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
             m_Saab95System.addCar(s);
             return;
         }
+        if (modelName == "Scania") {
+            Scania s = new Scania();
+            m_ScaniaSystem.addCar(s);
+            return;
+        }
         throw new Exception("model not found: " + modelName);
     }
 
@@ -96,6 +106,11 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
         if (modelName == "Saab95") {
             CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<Saab95>();
             m_Saab95System.addWorkshop(pos, ws);
+            return;
+        }
+        if (modelName == "Scania") {
+            CarBrandWorkshop<Scania> ws = new CarBrandWorkshop<Scania>();
+            m_ScaniaSystem.addWorkshop(pos, ws);
             return;
         }
 

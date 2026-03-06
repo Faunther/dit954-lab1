@@ -13,8 +13,9 @@ public class Application {
 
         // Used to store as IView
         CarView v = new CarView(model);
-        v.addModelImage("Saab95", "Saab95.jpg");
         v.addModelImage("Volvo240", "Volvo240.jpg");
+        v.addModelImage("Saab95", "Saab95.jpg");
+        v.addModelImage("Scania", "Scania.jpg");
         v.addSubscriber(pub); // bind IActionEventHandler to view
         pub.addSubscriber(v); // bind IGameTickSubscriber to Publisher
 
