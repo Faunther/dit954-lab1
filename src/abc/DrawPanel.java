@@ -1,4 +1,4 @@
-package src.abc.utils;
+package src.abc;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,8 +9,6 @@ import java.util.HashMap;
 import javax.swing.*;
 
 import pics.PicsLoader;
-import src.abc.IRenderDataContainer;
-import src.abc.RenderData;
 
 // This panel represents the animated part of the view with the car images.
 public class DrawPanel extends JPanel {
