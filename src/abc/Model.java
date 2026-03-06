@@ -97,19 +97,19 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
         throw new Exception("model not found: " + modelName);
     }
 
-    public void addCarBrandWorkshop(String modelName, Point pos) throws Exception {
+    public void addCarBrandWorkshop(String modelName, Point pos, int maxCapacity) throws Exception {
         if (modelName == "Volvo240") {
-            CarBrandWorkshop<Volvo240> ws = new CarBrandWorkshop<Volvo240>();
+            CarBrandWorkshop<Volvo240> ws = new CarBrandWorkshop<Volvo240>(maxCapacity, Volvo240.class);
             m_Volvo240System.addWorkshop(pos, ws);
             return;
         }
         if (modelName == "Saab95") {
-            CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<Saab95>();
+            CarBrandWorkshop<Saab95> ws = new CarBrandWorkshop<Saab95>(maxCapacity, Saab95.class);
             m_Saab95System.addWorkshop(pos, ws);
             return;
         }
         if (modelName == "Scania") {
-            CarBrandWorkshop<Scania> ws = new CarBrandWorkshop<Scania>();
+            CarBrandWorkshop<Scania> ws = new CarBrandWorkshop<Scania>(maxCapacity, Scania.class);
             m_ScaniaSystem.addWorkshop(pos, ws);
             return;
         }
