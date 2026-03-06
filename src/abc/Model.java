@@ -123,7 +123,19 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     }
 
     public void onRemoveCar() {
-        // TODO
+        int numSys = m_CarSystems.size();
+        int idx = new Random().nextInt(numSys);
+        int counter = 0;
+        CarSystem<?> curSys = m_CarSystems.get(idx);
+        while (curSys.getCars().isEmpty() && counter < numSys){
+            idx = (idx + 1) % numSys;
+            counter++;
+            // check with next sys
+            curSys = m_CarSystems.get(idx);
+        }
+        if (!curSys.getCars().isEmpty()){
+            curSys.removeFirstCar();
+        }
     }
 }
 

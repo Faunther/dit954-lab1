@@ -43,6 +43,12 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
         m_cars.remove(car);
     }
 
+    public void removeFirstCar() {
+        if (!m_cars.isEmpty()) {
+            m_cars.removeFirst();
+        }
+    }
+
     public ArrayList<T> getCars() {
         return m_cars;
     }
@@ -79,15 +85,19 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
     }
 
     protected void updateCar(Car car) {
+        CarConfig cfg = CarConfig.getSingleton();
+
+        Dimension carDim = cfg.getDimension(car.getModelName());
         // double carWidth = frame.drawPanel.getCarWidth(car);
         // double carHeight= frame.drawPanel.getCarHeight(car);
-        double carWidth = 5.0;
-        double carHeight = 5.0;
+        //double carWidth = 5.0;
+        //double carHeight = 5.0;
 
+        Dimension panelDim = cfg.getDimension("WorldMap");
         // double panelWidth = frame.drawPanel.getSize().width;
         // double padelHeight = frame.drawPanel.getSize().height;
-        double panelWidth = 500;
-        double padelHeight = 500;
+        //double panelWidth = 500;
+        //double padelHeight = 500;
 
         car.move();
         var cp = car.getPoint();
@@ -95,9 +105,9 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
         int y = (int) Math.round(cp.getY());
         // Assumes all cars' rendered size is equal to that of the volvo's
         if (x < 0.0
-                || x + carWidth > panelWidth
+                || x + carDim.getWidth() > panelDim.getWidth()
                 || y < 0.0
-                || y + carHeight > padelHeight) {
+                || y + carDim.getHeight() > panelDim.getHeight()) {
             car.stopEngine();
             car.turnLeft();
             car.turnLeft();
@@ -105,9 +115,9 @@ public class CarSystem<T extends Car> implements IDriveSubscriber {
 
             var pos = car.getPoint();
             pos.x = Math.clamp(pos.x, 1,
-                    panelWidth - carWidth - 1);
+                    panelDim.getWidth() - carDim.getWidth() - 1);
             pos.y = Math.clamp(pos.y, 1,
-                    padelHeight - carHeight - 1);
+                    panelDim.getWidth() - carDim.getHeight() - 1);
         }
     }
 
