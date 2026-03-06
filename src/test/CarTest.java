@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import src.vehicles.Saab95;
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 
 import static org.junit.Assert.*;
@@ -12,7 +13,7 @@ public class CarTest {
     @Test
     public void testMoveAndTurn() {
         double testspeed = 0;
-        Point2D.Double testpoint = new Point2D.Double(0, 0);
+        Point testpoint = new Point(0, 0);
         /*
          * skapar en saab för att testa car Classen
          * eftersom car är abstract kan vi inte skapa en
