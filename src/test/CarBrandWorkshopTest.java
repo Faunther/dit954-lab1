@@ -12,20 +12,20 @@ import static org.junit.Assert.assertEquals;
 public class CarBrandWorkshopTest {
     @Test
     public void defultTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2);
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2, Car.class);
         assertEquals(repshop.getCarCapacity(), 0);
 
     }
 
     @Test
     public void normalTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(5);
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(5, Car.class);
         assertEquals(repshop.getCarCapacity(), 5);
     }
 
     @Test
     public void workshopTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(5);
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(5, Car.class);
         Volvo240 car1 = new Volvo240();
         int id1 = repshop.acceptCar(car1);
         assertEquals(repshop.getNumOfCars(), 1);
@@ -34,7 +34,7 @@ public class CarBrandWorkshopTest {
 
     @Test
     public void capacityTest() {
-        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2);
+        CarBrandWorkshop<Car> repshop = new CarBrandWorkshop<>(2, Car.class);
         Volvo240 car1 = new Volvo240();
         int id1 = repshop.acceptCar(car1);
         Volvo240 car2 = new Volvo240();
@@ -45,11 +45,11 @@ public class CarBrandWorkshopTest {
 
     @Test
     public void retrieveCarTest() {
-        CarBrandWorkshop<Car> repshop1 = new CarBrandWorkshop<>(2);
+        CarBrandWorkshop<Car> repshop1 = new CarBrandWorkshop<>(2, Car.class);
         Volvo240 car1 = new Volvo240();
         int id1 = repshop1.acceptCar(car1);
 
-        CarBrandWorkshop<Car> repshop2 = new CarBrandWorkshop<>(2);
+        CarBrandWorkshop<Car> repshop2 = new CarBrandWorkshop<>(2, Car.class);
         Saab95 car2 = new Saab95();
         int id2 = repshop2.acceptCar(car2);
 
@@ -60,7 +60,7 @@ public class CarBrandWorkshopTest {
     @Test
     public void getNameTest() {
 
-        CarBrandWorkshop<Volvo240> repshop1 = new CarBrandWorkshop<>(2);
+        CarBrandWorkshop<Volvo240> repshop1 = new CarBrandWorkshop<>(2, Volvo240.class);
 
         System.out.println(repshop1.getWorkshopName());
 

@@ -1,21 +1,18 @@
 package src.abc.utils;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import pics.PicsLoader;
 import src.abc.IRenderDataContainer;
 import src.abc.RenderData;
-import src.vehicles.Car;
-// This panel represents the animated part of the view with the car images.
 
+// This panel represents the animated part of the view with the car images.
 public class DrawPanel extends JPanel {
     private HashMap<String, Image> m_imageDictonary; // Renderable object
     private IRenderDataContainer m_renderDataSource;
@@ -53,7 +50,7 @@ public class DrawPanel extends JPanel {
         for (RenderData renderObject : renderObjects) {
             String id = renderObject.getId();
             Image image = m_imageDictonary.get(id);
-            Point2D.Double pos = renderObject.getPos();
+            Point pos = renderObject.getPos();
             g.drawImage(image, ((int) pos.x), ((int) pos.y), null);
         }
     }

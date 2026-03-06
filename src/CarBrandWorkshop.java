@@ -14,15 +14,6 @@ public class CarBrandWorkshop<TBrand extends Car> {
         return brandClass.getSimpleName() + "Workshop";
     }
 
-    public CarBrandWorkshop() {
-        this(0);
-    }
-
-    public CarBrandWorkshop(int carCapacity) {
-        this.brandClass = (Class<TBrand>) Car.class;
-        this.m_carCapacity = carCapacity;
-    }
-
     public CarBrandWorkshop(int carCapacity, Class<TBrand> brandClass) {
         this.brandClass = brandClass;
         this.m_carCapacity = carCapacity;

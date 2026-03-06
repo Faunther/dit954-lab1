@@ -1,13 +1,12 @@
 package src.vehicles;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 
 public abstract class Car implements IMovable {
     protected Color m_color; // Color of the car
     protected double m_currentSpeed = 0;// The current speed of the car
 
-    protected Point2D.Double m_position = new Point2D.Double(0, 0);
+    protected Point m_position = new Point(0, 0);
     protected double m_direction = Math.toRadians(0); // Startar med positiv riktning y
 
     // implements
@@ -36,14 +35,13 @@ public abstract class Car implements IMovable {
     abstract public String getModelName();
 
     // Get-/Setters ===========================================================
-    public Point2D.Double getPoint() {
+    public Point getPoint() {
         return m_position;
     }
 
     public double getDirection() {
         return m_direction;
     }
-
 
     public double getCurrentSpeed() {
         return m_currentSpeed;
@@ -68,7 +66,8 @@ public abstract class Car implements IMovable {
 
     //
     public void gas(double amount) {
-        if(m_currentSpeed == 0.0) return;
+        if (m_currentSpeed == 0.0)
+            return;
         amount = Math.clamp(amount, 0, 1);
         incrementSpeed(amount);
     }
