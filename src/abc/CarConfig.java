@@ -10,7 +10,11 @@ import java.util.HashMap;
 public class CarConfig implements IConfig, IWindowResizeSubscriber {
     HashMap<String, Dimension> m_dimensions;
 
+    private static CarConfig g_instance;
+    public static CarConfig getSingleton(){ return g_instance; }
+
     public CarConfig() throws IOException {
+        g_instance = this;
         m_dimensions = new HashMap<>();
 
         // load images for their sizes,
