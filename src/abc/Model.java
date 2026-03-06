@@ -80,18 +80,18 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
     }
 
     public void addCar(String modelName, Point pos) throws Exception {
-        if (Objects.equals(modelName, "Volvo240")) {
-            Volvo240 s = new Volvo240();
+        if (modelName.equals("Volvo240")) {
+            Volvo240 s = new Volvo240(pos.x, pos.y);
             m_Volvo240System.addCar(s);
             return;
         }
-        if (Objects.equals(modelName, "Saab95")) {
-            Saab95 s = new Saab95();
+        if (modelName.equals("Saab95")) {
+            Saab95 s = new Saab95(pos.x, pos.y);
             m_Saab95System.addCar(s);
             return;
         }
-        if (Objects.equals(modelName, "Scania")) {
-            Scania s = new Scania();
+        if (modelName.equals("Scania")) {
+            Scania s = new Scania(pos.x, pos.y);
             m_ScaniaSystem.addCar(s);
             return;
         }
@@ -128,13 +128,13 @@ public class Model implements IRenderDataContainer, IAddRemoveCarSubscriber {
         int idx = new Random().nextInt(numSys);
         int counter = 0;
         CarSystem<?> curSys = m_CarSystems.get(idx);
-        while (curSys.getCars().isEmpty() && counter < numSys){
+        while (curSys.getCars().isEmpty() && counter < numSys) {
             idx = (idx + 1) % numSys;
             counter++;
             // check with next sys
             curSys = m_CarSystems.get(idx);
         }
-        if (!curSys.getCars().isEmpty()){
+        if (!curSys.getCars().isEmpty()) {
             curSys.removeFirstCar();
         }
     }

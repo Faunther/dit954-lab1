@@ -9,17 +9,26 @@ public class Volvo240 extends Car {
 
     // "CarData" Implement ====================================================
     @Override
-    public int getNrDoors() { return 2; }
+    public int getNrDoors() {
+        return 2;
+    }
+
     @Override
-    public double getEnginePower() { return 125; }
+    public double getEnginePower() {
+        return 125;
+    }
+
     @Override
-    public String getModelName() { return "Saab95"; }
+    public String getModelName() {
+        return "Volvo240";
+    }
 
     public Volvo240() {
         color = Color.black;
         trimFactor = 1.25;
         stopEngine();
     }
+
     public Volvo240(int x, int y) {
         color = Color.black;
         trimFactor = 1.25;

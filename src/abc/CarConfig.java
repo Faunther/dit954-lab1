@@ -11,7 +11,10 @@ public class CarConfig implements IConfig, IWindowResizeSubscriber {
     HashMap<String, Dimension> m_dimensions;
 
     private static CarConfig g_instance;
-    public static CarConfig getSingleton(){ return g_instance; }
+
+    public static CarConfig getSingleton() {
+        return g_instance;
+    }
 
     public CarConfig() throws IOException {
         g_instance = this;
@@ -41,7 +44,12 @@ public class CarConfig implements IConfig, IWindowResizeSubscriber {
 
     @Override
     public Dimension getDimension(String entryName) {
-        return new Dimension(m_dimensions.get(entryName));
+        try {
+            return new Dimension(m_dimensions.get(entryName));
+        } catch (NullPointerException e) {
+            System.err.println("Failed to getDimension for " + entryName);
+            throw e;
+        }
     }
 
     @Override

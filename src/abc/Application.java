@@ -7,10 +7,10 @@ public class Application {
         Publisher pub = new Publisher();
         Model model = new Model();
 
-        model.addCar("Scania", new Point(100, 100));
-        model.addCar("Volvo240", new Point(200, 100));
-        model.addCar("Saab95", new Point(300, 100));
-        model.addCarBrandWorkshop("Volvo240", new Point(100, 100), 2);
+        model.addCar("Scania", new Point(0, 0));
+        model.addCar("Saab95", new Point(0, 100));
+        model.addCar("Volvo240", new Point(0, 200));
+        model.addCarBrandWorkshop("Volvo240", new Point(200, 200), 2);
 
         model.registerSubscribers(pub);
 
