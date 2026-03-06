@@ -12,21 +12,13 @@ public class Volvo240System<T extends Volvo240> extends CarSystem<T> {
     public void onMoveTickEvent() {
         CarConfig cfg = CarConfig.getSingleton();
 
-        // double volvoWorkshopPoint = frame.drawPanel.volvoWorkshopPoint;
-        // double workshopSize = frame.drawPanel.getWorkshopSize();
-        //Dimension workshopSize = new Dimension(10, 10);
-
         ArrayList<T> carsToRemove = new ArrayList<>();
 
         for (T car : m_cars) {
             updateCar(car);
 
-            // turn this into function ?
             var cp = car.getPoint();
-
             Dimension carDim = cfg.getDimension(car.getModelName());
-            // Dimension dim = frame.drawPanel.getCarSize(car);
-            //Dimension dim = new Dimension(10, 10);
 
             for (Pair<Point, CarBrandWorkshop<T>> placedWorkshop : m_workshops) {
                 Point pos = placedWorkshop.getFirst();
@@ -34,11 +26,7 @@ public class Volvo240System<T extends Volvo240> extends CarSystem<T> {
 
                 Dimension workshopSize = cfg.getDimension(workshop.getWorkshopName());
 
-                Rectangle cr = new Rectangle(
-                        new Point(
-                                (int) Math.round(cp.getX()),
-                                (int) Math.round(cp.getY())),
-                        carDim);
+                Rectangle cr = new Rectangle(new Point(cp.x, cp.y), carDim);
                 Rectangle wr = new Rectangle(pos, workshopSize);
                 if (cr.intersects(wr)) {
                     // Transfer ownership to the workshop (and also stop rendering)

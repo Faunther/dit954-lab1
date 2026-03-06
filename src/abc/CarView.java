@@ -1,6 +1,5 @@
 package src.abc;
 
-import src.abc.utils.DrawPanel;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
