@@ -36,19 +36,23 @@ classDiagram
 
 
 
-  namespace abc {
-      class ICarConstructor
+  namespace abc { 
+      class IAddRemoveCarSubscriber
       class IConfig
       class IDriveSubscriber
       class IGameTickHandler
       class IGameTickSubscriber
       class IRaiseLowerBedSubscriber
+      class IRenderDataContainer
       class ISubscriber
       class ITurboSubscriber
       class IView
       class IViewActionsHandler
       class IWindowResizeSubscriber
-    
+      
+      
+    class DrawPanel
+    class Pair
     class Application
     class CarConfig
     class CarSystem
@@ -77,11 +81,11 @@ classDiagram
   }
   class external_resources{ }
   
-  class ICarConstructor {
-    ~ makeCar(int, int)(): T
-    ~ makeWorkshop(int): CarBrandWorkshop<T>
+  class IAddRemoveCarSubscriber {
+    ~ onAddCar(): 
+    ~ onRemoveCar():
   }
-  <<interface>> ICarConstructor
+  <<interface>> IAddRemoveCarSubscriber
   
   class IConfig { 
       ~ getDimension(String): Dimension
@@ -191,7 +195,6 @@ classDiagram
     #m_cars: ArrayList<T>
     #m_workshops: ArrayList<Pair<Point, CarBrandWorkshop<T>>>
 
-    +CarSystem(ICarConstructor<T>): ICarConstructor<T>
     +addCar(T):
     +addCar(int, int ):
     +addWorkshop(int, int, int):
@@ -210,6 +213,8 @@ classDiagram
   CarSystem --|> CarBrandWorkshop
   CarSystem --|> RenderData
   CarSystem --|> Car
+  CarSystem --|> Pair
+  
 
 
   class CarView {
@@ -295,6 +300,7 @@ classDiagram
   Publisher --> ITurboSubscriber
   Publisher --> IRaiseLowerBedSubscriber
   Publisher --> IWindowResizeSubscriber
+  Publisher --> IAddRemoveCarSubscriber
 
   class RenderData {
     ~id: String
@@ -310,7 +316,7 @@ classDiagram
   }
   Saab95System --|> CarSystem
   Saab95System ..|> ITurboSubscriber
-  Saab95System --> ICarConstructor
+ 
   
   class ScaniaSystem {
     +onRaiseBed():
@@ -319,13 +325,34 @@ classDiagram
   }
   ScaniaSystem --|> CarSystem
   ScaniaSystem ..|> IRaiseLowerBedSubscriber
-  ScaniaSystem --> ICarConstructor
+
   
   class Volvo240System {
     +onTurboEvent():
   }
   Volvo240System --|> CarSystem
-  Volvo240System --> ICarConstructor
+
+
+    class DrawPanel {
+        -m_renderDataSource: HashMap<String, Image>
+        -m_imageDictonary: IRenderDataContainer
+        
+        +loadImageEntry():
+        #paintComponent(Graphics):
+    }
+    ScaniaSystem --> IRenderDataContainer
+    ScaniaSystem ..> RenderData
+    ScaniaSystem ..> Pair
+    
+    
+    class Pair {
+        +getFirst(): T
+        +getSecond(): Y
+        
+    }
+  
+  
+  
 
   class Car {
     #m_color: Color
