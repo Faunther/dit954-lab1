@@ -28,6 +28,7 @@ public class AutoHaulerTest {
             ah.rampDown();
         });
         ah.brake(2);
+        ah.stopEngine();
 
         assertEquals(false, ah.getRampIsDown());
         ah.rampDown();
@@ -48,11 +49,11 @@ public class AutoHaulerTest {
         });
 
         assertThrows("Should not be able to move while ramp is down", Error.class, () -> {
-            ah.gas(2);
+            ah.startEngine();
         });
 
         ah.rampUp();
-        ah.brake(2);
+        ah.gas(2);
 
         ah.move();
         ah.turnLeft();
